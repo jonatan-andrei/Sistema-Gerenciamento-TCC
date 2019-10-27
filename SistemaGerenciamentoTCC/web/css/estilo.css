@@ -1,0 +1,55 @@
+body {
+    background-color: #DCDCDC;
+}
+
+.menu {
+    margin: 15px;
+    float: left;
+}
+
+.menu ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    width: 250px;
+}
+
+.menu ul li {
+    position: relative;
+    display: block;
+    background: #fff;
+    padding: 15px;
+    border: 1px solid #ccc; 
+    font-size: 23px;
+    background-color: #00cc00;
+    color: #fff;
+}
+
+.menu ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+
+.menu ul li ul {
+    position: absolute;
+    left: 249px;
+    top: 0;
+    display: none;
+}
+
+
+.menu ul li:hover ul { 
+    display: block; 
+}
+
+.menu ul li:hover {
+    background: #00cc66;
+}
+
+.formulario {
+    margin: 30px;
+}
+
+.area-resposta {
+    margin: 50px;
+}
