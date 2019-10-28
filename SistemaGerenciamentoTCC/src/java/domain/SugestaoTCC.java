@@ -8,5 +8,6 @@ public class SugestaoTCC {
     private Professor criador;
     private ProjetoPesquisa projeto;
     private boolean escolhida;
+    private boolean ativo;
 
 }

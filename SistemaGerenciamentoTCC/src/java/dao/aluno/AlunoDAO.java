@@ -11,6 +11,6 @@ public interface AlunoDAO {
 
     List<Aluno> listar();
 
-    boolean deletar(Long idAluno);
+    boolean desativar(Long idAluno);
 
 }

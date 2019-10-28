@@ -5,12 +5,12 @@ import java.util.List;
 
 public interface ProfessorDAO {
 
-    void salvar(Professor professor);
+    Long cadastrar(Professor professor);
 
-    void editar(Long idProfessor, Professor professor);
+    boolean editar(Professor professor);
 
     List<Professor> buscar();
 
-    void deletar(Long idAluno);
+    boolean desativar(Long idProfessor);
 
 }

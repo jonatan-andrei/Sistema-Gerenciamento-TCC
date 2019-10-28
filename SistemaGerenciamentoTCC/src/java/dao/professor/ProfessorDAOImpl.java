@@ -1,60 +1,55 @@
-package dao.aluno;
+package dao.professor;
 
 import dao.conexao.ConexaoDAO;
-import domain.Aluno;
+import domain.Professor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
+public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
 
     @Override
-    public boolean cadastrar(Aluno aluno) {
-        // Salva um novo aluno
+    public Long cadastrar(Professor professor) {
+        // Cadastrar professor
         try {
             Connection conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" INSERT INTO Aluno ");
-            sql.append(" (nome, email, matricula, telefone) ");
+            sql.append(" INSERT INTO Professor ");
+            sql.append(" (nome, email) ");
             sql.append(" VALUES ");
-            sql.append(" (?, ?, ?, ?) ");
+            sql.append(" (?, ?) ");
             PreparedStatement pstmt = conexao.prepareCall(sql.toString());
-            pstmt.setString(1, aluno.getNome());
-            pstmt.setString(2, aluno.getEmail());
-            pstmt.setString(3, aluno.getMatricula());
-            pstmt.setString(4, aluno.getTelefone());
+            pstmt.setString(1, professor.getNome());
+            pstmt.setString(2, professor.getEmail());
             pstmt.executeUpdate();
+            ResultSet generatedKeys = pstmt.getGeneratedKeys();
+            Long idProfessor = generatedKeys.getLong(1);
             fecharConexao(conexao, pstmt);
+            // Em caso de sucesso, retorna o id do professor cadastrado
+            return idProfessor;
         } catch (Exception ex) {
             // Em caso de erro inesperado, retorna false
             ex.printStackTrace();
-            return false;
+            return null;
         }
-        // Em caso de sucesso, retorna true
-        return true;
     }
 
     @Override
-    public boolean editar(Aluno aluno) {
-        // Edita um aluno cadastrado
+    public boolean editar(Professor professor) {
         try {
             Connection conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" UPDATE Aluno SET ");
+            sql.append(" UPDATE Professor SET ");
             sql.append(" nome = ?, ");
-            sql.append(" email = ?, ");
-            sql.append(" matricula = ?, ");
-            sql.append(" telefone = ? ");
-            sql.append(" WHERE id_aluno = ? ");
+            sql.append(" email = ? ");
+            sql.append(" WHERE id_professor = ? ");
 
             PreparedStatement pstmt = conexao.prepareCall(sql.toString());
-            pstmt.setString(1, aluno.getNome());
-            pstmt.setString(2, aluno.getEmail());
-            pstmt.setString(3, aluno.getMatricula());
-            pstmt.setString(4, aluno.getTelefone());
-            pstmt.setLong(5, aluno.getId());
+            pstmt.setString(1, professor.getNome());
+            pstmt.setString(2, professor.getEmail());
+            pstmt.setLong(5, professor.getId());
             pstmt.executeUpdate();
             fecharConexao(conexao, pstmt);
         } catch (Exception ex) {
@@ -67,18 +62,17 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
     }
 
     @Override
-    public List<Aluno> listar() {
-        // Busca alunos cadastrados
-        List<Aluno> alunos = new ArrayList();
+    public List<Professor> buscar() {
+        List<Professor> professores = new ArrayList();
         try {
             Connection conexao = criarConexao();
-            String sql = "SELECT * FROM Aluno WHERE ativo = 'S'";
+            String sql = "SELECT * FROM Professor";
             PreparedStatement pstmt = conexao.prepareCall(sql);
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Aluno aluno = new Aluno(rs.getLong("id_aluno"), rs.getString("nome"), rs.getString("email"), rs.getString("matricula"), rs.getString("telefone"));
-                alunos.add(aluno);
+                Professor professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));
+                professores.add(professor);
             }
             fecharConexao(conexao, pstmt, rs);
         } catch (Exception e) {
@@ -86,21 +80,20 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
             // Retorna null em caso de erro
             return null;
         }
-        // Retorna a lista de alunos encontrados
-        return alunos;
+        // Retorna a lista de professores cadastrados
+        return professores;
     }
 
     @Override
-    public boolean desativar(Long idAluno) {
-        // Deleta um aluno cadastrado
+    public boolean desativar(Long idProfessor) {
+        // Exclui um professor
         try {
             Connection conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" UPDATE Aluno ");
-            sql.append(" SET ativo = 'N' ");
-            sql.append(" WHERE id_aluno = ? ");
+            sql.append(" UPDATE Professor SET ");
+            sql.append(" ativo = 'N' WHERE id_professor = ? ");
             PreparedStatement pstmt = conexao.prepareCall(sql.toString());
-            pstmt.setLong(1, idAluno);
+            pstmt.setLong(1, idProfessor);
             pstmt.executeUpdate();
             fecharConexao(conexao, pstmt);
         } catch (Exception ex) {

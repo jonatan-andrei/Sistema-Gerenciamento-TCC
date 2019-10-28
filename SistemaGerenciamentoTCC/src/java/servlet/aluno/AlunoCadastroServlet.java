@@ -1,7 +1,6 @@
 package servlet.aluno;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -10,6 +9,8 @@ import service.aluno.AlunoService;
 import service.aluno.AlunoServiceImpl;
 
 public class AlunoCadastroServlet extends HttpServlet {
+
+    private static final AlunoService alunoService = new AlunoServiceImpl();
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -20,7 +21,6 @@ public class AlunoCadastroServlet extends HttpServlet {
         String matricula = request.getParameter("matricula");
         String telefone = request.getParameter("telefone");
 
-        AlunoService alunoService = new AlunoServiceImpl();
         boolean sucesso = alunoService.cadastrar(nome, email, matricula, telefone);
 
         String mensagem;

@@ -9,7 +9,8 @@ CREATE TABLE `Aluno` (
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
   `matricula` varchar(15) NOT NULL,
-  `telefone` varchar(15)
+  `telefone` varchar(15),
+  `ativo` varchar(1) DEFAULT 'S'
 ) ENGINE = innodb;
 
 -- Criação da tabela Professor
@@ -18,7 +19,8 @@ CREATE TABLE `Professor` (
   `id_professor` integer PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
   `email` varchar(100) NOT NULL,
-  `cargaTrabalhoSemestre` integer DEFAULT 0
+  `carga_trabalho_semestre` integer DEFAULT 0,
+  `ativo` varchar(1) DEFAULT 'S'
 ) ENGINE = innodb;
 
 -- Criação da tabela Area
@@ -59,7 +61,8 @@ CREATE TABLE `Sugestao_TCC` (
   `id_area` integer NOT NULL,
   `id_professor_criador` integer NOT NULL,
   `id_projeto_pesquisa` integer,
-  `escolhida` boolean default false
+  `escolhida` varchar(1) default 'N',
+  `ativo` varchar(1) DEFAULT 'S'
 ) ENGINE = innodb;
 
 ALTER TABLE `Sugestao_TCC` ADD CONSTRAINT `fk_sugestao_area` FOREIGN KEY ( `id_area` ) REFERENCES `Area` ( `id_area` ) ;
@@ -80,7 +83,8 @@ CREATE TABLE `Proposta_TCC` (
   `id_area` integer NOT NULL,
   `ano` integer NOT NULL,
   `semestre` integer NOT NULL,
-  `aprovado` boolean
+  `aprovado` varchar(1),
+  `ativo` varchar(1) DEFAULT 'S'
 ) ENGINE = innodb;
 
 ALTER TABLE `Proposta_TCC` ADD CONSTRAINT `fk_proposta_area` FOREIGN KEY ( `id_area` ) REFERENCES `Area` ( `id_area` ) ;
@@ -95,7 +99,7 @@ ALTER TABLE `Proposta_TCC` ADD CONSTRAINT `fk_proposta_aluno` FOREIGN KEY ( `id_
 CREATE TABLE `Avaliacao` (
   `id_avaliacao` integer PRIMARY KEY AUTO_INCREMENT,
   `nota_final` float(4,2) NOT NULL,
-  `aprovado` boolean NOT NULL,
+  `aprovado` varchar(1) NOT NULL,
   `id_professor_avaliador` integer NOT NULL,
   `parecer` varchar(100) NOT NULL,
   `id_proposta_tcc` integer NOT NULL

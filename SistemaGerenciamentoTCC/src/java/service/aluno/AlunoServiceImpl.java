@@ -7,29 +7,26 @@ import java.util.List;
 
 public class AlunoServiceImpl implements AlunoService {
 
+    private static final AlunoDAO alunoDAO = new AlunoDAOImpl();
+
     @Override
     public boolean cadastrar(String nome, String email, String matricula, String telefone) {
-        AlunoDAO alunoDAO = new AlunoDAOImpl();
         return alunoDAO.cadastrar(new Aluno(nome, email, matricula, telefone));
     }
 
     @Override
     public boolean editar(Long idAluno, String nome, String email, String matricula, String telefone) {
-        AlunoDAO alunoDAO = new AlunoDAOImpl();
         return alunoDAO.editar(new Aluno(idAluno, nome, email, matricula, telefone));
     }
 
     @Override
     public List<Aluno> listar() {
-        AlunoDAO alunoDAO = new AlunoDAOImpl();
-        List<Aluno> alunos = alunoDAO.listar();
-        return alunos;
+        return alunoDAO.listar();
     }
 
     @Override
-    public boolean deletar(Long idAluno) {
-        AlunoDAO alunoDAO = new AlunoDAOImpl();
-        return alunoDAO.deletar(idAluno);
+    public boolean desativar(Long idAluno) {
+        return alunoDAO.desativar(idAluno);
     }
 
 }

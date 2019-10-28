@@ -17,4 +17,5 @@ public class PropostaTCC {
     private List<Avaliacao> avaliacoes;
     private boolean aprovado;
     private List<Professor> banca;
+    private boolean ativo;
 }
