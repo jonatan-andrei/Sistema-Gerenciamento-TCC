@@ -9,7 +9,7 @@ public interface AvaliacaoDAO {
 
     void editar(Long idAvaliacao, Avaliacao avaliacao);
 
-    List<Avaliacao> verAvaliacoes(Long idPropostaTCC);
+    List<Avaliacao> verAvaliacoes();
 
     void deletar(Long idAvaliacao);
 

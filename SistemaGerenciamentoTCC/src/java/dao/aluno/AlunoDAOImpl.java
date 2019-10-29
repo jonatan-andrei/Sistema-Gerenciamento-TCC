@@ -92,7 +92,7 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
 
     @Override
     public boolean desativar(Long idAluno) {
-        // Deleta um aluno cadastrado
+        // Desativa um aluno cadastrado
         try {
             Connection conexao = criarConexao();
             StringBuilder sql = new StringBuilder();

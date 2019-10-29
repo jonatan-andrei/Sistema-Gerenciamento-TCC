@@ -5,8 +5,10 @@ import java.util.List;
 
 public interface SugestaoTCCDAO {
 
-    boolean salvar(String descricao, Long idArea, Long idProfessor, Long idProjeto);
+    boolean cadastrar(String descricao, Long idProfessor, Long idProjeto);
     
     List<SugestaoTCC> buscarSugestoesDeProfessor(Long idProfessor);
+    
+    void escolherSugestao(Long idSugestaoTCC);
 
 }

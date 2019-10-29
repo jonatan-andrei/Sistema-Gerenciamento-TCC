@@ -7,10 +7,11 @@ public class SugestaoTCC {
     private ProjetoPesquisa projeto;
     private boolean escolhida;
     
-    public SugestaoTCC(Long idSugestaoTCC, String descricao, String escolhida){
+    public SugestaoTCC(Long idSugestaoTCC, String descricao, String escolhida, ProjetoPesquisa projeto){
         this.idSugestaoTCC = idSugestaoTCC;
         this.descricao = descricao;
         this.escolhida = "S".equals(escolhida);
+        this.projeto = projeto;
     }
 
 }

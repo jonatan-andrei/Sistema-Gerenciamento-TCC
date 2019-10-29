@@ -68,6 +68,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             Connection conexao = criarConexao();
             String sql = "SELECT * FROM Professor WHERE id_professor = ?";
             PreparedStatement pstmt = conexao.prepareCall(sql);
+            pstmt.setLong(1, idProfessor);
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
