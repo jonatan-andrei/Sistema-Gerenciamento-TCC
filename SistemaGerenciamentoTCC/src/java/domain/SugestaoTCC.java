@@ -4,10 +4,13 @@ public class SugestaoTCC {
 
     private Long idSugestaoTCC;
     private String descricao;
-    private Area area;
-    private Professor criador;
     private ProjetoPesquisa projeto;
     private boolean escolhida;
-    private boolean ativo;
+    
+    public SugestaoTCC(Long idSugestaoTCC, String descricao, String escolhida){
+        this.idSugestaoTCC = idSugestaoTCC;
+        this.descricao = descricao;
+        this.escolhida = "S".equals(escolhida);
+    }
 
 }

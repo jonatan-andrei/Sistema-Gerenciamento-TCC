@@ -49,7 +49,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             PreparedStatement pstmt = conexao.prepareCall(sql.toString());
             pstmt.setString(1, professor.getNome());
             pstmt.setString(2, professor.getEmail());
-            pstmt.setLong(5, professor.getId());
+            pstmt.setLong(3, professor.getId());
             pstmt.executeUpdate();
             fecharConexao(conexao, pstmt);
         } catch (Exception ex) {
@@ -62,11 +62,32 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
     }
 
     @Override
-    public List<Professor> buscar() {
+    public Professor buscarPorId(Long idProfessor) {
+        Professor professor = null;
+        try {
+            Connection conexao = criarConexao();
+            String sql = "SELECT * FROM Professor WHERE id_professor = ?";
+            PreparedStatement pstmt = conexao.prepareCall(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));
+            }
+            fecharConexao(conexao, pstmt, rs);
+        } catch (Exception e) {
+            e.printStackTrace();
+            // Retorna null em caso de erro
+            return null;
+        }
+        return professor;
+    }
+
+    @Override
+    public List<Professor> listar() {
         List<Professor> professores = new ArrayList();
         try {
             Connection conexao = criarConexao();
-            String sql = "SELECT * FROM Professor";
+            String sql = "SELECT * FROM Professor WHERE ativo = 'S'";
             PreparedStatement pstmt = conexao.prepareCall(sql);
             ResultSet rs = pstmt.executeQuery();
 

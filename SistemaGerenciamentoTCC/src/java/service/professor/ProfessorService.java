@@ -9,6 +9,8 @@ public interface ProfessorService {
 
     boolean editar(Long idProfessor, String nome, String email, List<Long> areasInteresse);
 
+    Professor buscarPorId(Long idProfessor);
+
     List<Professor> listar();
 
     boolean desativar(Long idProfessor);

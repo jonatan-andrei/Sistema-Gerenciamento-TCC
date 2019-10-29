@@ -47,25 +47,19 @@ ALTER TABLE `Professor_Area` ADD CONSTRAINT `fk_pa_professor` FOREIGN KEY ( `id_
 CREATE TABLE `Projeto_Pesquisa` (
   `id_projeto_pesquisa` integer PRIMARY KEY AUTO_INCREMENT,
   `nome` varchar(100) NOT NULL,
-  `descricao` varchar(200) NOT NULL,
-  `id_area` integer NOT NULL
+  `descricao` varchar(200) NOT NULL
 ) ENGINE = innodb;
-
-ALTER TABLE `Projeto_Pesquisa` ADD CONSTRAINT `fk_projeto_area` FOREIGN KEY ( `id_area` ) REFERENCES `Area` ( `id_area` ) ;
 
 -- Criação da tabela Sugestao_TCC
 
 CREATE TABLE `Sugestao_TCC` (
   `id_sugestao_tcc` integer PRIMARY KEY AUTO_INCREMENT,
   `descricao` varchar(100) NOT NULL,
-  `id_area` integer NOT NULL,
   `id_professor_criador` integer NOT NULL,
   `id_projeto_pesquisa` integer,
-  `escolhida` varchar(1) default 'N',
-  `ativo` varchar(1) DEFAULT 'S'
+  `escolhida` varchar(1) default 'N'
 ) ENGINE = innodb;
 
-ALTER TABLE `Sugestao_TCC` ADD CONSTRAINT `fk_sugestao_area` FOREIGN KEY ( `id_area` ) REFERENCES `Area` ( `id_area` ) ;
 ALTER TABLE `Sugestao_TCC` ADD CONSTRAINT `fk_sugestao_professor` FOREIGN KEY ( `id_professor_criador` ) REFERENCES `Professor` ( `id_professor` ) ;
 ALTER TABLE `Sugestao_TCC` ADD CONSTRAINT `fk_sugestao_projeto` FOREIGN KEY ( `id_projeto_pesquisa` ) REFERENCES `Projeto_Pesquisa` ( `id_projeto_pesquisa` ) ;
 

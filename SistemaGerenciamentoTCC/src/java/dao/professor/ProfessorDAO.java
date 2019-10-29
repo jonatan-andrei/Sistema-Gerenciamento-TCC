@@ -8,8 +8,10 @@ public interface ProfessorDAO {
     Long cadastrar(Professor professor);
 
     boolean editar(Professor professor);
+    
+    Professor buscarPorId(Long idProfessor);
 
-    List<Professor> buscar();
+    List<Professor> listar();
 
     boolean desativar(Long idProfessor);
 

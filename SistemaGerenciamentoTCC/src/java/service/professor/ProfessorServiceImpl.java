@@ -4,6 +4,8 @@ import dao.area.AreaDAO;
 import dao.area.AreaDAOImpl;
 import dao.professor.ProfessorDAO;
 import dao.professor.ProfessorDAOImpl;
+import dao.sugestaotcc.SugestaoTCCDAO;
+import dao.sugestaotcc.SugestaoTCCDAOImpl;
 import domain.Area;
 import domain.Professor;
 import java.util.List;
@@ -14,12 +16,15 @@ public class ProfessorServiceImpl implements ProfessorService {
 
     private static final ProfessorDAO professorDAO = new ProfessorDAOImpl();
     private static final AreaDAO areaDAO = new AreaDAOImpl();
+    private static final SugestaoTCCDAO sugestaoTCCDAO = new SugestaoTCCDAOImpl();
 
     @Override
     public boolean cadastrar(String nome, String email, List<Long> areasInteresse) {
         Long idProfessor = professorDAO.cadastrar(new Professor(nome, email));
         if (nonNull(idProfessor)) {
-            areaDAO.salvarAreasDeInteresse(idProfessor, areasInteresse);
+            if (!areasInteresse.isEmpty()) {
+                areaDAO.salvarAreasDeInteresse(idProfessor, areasInteresse);
+            }
             return true;
         } else {
             return false;
@@ -53,15 +58,26 @@ public class ProfessorServiceImpl implements ProfessorService {
         }
 
         return sucesso;
+    }
 
+    @Override
+    public Professor buscarPorId(Long idProfessor) {
+        Professor professor = professorDAO.buscarPorId(idProfessor);
+        if (nonNull(professor)) {
+            professor.setAreasDeInteresse(areaDAO.buscarAreasDeInteresse(professor.getId()));
+            professor.setSugestoes(sugestaoTCCDAO.buscarSugestoesDeProfessor(professor.getId()));
+        }
+
+        return professor;
     }
 
     @Override
     public List<Professor> listar() {
-        List<Professor> professores = professorDAO.buscar();
+        List<Professor> professores = professorDAO.listar();
         if (nonNull(professores)) {
             professores.forEach(professor -> {
                 professor.setAreasDeInteresse(areaDAO.buscarAreasDeInteresse(professor.getId()));
+                professor.setSugestoes(sugestaoTCCDAO.buscarSugestoesDeProfessor(professor.getId()));
             });
         } else {
             return null;

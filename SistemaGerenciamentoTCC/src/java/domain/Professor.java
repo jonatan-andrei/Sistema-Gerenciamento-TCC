@@ -6,6 +6,7 @@ public class Professor extends Pessoa {
 
     private int cargaTrabalhoSemestre;
     private List<Area> areasDeInteresse;
+    private List<SugestaoTCC> sugestoes;
 
     public Professor(String nome, String email) {
         super(nome, email);
@@ -22,5 +23,9 @@ public class Professor extends Pessoa {
 
     public void setAreasDeInteresse(List<Area> areasDeInteresse) {
         this.areasDeInteresse = areasDeInteresse;
+    }
+
+    public void setSugestoes(List<SugestaoTCC> sugestoes) {
+        this.sugestoes = sugestoes;
     }
 }
