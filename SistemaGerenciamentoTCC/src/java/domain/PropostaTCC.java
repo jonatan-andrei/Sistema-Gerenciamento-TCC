@@ -32,4 +32,116 @@ public class PropostaTCC {
         this.autor = autor;
         this.orientador = orientador;
     }
+
+    public Long getIdPropostaTCC() {
+        return idPropostaTCC;
+    }
+
+    public void setIdPropostaTCC(Long idPropostaTCC) {
+        this.idPropostaTCC = idPropostaTCC;
+    }
+
+    public String getTitulo() {
+        return titulo;
+    }
+
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
+    public String getArtigo() {
+        return artigo;
+    }
+
+    public void setArtigo(String artigo) {
+        this.artigo = artigo;
+    }
+
+    public Aluno getAutor() {
+        return autor;
+    }
+
+    public void setAutor(Aluno autor) {
+        this.autor = autor;
+    }
+
+    public Professor getOrientador() {
+        return orientador;
+    }
+
+    public void setOrientador(Professor orientador) {
+        this.orientador = orientador;
+    }
+
+    public SugestaoTCC getSugestaoOrigem() {
+        return sugestaoOrigem;
+    }
+
+    public void setSugestaoOrigem(SugestaoTCC sugestaoOrigem) {
+        this.sugestaoOrigem = sugestaoOrigem;
+    }
+
+    public Area getArea() {
+        return area;
+    }
+
+    public void setArea(Area area) {
+        this.area = area;
+    }
+
+    public int getAno() {
+        return ano;
+    }
+
+    public void setAno(int ano) {
+        this.ano = ano;
+    }
+
+    public int getSemestre() {
+        return semestre;
+    }
+
+    public void setSemestre(int semestre) {
+        this.semestre = semestre;
+    }
+
+    public List<Avaliacao> getAvaliacoes() {
+        return avaliacoes;
+    }
+
+    public void setAvaliacoes(List<Avaliacao> avaliacoes) {
+        this.avaliacoes = avaliacoes;
+    }
+
+    public boolean isAprovado() {
+        return aprovado;
+    }
+
+    public void setAprovado(boolean aprovado) {
+        this.aprovado = aprovado;
+    }
+
+    public List<Professor> getBanca() {
+        return banca;
+    }
+
+    public void setBanca(List<Professor> banca) {
+        this.banca = banca;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }
