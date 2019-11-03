@@ -11,6 +11,8 @@ import java.util.List;
 import static java.util.Objects.nonNull;
 
 public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
+    
+    // TODO alterar para fechar conexão mesmo em caso de erro
 
     @Override
     public boolean cadastrar(String descricao, Long idProfessor, Long idProjeto) {

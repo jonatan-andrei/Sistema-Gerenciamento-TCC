@@ -75,8 +75,6 @@ CREATE TABLE `Proposta_TCC` (
   `id_professor_avaliador_segundo` integer NOT NULL,
   `id_sugestao_origem` integer NOT NULL,
   `id_area` integer NOT NULL,
-  `ano` integer NOT NULL,
-  `semestre` integer NOT NULL,
   `aprovado` varchar(1),
   `ativo` varchar(1) DEFAULT 'S'
 ) ENGINE = innodb;

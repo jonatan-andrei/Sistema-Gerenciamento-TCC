@@ -12,6 +12,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
+    
+    // TODO alterar para fechar conexão mesmo em caso de erro
 
     @Override
     public boolean enviarTema(PropostaTCC propostaTCC, Long idAluno, Long idProfessor, Long idSugestao, Long idArea) {

@@ -14,15 +14,17 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
     @Override
     public void salvarAreasDeInteresse(Long idProfessor, List<Long> areas) {
         // Salva as áreas de interesse do professor
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             conexao.setAutoCommit(false);
             StringBuilder sql = new StringBuilder();
             sql.append(" INSERT INTO Professor_Area ");
             sql.append(" (id_area, id_professor) ");
             sql.append(" VALUES ");
             sql.append(" (?,?) ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareCall(sql.toString());
 
             Iterator<Long> iterator = areas.iterator();
             while (iterator.hasNext()) {
@@ -34,22 +36,24 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
 
             pstmt.executeBatch();
             conexao.commit();
-            fecharConexao(conexao, pstmt);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        fecharConexao(conexao, pstmt);
     }
 
     @Override
     public void deletarAreasDeInteresse(Long idProfessor, List<Long> areas) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             conexao.setAutoCommit(false);
             StringBuilder sql = new StringBuilder();
             sql.append(" DELETE FROM Professor_Area ");
             sql.append(" WHERE id_area = ? ");
             sql.append(" AND id_professor = ? ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareCall(sql.toString());
 
             Iterator<Long> iterator = areas.iterator();
             while (iterator.hasNext()) {
@@ -61,52 +65,56 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
 
             pstmt.executeBatch();
             conexao.commit();
-            fecharConexao(conexao, pstmt);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        fecharConexao(conexao, pstmt);
     }
 
     @Override
     public void deletarTodasAreasDeInteresse(Long idProfessor) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
         // Exclui todas as áreas de interesse de um professor
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" DELETE FROM Professor_Area ");
             sql.append(" WHERE id_professor = ? ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idProfessor);
             pstmt.executeUpdate();
-            fecharConexao(conexao, pstmt);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
+        fecharConexao(conexao, pstmt);
     }
 
     @Override
     public List<Area> buscarAreasDeInteresse(Long idProfessor) {
-        List<Area> areas = new ArrayList();
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        List<Area> areas = null;
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" SELECT area.* FROM area ");
             sql.append(" INNER JOIN professor_area pa ");
             sql.append(" ON pa.id_area = area.id_area ");
             sql.append(" WHERE pa.id_professor = ? ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
-            ResultSet rs = pstmt.executeQuery();
-
+            pstmt = conexao.prepareCall(sql.toString());
+            rs = pstmt.executeQuery();
+            areas = new ArrayList();
             while (rs.next()) {
                 Area area = new Area(rs.getLong("id_area"), rs.getString("nome"), rs.getString("descricao"));
                 areas.add(area);
             }
-            fecharConexao(conexao, pstmt, rs);
         } catch (Exception e) {
             e.printStackTrace();
-            // Retorna null em caso de erro
-            return null;
         }
+        fecharConexao(conexao, pstmt, rs);
         // Retorna a lista de areas de interesse do professor
         return areas;
     }
