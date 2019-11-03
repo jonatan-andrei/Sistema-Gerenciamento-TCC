@@ -25,6 +25,14 @@ public class Avaliacao {
         this.aprovado = aprovado;
     }
 
+    public Avaliacao(Long idAvaliacao, double notaFinal, String parecer, boolean aprovado, Professor avaliador) {
+        this.idAvaliacao = idAvaliacao;
+        this.notaFinal = notaFinal;
+        this.parecer = parecer;
+        this.aprovado = aprovado;
+        this.avaliador = avaliador;
+    }
+
     public Long getIdAvaliacao() {
         return idAvaliacao;
     }

@@ -9,6 +9,8 @@ public interface PropostaTCCService {
 
     String cadastrarViaSugestao(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao);
 
+    String enviarArtigoFinal(Long idPropostaTCC, String artigo);
+    
     String desativarTCC(Long idPropostaTCC);
     
     String salvarBanca(Long idPropostaTCC, List<Long> professores);
@@ -19,5 +21,5 @@ public interface PropostaTCCService {
 
     List<Professor> verBancaEOrientador(Long idPropostaTCC);
 
-    String removerBanca(Long idPropostaTCC);
+    String removerBanca(Long idPropostaTCC, boolean incluiOrientador);
 }

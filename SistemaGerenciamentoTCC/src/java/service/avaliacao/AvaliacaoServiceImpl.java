@@ -4,6 +4,7 @@ import dao.avaliacao.AvaliacaoDAO;
 import dao.avaliacao.AvaliacaoDAOImpl;
 import domain.Avaliacao;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import static java.util.Objects.nonNull;
 import type.CriterioAvaliacao;
@@ -40,14 +41,19 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
             criterios.put(CriterioAvaliacao.CONTEUDO_DO_TEXTO, conteudoDoTexto);
             criterios.put(CriterioAvaliacao.RELEVANCIA_AO_PERFIL_PROFISSIONAL, relevanciaProfissional);
             avaliacaoDAO.editarCriteriosAvaliacao(idAvaliacao, criterios);
-        } 
+        }
         return sucesso;
+    }
+
+    @Override
+    public List<Avaliacao> buscarPorTCC(Long idPropostaTCC) {
+        return avaliacaoDAO.buscarPorTCC(idPropostaTCC);
     }
 
     @Override
     public boolean deletarAvaliacao(Long idAvaliacao) {
         boolean sucesso = avaliacaoDAO.deletar(idAvaliacao);
-        if (sucesso){
+        if (sucesso) {
             avaliacaoDAO.deletarCriteriosAvaliacao(idAvaliacao);
         }
         return sucesso;

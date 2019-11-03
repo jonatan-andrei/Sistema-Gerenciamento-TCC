@@ -2,10 +2,13 @@ package dao.avaliacao;
 
 import dao.conexao.ConexaoDAO;
 import domain.Avaliacao;
+import domain.Professor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import type.CriterioAvaliacao;
 
@@ -100,6 +103,34 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         fecharConexao(conexao, pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
+    }
+
+    @Override
+    public List<Avaliacao> buscarPorTCC(Long idPropostaTCC) {
+        List<Avaliacao> avaliacoes = null;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT a.*, p.* FROM Avaliacao ");
+            sql.append(" INNER JOIN professor p ");
+            sql.append(" ON a.id_professor_avaliador = p.id_professor ");
+            sql.append(" WHERE id_proposta_tcc = ? ");
+            pstmt = conexao.prepareCall(sql.toString());
+            rs = pstmt.executeQuery();
+            avaliacoes = new ArrayList();
+            while (rs.next()) {
+                Professor professor = new Professor(rs.getLong("p.id_professor"), rs.getString("p.nome"), rs.getString("p.email"), rs.getInt("p.carga_trabalho_semestre"));
+                Avaliacao avaliacao = new Avaliacao(rs.getLong("a.id_avaliacao"), rs.getDouble("a.nota_final"), rs.getString("a.parecer"), "S".equals(rs.getString("a.aprovado")), professor);
+                avaliacoes.add(avaliacao);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt, rs);
+        return avaliacoes;
     }
 
     @Override
