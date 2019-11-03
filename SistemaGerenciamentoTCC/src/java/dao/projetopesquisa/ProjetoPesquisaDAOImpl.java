@@ -12,45 +12,53 @@ public class ProjetoPesquisaDAOImpl extends ConexaoDAO implements ProjetoPesquis
 
     @Override
     public boolean salvar(ProjetoPesquisa projetoPesquisa) {
+        boolean sucesso;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" INSERT INTO Projeto_Pesquisa ");
             sql.append(" (nome, descricao) ");
             sql.append(" VALUES ");
             sql.append(" (?, ?) ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareCall(sql.toString());
             pstmt.setString(1, projetoPesquisa.getNome());
             pstmt.setString(2, projetoPesquisa.getDescricao());
             pstmt.executeUpdate();
-            fecharConexao(conexao, pstmt);
-            return true;
+            sucesso = true;
         } catch (Exception ex) {
             // Em caso de erro inesperado, retorna false
             ex.printStackTrace();
-            return false;
+            sucesso = false;
         }
+        fecharConexao(conexao, pstmt);
+        return sucesso;
     }
 
     @Override
     public List<ProjetoPesquisa> buscar() {
-        List<ProjetoPesquisa> projetos = new ArrayList();
+        boolean sucesso;
+        List<ProjetoPesquisa> projetos = null;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             String sql = "SELECT * FROM Projeto_Pesquisa";
-            PreparedStatement pstmt = conexao.prepareCall(sql);
-            ResultSet rs = pstmt.executeQuery();
-
+            pstmt = conexao.prepareCall(sql);
+            rs = pstmt.executeQuery();
+            projetos = new ArrayList();
             while (rs.next()) {
                 ProjetoPesquisa projeto = new ProjetoPesquisa(rs.getLong("id_projeto_pesquisa"), rs.getString("nome"), rs.getString("descricao"));
                 projetos.add(projeto);
             }
-            fecharConexao(conexao, pstmt, rs);
+            sucesso = true;
         } catch (Exception e) {
             e.printStackTrace();
-            // Retorna null em caso de erro
-            return null;
+            sucesso = false;
         }
+        fecharConexao(conexao, pstmt, rs);
         return projetos;
     }
 

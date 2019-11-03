@@ -14,5 +14,9 @@ public interface ProfessorDAO {
     List<Professor> listar();
 
     boolean desativar(Long idProfessor);
+    
+    boolean aumentarCargaDeTrabalho(List<Long> professores);
+    
+    boolean reduzirCargaDeTrabalho(List<Long> professores);
 
 }

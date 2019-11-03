@@ -91,4 +91,14 @@ public class ProfessorServiceImpl implements ProfessorService {
         return professorDAO.desativar(idProfessor);
     }
 
+    @Override
+    public boolean aumentarCargaDeTrabalho(List<Long> professores) {
+        return professorDAO.aumentarCargaDeTrabalho(professores);
+    }
+
+    @Override
+    public boolean reduzirCargaDeTrabalho(List<Long> professores) {
+        return professorDAO.reduzirCargaDeTrabalho(professores);
+    }
+
 }

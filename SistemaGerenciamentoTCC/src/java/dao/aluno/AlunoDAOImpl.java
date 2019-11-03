@@ -12,35 +12,42 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
 
     @Override
     public boolean cadastrar(Aluno aluno) {
+        boolean sucesso;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
         // Salva um novo aluno
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" INSERT INTO Aluno ");
             sql.append(" (nome, email, matricula, telefone) ");
             sql.append(" VALUES ");
             sql.append(" (?, ?, ?, ?) ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareCall(sql.toString());
             pstmt.setString(1, aluno.getNome());
             pstmt.setString(2, aluno.getEmail());
             pstmt.setString(3, aluno.getMatricula());
             pstmt.setString(4, aluno.getTelefone());
             pstmt.executeUpdate();
-            fecharConexao(conexao, pstmt);
+            sucesso = true;
         } catch (Exception ex) {
             // Em caso de erro inesperado, retorna false
             ex.printStackTrace();
-            return false;
+            sucesso = false;
         }
+        fecharConexao(conexao, pstmt);
         // Em caso de sucesso, retorna true
-        return true;
+        return sucesso;
     }
 
     @Override
     public boolean editar(Aluno aluno) {
+        boolean sucesso;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
         // Edita um aluno cadastrado
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" UPDATE Aluno SET ");
             sql.append(" nome = ?, ");
@@ -49,67 +56,74 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
             sql.append(" telefone = ? ");
             sql.append(" WHERE id_aluno = ? ");
 
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareCall(sql.toString());
             pstmt.setString(1, aluno.getNome());
             pstmt.setString(2, aluno.getEmail());
             pstmt.setString(3, aluno.getMatricula());
             pstmt.setString(4, aluno.getTelefone());
             pstmt.setLong(5, aluno.getId());
             pstmt.executeUpdate();
-            fecharConexao(conexao, pstmt);
+            sucesso = true;
         } catch (Exception ex) {
             // Em caso de erro inesperado, retorna false
             ex.printStackTrace();
-            return false;
+            sucesso = false;
         }
+        fecharConexao(conexao, pstmt);
         // Em caso de sucesso, retorna true
-        return true;
+        return sucesso;
     }
 
     @Override
     public List<Aluno> listar() {
         // Busca alunos cadastrados
-        List<Aluno> alunos = new ArrayList();
-        try {
-            Connection conexao = criarConexao();
-            String sql = "SELECT * FROM Aluno WHERE ativo = 'S'";
-            PreparedStatement pstmt = conexao.prepareCall(sql);
-            ResultSet rs = pstmt.executeQuery();
+        List<Aluno> alunos = null;
 
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conexao = criarConexao();
+            String sql = "SELECT * FROM Aluno WHERE ativo = 'S'";
+            pstmt = conexao.prepareCall(sql);
+            rs = pstmt.executeQuery();
+            alunos = new ArrayList();
             while (rs.next()) {
                 Aluno aluno = new Aluno(rs.getLong("id_aluno"), rs.getString("nome"), rs.getString("email"), rs.getString("matricula"), rs.getString("telefone"));
                 alunos.add(aluno);
             }
-            fecharConexao(conexao, pstmt, rs);
         } catch (Exception e) {
             e.printStackTrace();
-            // Retorna null em caso de erro
-            return null;
         }
+        fecharConexao(conexao, pstmt, rs);
         // Retorna a lista de alunos encontrados
         return alunos;
     }
 
     @Override
     public boolean desativar(Long idAluno) {
-        // Deleta um aluno cadastrado
+        boolean sucesso;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        // Desativa um aluno cadastrado
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" UPDATE Aluno ");
             sql.append(" SET ativo = 'N' ");
             sql.append(" WHERE id_aluno = ? ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idAluno);
             pstmt.executeUpdate();
-            fecharConexao(conexao, pstmt);
+            sucesso = true;
         } catch (Exception ex) {
             // Em caso de erro inesperado, retorna false
             ex.printStackTrace();
-            return false;
+            sucesso = false;
         }
+        fecharConexao(conexao, pstmt);
         // Em caso de sucesso, retorna true
-        return true;
+        return sucesso;
     }
 
 }

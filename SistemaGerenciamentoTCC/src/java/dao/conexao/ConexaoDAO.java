@@ -13,7 +13,7 @@ public abstract class ConexaoDAO {
     private static final String URL = "jdbc:mysql://" + SERVER + ":" + PORT + "/" + DATABASE;
 
     // Inicia conexão com o banco
-    public Connection criarConexao() {
+    protected Connection criarConexao() {
         try {
             Class.forName("com.mysql.jdbc.Driver");
             return DriverManager.getConnection(URL, USER, PASSWORD);
@@ -23,7 +23,7 @@ public abstract class ConexaoDAO {
     }
 
     // Método para fechar a conexão com o MySQL
-    public void fecharConexao(Connection con) {
+    protected void fecharConexao(Connection con) {
 
         try {
             if (con != null) {
@@ -36,7 +36,7 @@ public abstract class ConexaoDAO {
     }
 
     // Método para fechar a conexão com o MySQL
-    public void fecharConexao(Connection con, PreparedStatement pstmt) {
+    protected void fecharConexao(Connection con, PreparedStatement pstmt) {
 
         fecharConexao(con);
 
@@ -51,7 +51,7 @@ public abstract class ConexaoDAO {
     }
 
     // Método para fechar a conexão com o MySQL
-    public void fecharConexao(Connection con, PreparedStatement pstmt, ResultSet rs) {
+    protected void fecharConexao(Connection con, PreparedStatement pstmt, ResultSet rs) {
 
         fecharConexao(con, pstmt);
 

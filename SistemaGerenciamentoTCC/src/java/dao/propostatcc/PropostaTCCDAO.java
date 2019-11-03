@@ -6,20 +6,24 @@ import java.util.List;
 
 public interface PropostaTCCDAO {
 
-    void enviarTema(PropostaTCC propostaTCC);
+    boolean enviarTema(PropostaTCC propostaTCC, Long idAluno, Long idProfessor, Long idSugestao, Long idArea);
 
-    void enviarArtigoFinal(Long idPropostaTCC, String artigo);
+    boolean enviarArtigoFinal(Long idPropostaTCC, String artigo);
 
     List<PropostaTCC> listar();
 
-    void deletar(Long idPropostaTCC);
+    boolean desativar(Long idPropostaTCC);
 
-    void cadastrarBanca(Long idPropostaTCC, List<Professor> professores);
-    
-    void editarBanca(Long idPropostaTCC, List<Professor> professores);
-    
+    PropostaTCC buscarPorAluno(Long idAluno);
+
+    PropostaTCC buscarPorId(Long idPropostaTCC);
+
+    boolean salvarBanca(Long idPropostaTCC, List<Long> professores);
+
     List<Professor> verBanca(Long idPropostaTCC);
-    
-    void deletarBanca(Long idPropostaTCC);
-    
+
+    List<Professor> verBancaEOrientador(Long idPropostaTCC);
+
+    boolean deletarBanca(Long idPropostaTCC);
+
 }

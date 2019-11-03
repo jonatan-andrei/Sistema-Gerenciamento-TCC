@@ -1,62 +1,93 @@
 package dao.sugestaotcc;
 
 import dao.conexao.ConexaoDAO;
+import domain.ProjetoPesquisa;
 import domain.SugestaoTCC;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import static java.util.Objects.nonNull;
 
 public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
 
     @Override
-    public boolean salvar(String descricao, Long idArea, Long idProfessor, Long idProjeto) {
+    public boolean cadastrar(String descricao, Long idProfessor, Long idProjeto) {
+        boolean sucesso;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" INSERT INTO Sugestao_TCC ");
-            sql.append(" (descricao, id_area, id_professor_criador, id_projeto_pesquisa) ");
+            sql.append(" (descricao, id_professor_criador, id_projeto_pesquisa) ");
             sql.append(" VALUES ");
-            sql.append(" (?, ?, ?, ?) ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
+            sql.append(" (?, ?, ?) ");
+            pstmt = conexao.prepareCall(sql.toString());
             pstmt.setString(1, descricao);
-            pstmt.setLong(2, idArea);
-            pstmt.setLong(3, idProfessor);
-            pstmt.setLong(4, idProjeto);
+            pstmt.setLong(2, idProfessor);
+            pstmt.setLong(3, idProjeto);
             pstmt.executeUpdate();
-            fecharConexao(conexao, pstmt);
-            return true;
+            sucesso = true;
         } catch (Exception ex) {
             // Em caso de erro inesperado, retorna false
             ex.printStackTrace();
-            return false;
+            sucesso = false;
         }
+        fecharConexao(conexao, pstmt);
+        return sucesso;
     }
 
     @Override
     public List<SugestaoTCC> buscarSugestoesDeProfessor(Long idProfessor) {
-        List<SugestaoTCC> sugestoes = new ArrayList();
+        List<SugestaoTCC> sugestoes = null;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
         try {
-            Connection conexao = criarConexao();
+            conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT * FROM Sugestao_TCC sugestao ");
+            sql.append(" SELECT sugestao.*, pp.* FROM Sugestao_TCC sugestao ");
+            sql.append(" LEFT JOIN Projeto_Pesquisa pp on ");
+            sql.append(" sugestao.id_projeto_pesquisa = pp.id_projeto_pesquisa ");
             sql.append(" WHERE sugestao.id_professor_criador = ? ");
-            PreparedStatement pstmt = conexao.prepareCall(sql.toString());
-            ResultSet rs = pstmt.executeQuery();
-
+            pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, idProfessor);
+            rs = pstmt.executeQuery();
+            sugestoes = new ArrayList();
             while (rs.next()) {
-                SugestaoTCC sugestao = new SugestaoTCC(rs.getLong("id_sugestao"), rs.getString("descricao"), rs.getString("escolhida"));
+                ProjetoPesquisa projeto = null;
+                if (nonNull(rs.getLong("sugestao.id_projeto_pesquisa"))) {
+                    projeto = new ProjetoPesquisa(rs.getLong("pp.id_projeto_pesquisa"), rs.getString("pp.nome"), rs.getString("pp.descricao"));
+                }
+                SugestaoTCC sugestao = new SugestaoTCC(rs.getLong("sugestao.id_sugestao"), rs.getString("sugestao.descricao"), rs.getString("sugestao.escolhida"), projeto);
                 sugestoes.add(sugestao);
             }
-            fecharConexao(conexao, pstmt, rs);
         } catch (Exception e) {
             e.printStackTrace();
-            // Retorna null em caso de erro
-            return null;
         }
-        // Retorna a lista de areas de interesse do professor
+        fecharConexao(conexao, pstmt, rs);
+        // Retorna a lista de sugestões do professor
         return sugestoes;
+    }
+
+    @Override
+    public void escolherSugestao(Long idSugestaoTCC) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" UPDATE Sugestao_TCC SET ");
+            sql.append(" escolhida = 'S' WHERE id_sugestao_tcc = ? ");
+            pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, idSugestaoTCC);
+            pstmt.executeUpdate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt);
     }
 
 }

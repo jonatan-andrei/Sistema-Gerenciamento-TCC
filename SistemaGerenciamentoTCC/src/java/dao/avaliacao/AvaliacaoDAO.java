@@ -1,16 +1,21 @@
 package dao.avaliacao;
 
 import domain.Avaliacao;
-import java.util.List;
+import java.util.Map;
+import type.CriterioAvaliacao;
 
 public interface AvaliacaoDAO {
 
-    void cadastrar(Long idPropostaTCC, Avaliacao avaliacao);
+    Long cadastrar(Long idPropostaTCC, Long idProfessor, Avaliacao avaliacao);
+    
+    void salvarCriteriosAvaliacao(Long idAvaliacao, Map<CriterioAvaliacao, String> criterios);
 
-    void editar(Long idAvaliacao, Avaliacao avaliacao);
+    boolean editar(Avaliacao avaliacao);
+    
+    void editarCriteriosAvaliacao(Long idAvaliacao, Map<CriterioAvaliacao, String> criterios);
 
-    List<Avaliacao> verAvaliacoes(Long idPropostaTCC);
-
-    void deletar(Long idAvaliacao);
+    boolean deletar(Long idAvaliacao);
+    
+    void deletarCriteriosAvaliacao(Long idAvaliacao);
 
 }
