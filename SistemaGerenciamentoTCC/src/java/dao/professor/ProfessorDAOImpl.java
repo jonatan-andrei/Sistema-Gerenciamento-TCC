@@ -7,14 +7,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
 
     @Override
     public Long cadastrar(Professor professor) {
+        Long idProfessor = null;
         Connection conexao = null;
         PreparedStatement pstmt = null;
-        Long idProfessor = null;
+        ResultSet rs = null;
         // Cadastrar professor
         try {
             conexao = criarConexao();
@@ -27,12 +29,12 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             pstmt.setString(1, professor.getNome());
             pstmt.setString(2, professor.getEmail());
             pstmt.executeUpdate();
-            ResultSet generatedKeys = pstmt.getGeneratedKeys();
-            idProfessor = generatedKeys.getLong(1);
+            rs = pstmt.getGeneratedKeys();
+            idProfessor = rs.getLong(1);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(conexao, pstmt, rs);
         // Retorna o id do professor cadastrado
         return idProfessor;
     }
@@ -127,6 +129,58 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             sql.append(" ativo = 'N' WHERE id_professor = ? ");
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idProfessor);
+            pstmt.executeUpdate();
+            sucesso = true;
+        } catch (Exception ex) {
+            // Em caso de erro inesperado, retorna false
+            ex.printStackTrace();
+            sucesso = false;
+        }
+        fecharConexao(conexao, pstmt);
+        // Em caso de sucesso, retorna true
+        return sucesso;
+    }
+
+    @Override
+    public boolean aumentarCargaDeTrabalho(List<Long> professores) {
+        boolean sucesso;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" UPDATE Professor SET ");
+            sql.append(" carga_trabalho_semestre = carga_trabalho_semestre + 1 ");
+            sql.append(" WHERE id_professor IN (?) ");
+            pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setString(1, professores.stream().map(String::valueOf).collect(Collectors.joining(", ")));
+            pstmt.executeUpdate();
+            sucesso = true;
+        } catch (Exception ex) {
+            // Em caso de erro inesperado, retorna false
+            ex.printStackTrace();
+            sucesso = false;
+        }
+        fecharConexao(conexao, pstmt);
+        // Em caso de sucesso, retorna true
+        return sucesso;
+    }
+
+    @Override
+    public boolean reduzirCargaDeTrabalho(List<Long> professores) {
+        boolean sucesso;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" UPDATE Professor SET ");
+            sql.append(" carga_trabalho_semestre = carga_trabalho_semestre - 1 ");
+            sql.append(" WHERE id_professor IN (?) ");
+            pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setString(1, professores.stream().map(String::valueOf).collect(Collectors.joining(", ")));
             pstmt.executeUpdate();
             sucesso = true;
         } catch (Exception ex) {

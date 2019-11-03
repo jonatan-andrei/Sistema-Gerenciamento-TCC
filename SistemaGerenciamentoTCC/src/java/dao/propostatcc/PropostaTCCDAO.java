@@ -15,12 +15,14 @@ public interface PropostaTCCDAO {
     boolean desativar(Long idPropostaTCC);
 
     PropostaTCC buscarPorAluno(Long idAluno);
-    
+
     PropostaTCC buscarPorId(Long idPropostaTCC);
 
     boolean salvarBanca(Long idPropostaTCC, List<Long> professores);
 
     List<Professor> verBanca(Long idPropostaTCC);
+
+    List<Professor> verBancaEOrientador(Long idPropostaTCC);
 
     boolean deletarBanca(Long idPropostaTCC);
 

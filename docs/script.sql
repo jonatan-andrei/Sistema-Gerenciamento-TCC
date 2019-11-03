@@ -75,7 +75,6 @@ CREATE TABLE `Proposta_TCC` (
   `id_professor_avaliador_segundo` integer NOT NULL,
   `id_sugestao_origem` integer NOT NULL,
   `id_area` integer NOT NULL,
-  `aprovado` varchar(1),
   `ativo` varchar(1) DEFAULT 'S'
 ) ENGINE = innodb;
 
@@ -104,6 +103,9 @@ ALTER TABLE `Avaliacao` ADD CONSTRAINT `fk_avaliacao_proposta` FOREIGN KEY ( `id
 
 CREATE TABLE `Avaliacao_Criterio` (
   `id_avaliacao_criterio` integer PRIMARY KEY AUTO_INCREMENT,
+  `id_avaliacao` integer NOT NULL,
   `criterio` varchar(100) NOT NULL,
   `observacao` varchar(100) NOT NULL
 ) ENGINE = innodb;
+
+ALTER TABLE `Avaliacao_Criterio` ADD CONSTRAINT `fk_avaliacao_criterio` FOREIGN KEY ( `id_avaliacao` ) REFERENCES `Avaliacao` ( `id_avaliacao` ) ;

@@ -15,4 +15,8 @@ public interface ProfessorService {
 
     boolean desativar(Long idProfessor);
 
+    boolean aumentarCargaDeTrabalho(List<Long> professores);
+
+    boolean reduzirCargaDeTrabalho(List<Long> professores);
+
 }
