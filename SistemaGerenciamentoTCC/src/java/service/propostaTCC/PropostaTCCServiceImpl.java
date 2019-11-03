@@ -17,22 +17,22 @@ import service.sugestaoTCC.SugestaoTCCService;
 import service.sugestaoTCC.SugestaoTCCServiceImpl;
 
 public class PropostaTCCServiceImpl implements PropostaTCCService {
-
+    
     private static final ProfessorService professorService = new ProfessorServiceImpl();
     private static final SugestaoTCCService sugestaoTCCService = new SugestaoTCCServiceImpl();
     private static final PropostaTCCDAO propostaTCCDAO = new PropostaTCCDAOImpl();
-
+    
     @Override
     public String cadastrarProposta(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea) {
         return cadastrar(titulo, descricao, idAluno, idProfessor, idArea, null);
     }
-
+    
     @Override
     public String cadastrarViaSugestao(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao) {
         sugestaoTCCService.escolherSugestao(idSugestao);
         return cadastrar(titulo, descricao, idAluno, idProfessor, idArea, idSugestao);
     }
-
+    
     private String cadastrar(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao) {
         PropostaTCC propostaSalva = propostaTCCDAO.buscarPorAluno(idAluno);
         if (nonNull(propostaSalva)) {
@@ -44,7 +44,7 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
         }
         return sucesso ? "Proposta de TCC salva com sucesso" : "Erro na conexão com o banco de dados.";
     }
-
+    
     @Override
     public String desativarTCC(Long idPropostaTCC) {
         boolean sucesso = propostaTCCDAO.desativar(idPropostaTCC);
@@ -53,7 +53,7 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
         }
         return sucesso ? "Proposta de TCC desativada com sucesso" : "Erro na conexão com o banco de dados.";
     }
-
+    
     @Override
     public String salvarBanca(Long idPropostaTCC, List<Long> professores) {
         // Validar se existe avaliação cadastrada para o professor
@@ -61,7 +61,7 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
         // Salvar +1 carga de trabalho dos professores
         return "TODO"; // TODO
     }
-
+    
     @Override
     public List<Professor> indicarBanca(Long idPropostaTCC) {
         List<Professor> professoresOrdenadosParaIndicacao = new ArrayList<>();
@@ -94,23 +94,23 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
         professoresOrdenadosParaIndicacao.addAll(professoresSemInteresseNaArea);
         return professoresOrdenadosParaIndicacao;
     }
-
+    
     @Override
     public List<Professor> verBanca(Long idPropostaTCC) {
         return propostaTCCDAO.verBanca(idPropostaTCC);
     }
-
+    
     @Override
     public List<Professor> verBancaEOrientador(Long idPropostaTCC) {
         return propostaTCCDAO.verBancaEOrientador(idPropostaTCC);
     }
-
+    
     @Override
     public String removerBanca(Long idPropostaTCC) {
         List<Professor> professores = verBancaEOrientador(idPropostaTCC);
         boolean sucesso = propostaTCCDAO.deletarBanca(idPropostaTCC);
         if (sucesso && !professores.isEmpty()) {
-            professorService.reduzirCargaDeTrabalho(professores.stream().map(Professor::getId));
+            professorService.reduzirCargaDeTrabalho(professores.stream().map(Professor::getId).collect(Collectors.toList()));
         }
         return sucesso ? "Banca removida com sucesso!" : "Erro na conexão com o banco de dados.";
     }
