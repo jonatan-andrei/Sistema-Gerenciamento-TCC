@@ -40,4 +40,12 @@ public class Pessoa {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void setAtivo(boolean ativo) {
+        this.ativo = ativo;
+    }
 }

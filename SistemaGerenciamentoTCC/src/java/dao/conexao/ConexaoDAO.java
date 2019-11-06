@@ -7,7 +7,7 @@ public abstract class ConexaoDAO {
     // Configurações da conexão com o banco
     private static final String SERVER = "localhost";
     private static final String PORT = "3306";
-    private static final String DATABASE = "tcc";
+    private static final String DATABASE = "ssi_tcc";
     private static final String USER = "root";
     private static final String PASSWORD = "";
     private static final String URL = "jdbc:mysql://" + SERVER + ":" + PORT + "/" + DATABASE;

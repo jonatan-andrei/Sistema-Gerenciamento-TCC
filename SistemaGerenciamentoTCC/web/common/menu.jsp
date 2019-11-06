@@ -5,7 +5,7 @@
             <ul> 
                 <li><a href="../../SistemaGerenciamentoTCC/cadastroaluno.jsp">Cadastrar</a></li> 
                 <li><a href="#">Editar</a></li> 
-                <li><a href="#">Listar</a></li> 
+                <li><a href="AlunoListagemServlet">Listar</a></li> 
                 <li><a href="#">Deletar</a></li> 
             </ul> 
         </li>

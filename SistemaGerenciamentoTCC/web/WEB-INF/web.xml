@@ -4,9 +4,17 @@
         <servlet-name>alunoCadastro</servlet-name>
         <servlet-class>servlet.aluno.AlunoCadastroServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AlunoListagemServlet</servlet-name>
+        <servlet-class>servlet.aluno.AlunoListagemServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>alunoCadastro</servlet-name>
         <url-pattern>/alunoCadastro</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AlunoListagemServlet</servlet-name>
+        <url-pattern>/AlunoListagemServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
