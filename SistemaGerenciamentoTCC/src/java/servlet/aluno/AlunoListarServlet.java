@@ -11,7 +11,7 @@ import service.aluno.AlunoService;
 import service.aluno.AlunoServiceImpl;
 import static java.util.Objects.isNull;
 
-public class AlunoListagemServlet extends HttpServlet {
+public class AlunoListarServlet extends HttpServlet {
 
     private static final AlunoService alunoService = new AlunoServiceImpl();
 
@@ -21,7 +21,7 @@ public class AlunoListagemServlet extends HttpServlet {
         List<Aluno> alunos = alunoService.listar();
         request.setAttribute("erro", isNull(alunos));
         request.setAttribute("alunos", alunos);
-        request.getRequestDispatcher("listagemAluno.jsp").forward(request, response);
+        request.getRequestDispatcher("listarAluno.jsp").forward(request, response);
     }
 
 }

@@ -20,6 +20,11 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
+    public Aluno buscarPorId(Long idAluno) {
+        return alunoDAO.buscarPorId(idAluno);
+    }
+
+    @Override
     public List<Aluno> listar() {
         return alunoDAO.listar();
     }

@@ -39,7 +39,7 @@
                                 <td>${aluno.email}</td>
                                 <td>${aluno.matricula}</td>
                                 <td>${aluno.telefone}</td>
-                                <td><i class="fa fa-pencil fa-2x"></i></td>
+                                <td><a href='AlunoEditarServlet?id=${aluno.id}'><i class="fa fa-pencil fa-2x"></i></a></td>
                                 <td><a href='AlunoDesativarServlet?id=${aluno.id}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>
                         </c:forEach>

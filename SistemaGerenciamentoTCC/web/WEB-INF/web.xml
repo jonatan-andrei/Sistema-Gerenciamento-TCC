@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
-        <servlet-name>alunoCadastro</servlet-name>
-        <servlet-class>servlet.aluno.AlunoCadastroServlet</servlet-class>
+        <servlet-name>AlunoCadastrarServlet</servlet-name>
+        <servlet-class>servlet.aluno.AlunoCadastrarServlet</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>AlunoListagemServlet</servlet-name>
-        <servlet-class>servlet.aluno.AlunoListagemServlet</servlet-class>
+        <servlet-name>AlunoListarServlet</servlet-name>
+        <servlet-class>servlet.aluno.AlunoListarServlet</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>AlunoDesativarServlet</servlet-name>
         <servlet-class>servlet.aluno.AlunoDesativarServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>alunoCadastro</servlet-name>
-        <url-pattern>/alunoCadastro</url-pattern>
+        <servlet-name>AlunoCadastrarServlet</servlet-name>
+        <url-pattern>/AlunoCadastrarServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>AlunoListagemServlet</servlet-name>
-        <url-pattern>/AlunoListagemServlet</url-pattern>
+        <servlet-name>AlunoListarServlet</servlet-name>
+        <url-pattern>/AlunoListarServlet</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>AlunoDesativarServlet</servlet-name>
