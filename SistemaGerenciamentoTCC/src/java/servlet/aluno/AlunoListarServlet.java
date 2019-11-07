@@ -19,9 +19,15 @@ public class AlunoListarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Aluno> alunos = alunoService.listar();
-        request.setAttribute("erro", isNull(alunos));
-        request.setAttribute("alunos", alunos);
-        request.getRequestDispatcher("listarAluno.jsp").forward(request, response);
+
+        if (isNull(alunos)) {
+            request.setAttribute("mensagem", "Erro ao buscar alunos.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
+        } else {
+            request.setAttribute("alunos", alunos);
+            request.getRequestDispatcher("listarAluno.jsp").forward(request, response);
+        }
     }
 
 }

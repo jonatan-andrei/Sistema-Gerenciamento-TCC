@@ -12,11 +12,7 @@
     </head>
     <body>
         <div class="area-resposta">
-            <c:if test="${erro}">
-                <div class="alert alert-danger">Erro ao buscar alunos</div>
-            </c:if>
-
-            <c:if test="${empty alunos && !erro}">
+            <c:if test="${empty alunos}">
                 <div class="alert alert-danger">Sem alunos cadastrados</div>
             </c:if>
             <c:if test="${not empty alunos}">

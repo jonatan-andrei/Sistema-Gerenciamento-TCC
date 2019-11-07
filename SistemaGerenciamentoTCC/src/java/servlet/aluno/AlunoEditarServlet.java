@@ -2,6 +2,7 @@ package servlet.aluno;
 
 import domain.Aluno;
 import java.io.IOException;
+import static java.util.Objects.isNull;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,8 +22,14 @@ public class AlunoEditarServlet extends HttpServlet {
         Long id = Long.parseLong(request.getParameter("id"));
         Aluno aluno = alunoService.buscarPorId(id);
 
-        request.setAttribute("aluno", aluno);
-        request.getRequestDispatcher("editarAluno.jsp").forward(request, response);
+        if (isNull(aluno)) {
+            request.setAttribute("mensagem", "Erro ao buscar aluno.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
+        } else {
+            request.setAttribute("aluno", aluno);
+            request.getRequestDispatcher("editarAluno.jsp").forward(request, response);
+        }
     }
 
     @Override
