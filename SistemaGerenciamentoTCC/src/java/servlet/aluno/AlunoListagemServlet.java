@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import service.aluno.AlunoService;
 import service.aluno.AlunoServiceImpl;
+import static java.util.Objects.isNull;
 
 public class AlunoListagemServlet extends HttpServlet {
 
@@ -18,8 +19,9 @@ public class AlunoListagemServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Aluno> alunos = alunoService.listar();
+        request.setAttribute("erro", isNull(alunos));
         request.setAttribute("alunos", alunos);
-        request.getRequestDispatcher("listagemaluno.jsp").forward(request, response);
+        request.getRequestDispatcher("listagemAluno.jsp").forward(request, response);
     }
 
 }

@@ -1,6 +1,6 @@
 -- Criação do banco de dados tcc
-CREATE DATABASE `tcc` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `tcc`;
+CREATE DATABASE `ssi_tcc` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `ssi_tcc`;
 
 -- Criação da tabela Aluno
 

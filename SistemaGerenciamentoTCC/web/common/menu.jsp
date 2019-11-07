@@ -3,10 +3,8 @@
 
         <li>Alunos
             <ul> 
-                <li><a href="../../SistemaGerenciamentoTCC/cadastroaluno.jsp">Cadastrar</a></li> 
-                <li><a href="#">Editar</a></li> 
-                <li><a href="AlunoListagemServlet">Listar</a></li> 
-                <li><a href="#">Deletar</a></li> 
+                <li><a href="../../SistemaGerenciamentoTCC/cadastroAluno.jsp">Cadastrar</a></li> 
+                <li><a href="AlunoListagemServlet">Listar, Editar ou desativar</a></li> 
             </ul> 
         </li>
         <li>Professores

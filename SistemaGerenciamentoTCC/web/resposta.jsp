@@ -10,8 +10,7 @@
         <link rel="stylesheet" type="text/css"  href="css/estilo.css" />
     </head>
     <body>
-        <div class="area-resposta">
-            
+        <div class="area-resposta">       
             <div class="alert ${areaResposta}">${mensagem}</div>
             <a href="index.jsp" class="btn btn-secondary btn-block">Voltar a página inicial</a>
         </div>
