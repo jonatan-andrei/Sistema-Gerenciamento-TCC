@@ -11,7 +11,7 @@ import service.aluno.AlunoService;
 import service.aluno.AlunoServiceImpl;
 import static java.util.Objects.isNull;
 
-public class AlunoListagemServlet extends HttpServlet {
+public class AlunoListarServlet extends HttpServlet {
 
     private static final AlunoService alunoService = new AlunoServiceImpl();
 
@@ -19,9 +19,15 @@ public class AlunoListagemServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Aluno> alunos = alunoService.listar();
-        request.setAttribute("erro", isNull(alunos));
-        request.setAttribute("alunos", alunos);
-        request.getRequestDispatcher("listagemAluno.jsp").forward(request, response);
+
+        if (isNull(alunos)) {
+            request.setAttribute("mensagem", "Erro ao buscar alunos.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
+        } else {
+            request.setAttribute("alunos", alunos);
+            request.getRequestDispatcher("listarAluno.jsp").forward(request, response);
+        }
     }
 
 }

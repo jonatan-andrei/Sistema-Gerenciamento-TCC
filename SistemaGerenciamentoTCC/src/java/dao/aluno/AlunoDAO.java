@@ -8,6 +8,8 @@ public interface AlunoDAO {
     boolean cadastrar(Aluno aluno);
 
     boolean editar(Aluno aluno);
+    
+    Aluno buscarPorId(Long idAluno);
 
     List<Aluno> listar();
 

@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import service.aluno.AlunoService;
 import service.aluno.AlunoServiceImpl;
 
-public class AlunoCadastroServlet extends HttpServlet {
+public class AlunoCadastrarServlet extends HttpServlet {
 
     private static final AlunoService alunoService = new AlunoServiceImpl();
 
@@ -35,7 +35,7 @@ public class AlunoCadastroServlet extends HttpServlet {
 
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("areaResposta", areaResposta);
-        request.getRequestDispatcher("resposta.jsp").forward(request, response);
+        request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
     }
 
 }

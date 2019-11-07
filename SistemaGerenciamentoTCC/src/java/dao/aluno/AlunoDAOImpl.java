@@ -75,6 +75,30 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
     }
 
     @Override
+    public Aluno buscarPorId(Long idAluno) {
+        Aluno aluno = null;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        try {
+            conexao = criarConexao();
+            String sql = "SELECT * FROM Aluno WHERE id_aluno = ?";
+            pstmt = conexao.prepareCall(sql);
+            pstmt.setLong(1, idAluno);
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                aluno = new Aluno(rs.getLong("id_aluno"), rs.getString("nome"), rs.getString("email"), rs.getString("matricula"), rs.getString("telefone"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt, rs);
+        return aluno;
+    }
+
+    @Override
     public List<Aluno> listar() {
         // Busca alunos cadastrados
         List<Aluno> alunos = null;

@@ -29,7 +29,7 @@ public class AlunoDesativarServlet extends HttpServlet {
 
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("areaResposta", areaResposta);
-        request.getRequestDispatcher("resposta.jsp").forward(request, response);
+        request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
     }
 
 }

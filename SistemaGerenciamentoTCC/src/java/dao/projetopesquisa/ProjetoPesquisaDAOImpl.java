@@ -38,7 +38,6 @@ public class ProjetoPesquisaDAOImpl extends ConexaoDAO implements ProjetoPesquis
 
     @Override
     public List<ProjetoPesquisa> buscar() {
-        boolean sucesso;
         List<ProjetoPesquisa> projetos = null;
         Connection conexao = null;
         PreparedStatement pstmt = null;
@@ -53,10 +52,8 @@ public class ProjetoPesquisaDAOImpl extends ConexaoDAO implements ProjetoPesquis
                 ProjetoPesquisa projeto = new ProjetoPesquisa(rs.getLong("id_projeto_pesquisa"), rs.getString("nome"), rs.getString("descricao"));
                 projetos.add(projeto);
             }
-            sucesso = true;
         } catch (Exception e) {
             e.printStackTrace();
-            sucesso = false;
         }
         fecharConexao(conexao, pstmt, rs);
         return projetos;

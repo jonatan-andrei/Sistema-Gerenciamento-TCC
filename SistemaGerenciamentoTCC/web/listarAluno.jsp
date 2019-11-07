@@ -12,11 +12,7 @@
     </head>
     <body>
         <div class="area-resposta">
-            <c:if test="${erro}">
-                <div class="alert alert-danger">Erro ao buscar alunos</div>
-            </c:if>
-
-            <c:if test="${empty alunos && !erro}">
+            <c:if test="${empty alunos}">
                 <div class="alert alert-danger">Sem alunos cadastrados</div>
             </c:if>
             <c:if test="${not empty alunos}">
@@ -39,7 +35,7 @@
                                 <td>${aluno.email}</td>
                                 <td>${aluno.matricula}</td>
                                 <td>${aluno.telefone}</td>
-                                <td><i class="fa fa-pencil fa-2x"></i></td>
+                                <td><a href='AlunoEditarServlet?id=${aluno.id}'><i class="fa fa-pencil fa-2x"></i></a></td>
                                 <td><a href='AlunoDesativarServlet?id=${aluno.id}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>
                         </c:forEach>

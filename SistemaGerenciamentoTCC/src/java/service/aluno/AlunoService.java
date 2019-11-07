@@ -9,6 +9,8 @@ public interface AlunoService {
 
     boolean editar(Long idAluno, String nome, String email, String matricula, String telefone);
 
+    Aluno buscarPorId(Long idAluno);
+
     List<Aluno> listar();
 
     boolean desativar(Long idAluno);
