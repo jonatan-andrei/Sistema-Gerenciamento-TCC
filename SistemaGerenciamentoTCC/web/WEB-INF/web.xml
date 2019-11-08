@@ -12,6 +12,22 @@
         <servlet-name>AlunoDesativarServlet</servlet-name>
         <servlet-class>servlet.aluno.AlunoDesativarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfessorCadastrarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorCadastrarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessorEditarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorEditarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessorDesativarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorDesativarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessorListarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorListarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoCadastrarServlet</servlet-name>
         <url-pattern>/AlunoCadastrarServlet</url-pattern>
@@ -23,6 +39,22 @@
     <servlet-mapping>
         <servlet-name>AlunoDesativarServlet</servlet-name>
         <url-pattern>/AlunoDesativarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorCadastrarServlet</servlet-name>
+        <url-pattern>/ProfessorCadastrarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorEditarServlet</servlet-name>
+        <url-pattern>/ProfessorEditarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorDesativarServlet</servlet-name>
+        <url-pattern>/ProfessorDesativarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorListarServlet</servlet-name>
+        <url-pattern>/ProfessorListarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

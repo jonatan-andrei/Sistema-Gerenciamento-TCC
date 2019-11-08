@@ -35,7 +35,7 @@ public class AlunoCadastrarServlet extends HttpServlet {
 
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("areaResposta", areaResposta);
-        request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
+        request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
     }
 
 }

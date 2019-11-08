@@ -23,10 +23,10 @@ public class AlunoListarServlet extends HttpServlet {
         if (isNull(alunos)) {
             request.setAttribute("mensagem", "Erro ao buscar alunos.");
             request.setAttribute("areaResposta", "alert-danger");
-            request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
         } else {
             request.setAttribute("alunos", alunos);
-            request.getRequestDispatcher("listarAluno.jsp").forward(request, response);
+            request.getRequestDispatcher("listarAlunos.jsp").forward(request, response);
         }
     }
 

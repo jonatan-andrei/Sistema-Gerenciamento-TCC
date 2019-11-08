@@ -15,7 +15,7 @@
         </li>
         <li>Propostas TCC
             <ul> 
-                <li><a href="#">Enviar escolha do tema</a></li> 
+                <li><a href="#">Enviar escolha do tema e do orientador</a></li> 
                 <li><a href="#">Enviar artigo final</a></li> 
                 <li><a href="#">Listar ou Editar</a></li> 
                 <li><a href="#">Remover</a></li> 
