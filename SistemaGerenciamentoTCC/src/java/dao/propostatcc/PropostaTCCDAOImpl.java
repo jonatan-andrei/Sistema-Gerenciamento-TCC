@@ -84,6 +84,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             sql.append(" ON sugestao.id_aluno_autor = aluno.id_aluno ");
             sql.append(" INNER JOIN professor ");
             sql.append(" ON proposta.id_professor_orientador = professor.id_professor ");
+            sql.append(" WHERE proposta.ativo = 'S' AND aluno.ativo = 'S' ");
             pstmt = conexao.prepareCall(sql.toString());
             rs = pstmt.executeQuery();
             propostas = new ArrayList();

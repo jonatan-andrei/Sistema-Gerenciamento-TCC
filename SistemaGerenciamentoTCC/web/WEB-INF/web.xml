@@ -32,6 +32,30 @@
         <servlet-name>SugestaoTCCServlet</servlet-name>
         <servlet-class>servlet.sugestaotcc.SugestaoTCCServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCCadastrarServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCCadastrarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCCadastrarViaSugestaoServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCCadastrarViaSugestaoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCEnviarArtigoServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCEnviarArtigoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCDesativarServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCDesativarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCListarServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCListarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProjetoPesquisaServlet</servlet-name>
+        <servlet-class>servlet.projetopesquisa.ProjetoPesquisaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoCadastrarServlet</servlet-name>
         <url-pattern>/AlunoCadastrarServlet</url-pattern>
@@ -63,6 +87,30 @@
     <servlet-mapping>
         <servlet-name>SugestaoTCCServlet</servlet-name>
         <url-pattern>/SugestaoTCCServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCCadastrarServlet</servlet-name>
+        <url-pattern>/PropostaTCCCadastrarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCCadastrarViaSugestaoServlet</servlet-name>
+        <url-pattern>/PropostaTCCCadastrarViaSugestaoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCEnviarArtigoServlet</servlet-name>
+        <url-pattern>/PropostaTCCEnviarArtigoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCDesativarServlet</servlet-name>
+        <url-pattern>/PropostaTCCDesativarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCListarServlet</servlet-name>
+        <url-pattern>/PropostaTCCListarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProjetoPesquisaServlet</servlet-name>
+        <url-pattern>/ProjetoPesquisaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

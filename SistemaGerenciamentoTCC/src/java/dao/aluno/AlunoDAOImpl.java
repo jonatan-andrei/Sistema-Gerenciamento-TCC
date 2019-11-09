@@ -125,6 +125,34 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
     }
 
     @Override
+    public List<Aluno> buscarQueNaoEnviaramProposta() {
+        // Busca alunos que não enviaram proposta
+        List<Aluno> alunos = null;
+
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT * FROM Aluno a WHERE ativo = 'S' AND a.id_aluno NOT IN ");
+            sql.append(" (Select p.id_aluno_autor FROM Proposta_TCC p where p.ativo = 'S') ");
+            pstmt = conexao.prepareCall(sql.toString());
+            rs = pstmt.executeQuery();
+            alunos = new ArrayList();
+            while (rs.next()) {
+                Aluno aluno = new Aluno(rs.getLong("id_aluno"), rs.getString("nome"), rs.getString("email"), rs.getString("matricula"), rs.getString("telefone"));
+                alunos.add(aluno);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt, rs);
+        // Retorna a lista de alunos encontrados
+        return alunos;
+    }
+
+    @Override
     public boolean desativar(Long idAluno) {
         boolean sucesso;
         Connection conexao = null;

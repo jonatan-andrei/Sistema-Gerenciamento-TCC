@@ -73,7 +73,7 @@ public class ProfessorEditarServlet extends HttpServlet {
             mensagem = "Professor editado com sucesso.";
         } else {
             areaResposta = "alert-danger";
-            mensagem = "Erro ao editae professor.";
+            mensagem = "Erro ao editar professor.";
         }
 
         request.setAttribute("mensagem", mensagem);

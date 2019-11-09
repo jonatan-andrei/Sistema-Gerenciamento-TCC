@@ -11,7 +11,6 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static java.util.Objects.isNull;
-import static java.util.Objects.nonNull;
 import java.util.stream.Collectors;
 import service.avaliacao.AvaliacaoService;
 import service.avaliacao.AvaliacaoServiceImpl;
@@ -28,29 +27,38 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
     private static final PropostaTCCDAO propostaTCCDAO = new PropostaTCCDAOImpl();
 
     @Override
-    public String cadastrarProposta(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea) {
+    public boolean cadastrarProposta(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea) {
         return cadastrar(titulo, descricao, idAluno, idProfessor, idArea, null);
     }
 
     @Override
-    public String cadastrarViaSugestao(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao) {
+    public boolean cadastrarViaSugestao(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao) {
         sugestaoTCCService.escolherSugestao(idSugestao);
         return cadastrar(titulo, descricao, idAluno, idProfessor, idArea, idSugestao);
     }
 
     @Override
-    public String enviarArtigoFinal(Long idPropostaTCC, String artigo) {
-        boolean sucesso = propostaTCCDAO.enviarArtigoFinal(idPropostaTCC, artigo);
-        return sucesso ? "Artigo enviado com sucesso!" : "Erro na conexão com o banco de dados.";
+    public boolean enviarArtigoFinal(Long idPropostaTCC, String artigo) {
+        return propostaTCCDAO.enviarArtigoFinal(idPropostaTCC, artigo);
     }
 
     @Override
-    public String desativarTCC(Long idPropostaTCC) {
+    public PropostaTCC buscarPorId(Long idPropostaTCC) {
+        return propostaTCCDAO.buscarPorId(idPropostaTCC);
+    }
+
+    @Override
+    public List<PropostaTCC> listar() {
+        return propostaTCCDAO.listar();
+    }
+
+    @Override
+    public boolean desativarTCC(Long idPropostaTCC) {
         boolean sucesso = propostaTCCDAO.desativar(idPropostaTCC);
         if (sucesso) {
             removerBanca(idPropostaTCC, true);
         }
-        return sucesso ? "Proposta de TCC desativada com sucesso" : "Erro na conexão com o banco de dados.";
+        return sucesso;
     }
 
     @Override
@@ -72,10 +80,10 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
 
         // Salva a nova banca
         propostaTCCDAO.salvarBanca(idPropostaTCC, professores);
-        
+
         // Aumenta a carga de trabalho dos professores
         professorService.aumentarCargaDeTrabalho(professores);
-        
+
         return "Banca salva com sucesso";
     }
 
@@ -137,15 +145,11 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
         return sucesso ? "Banca removida com sucesso!" : "Erro na conexão com o banco de dados.";
     }
 
-    private String cadastrar(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao) {
-        PropostaTCC propostaSalva = propostaTCCDAO.buscarPorAluno(idAluno);
-        if (nonNull(propostaSalva)) {
-            return "O aluno já cadastrou uma proposta de TCC. Desative-a para cadastrar outra proposta.";
-        }
+    private boolean cadastrar(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao) {
         boolean sucesso = propostaTCCDAO.enviarTema(new PropostaTCC(titulo, descricao), idAluno, idProfessor, idSugestao, idArea);
         if (sucesso) {
             professorService.aumentarCargaDeTrabalho(Arrays.asList(idProfessor));
         }
-        return sucesso ? "Proposta de TCC salva com sucesso" : "Erro na conexão com o banco de dados.";
+        return sucesso;
     }
 }

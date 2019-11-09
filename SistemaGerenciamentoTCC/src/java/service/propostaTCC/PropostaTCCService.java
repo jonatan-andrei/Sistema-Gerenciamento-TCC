@@ -1,18 +1,23 @@
 package service.propostaTCC;
 
 import domain.Professor;
+import domain.PropostaTCC;
 import java.util.List;
 
 public interface PropostaTCCService {
 
-    String cadastrarProposta(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea);
+    boolean cadastrarProposta(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea);
 
-    String cadastrarViaSugestao(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao);
+    boolean cadastrarViaSugestao(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea, Long idSugestao);
 
-    String enviarArtigoFinal(Long idPropostaTCC, String artigo);
-    
-    String desativarTCC(Long idPropostaTCC);
-    
+    boolean enviarArtigoFinal(Long idPropostaTCC, String artigo);
+
+    List<PropostaTCC> listar();
+
+    boolean desativarTCC(Long idPropostaTCC);
+
+    PropostaTCC buscarPorId(Long idPropostaTCC);
+
     String salvarBanca(Long idPropostaTCC, List<Long> professores);
 
     List<Professor> indicarBanca(Long idPropostaTCC);

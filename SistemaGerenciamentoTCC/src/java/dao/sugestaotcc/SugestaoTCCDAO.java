@@ -10,5 +10,7 @@ public interface SugestaoTCCDAO {
     List<SugestaoTCC> buscarSugestoesDeProfessor(Long idProfessor);
 
     void escolherSugestao(Long idSugestaoTCC);
+    
+    SugestaoTCC buscarPorId(Long idSugestaoTCC);
 
 }

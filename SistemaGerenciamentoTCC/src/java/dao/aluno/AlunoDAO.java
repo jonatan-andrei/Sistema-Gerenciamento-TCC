@@ -10,6 +10,8 @@ public interface AlunoDAO {
     boolean editar(Aluno aluno);
     
     Aluno buscarPorId(Long idAluno);
+    
+    List<Aluno> buscarQueNaoEnviaramProposta();
 
     List<Aluno> listar();
 

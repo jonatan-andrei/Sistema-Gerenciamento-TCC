@@ -1,6 +1,7 @@
 package dao.sugestaotcc;
 
 import dao.conexao.ConexaoDAO;
+import domain.Professor;
 import domain.ProjetoPesquisa;
 import domain.SugestaoTCC;
 import java.sql.Connection;
@@ -88,6 +89,39 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
             ex.printStackTrace();
         }
         fecharConexao(conexao, pstmt);
+    }
+
+    @Override
+    public SugestaoTCC buscarPorId(Long idSugestaoTCC) {
+        SugestaoTCC sugestao = null;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT sugestao.*, pp.*, professor.* FROM Sugestao_TCC sugestao ");
+            sql.append(" INNER JOIN professor p ON ");
+            sql.append(" sugestao.id_professor_criador = professor.id_professor ");
+            sql.append(" LEFT JOIN Projeto_Pesquisa pp on ");
+            sql.append(" sugestao.id_projeto_pesquisa = pp.id_projeto_pesquisa ");
+            sql.append(" WHERE sugestao.id_sugestao_tcc = ? ");
+            pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, idSugestaoTCC);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                ProjetoPesquisa projeto = null;
+                if (nonNull(rs.getLong("sugestao.id_projeto_pesquisa"))) {
+                    projeto = new ProjetoPesquisa(rs.getLong("pp.id_projeto_pesquisa"), rs.getString("pp.nome"), rs.getString("pp.descricao"));
+                }
+                Professor professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));
+                sugestao = new SugestaoTCC(rs.getLong("sugestao.id_sugestao"), rs.getString("sugestao.descricao"), rs.getString("sugestao.escolhida"), projeto, professor);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt, rs);
+        return sugestao;
     }
 
 }
