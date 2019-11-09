@@ -28,6 +28,10 @@
         <servlet-name>ProfessorListarServlet</servlet-name>
         <servlet-class>servlet.professor.ProfessorListarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SugestaoTCCServlet</servlet-name>
+        <servlet-class>servlet.sugestaotcc.SugestaoTCCServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoCadastrarServlet</servlet-name>
         <url-pattern>/AlunoCadastrarServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>ProfessorListarServlet</servlet-name>
         <url-pattern>/ProfessorListarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SugestaoTCCServlet</servlet-name>
+        <url-pattern>/SugestaoTCCServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

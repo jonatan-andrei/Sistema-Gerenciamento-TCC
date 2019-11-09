@@ -1,6 +1,5 @@
 package servlet.professor;
 
-import domain.Aluno;
 import domain.Professor;
 import java.io.IOException;
 import java.util.List;

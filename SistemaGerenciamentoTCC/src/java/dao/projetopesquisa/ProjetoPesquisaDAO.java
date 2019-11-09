@@ -7,6 +7,6 @@ public interface ProjetoPesquisaDAO {
     
     boolean salvar(ProjetoPesquisa projetoPesquisa);
     
-    List<ProjetoPesquisa> buscar();
+    List<ProjetoPesquisa> listar();
     
 }
