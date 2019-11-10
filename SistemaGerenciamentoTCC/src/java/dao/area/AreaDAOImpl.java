@@ -12,6 +12,32 @@ import java.util.List;
 public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
 
     @Override
+    public List<Area> listar() {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        List<Area> areas = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT * FROM area ");
+            pstmt = conexao.prepareCall(sql.toString());
+            rs = pstmt.executeQuery();
+            areas = new ArrayList();
+            while (rs.next()) {
+                Area area = new Area(rs.getLong("id_area"), rs.getString("nome"), rs.getString("descricao"));
+                areas.add(area);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt, rs);
+        // Retorna a lista de areas de interesse cadastradas
+        return areas;
+    }
+
+    @Override
     public void salvarAreasDeInteresse(Long idProfessor, List<Long> areas) {
         // Salva as áreas de interesse do professor
         Connection conexao = null;
@@ -105,6 +131,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
             sql.append(" ON pa.id_area = area.id_area ");
             sql.append(" WHERE pa.id_professor = ? ");
             pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, idProfessor);
             rs = pstmt.executeQuery();
             areas = new ArrayList();
             while (rs.next()) {

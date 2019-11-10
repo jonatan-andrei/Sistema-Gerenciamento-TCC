@@ -1,30 +1,30 @@
-package servlet.aluno;
+package servlet.propostatcc;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.aluno.AlunoService;
-import service.aluno.AlunoServiceImpl;
+import service.propostaTCC.PropostaTCCService;
+import service.propostaTCC.PropostaTCCServiceImpl;
 
-public class AlunoDesativarServlet extends HttpServlet {
+public class PropostaTCCDesativarServlet extends HttpServlet {
 
-    private static final AlunoService alunoService = new AlunoServiceImpl();
+    private static final PropostaTCCService propostaTCCService = new PropostaTCCServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        boolean sucesso = alunoService.desativar(id);
+        boolean sucesso = propostaTCCService.desativarTCC(id);
         String mensagem;
         String areaResposta;
         if (sucesso) {
             areaResposta = "alert-success";
-            mensagem = "Aluno desativado com sucesso.";
+            mensagem = "Proposta de TCC desativada com sucesso.";
         } else {
             areaResposta = "alert-danger";
-            mensagem = "Erro ao desativar aluno.";
+            mensagem = "Erro ao desativar Proposta de TCC.";
         }
 
         request.setAttribute("mensagem", mensagem);

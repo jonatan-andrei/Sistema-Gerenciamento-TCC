@@ -11,6 +11,8 @@ public interface AlunoService {
 
     Aluno buscarPorId(Long idAluno);
 
+    List<Aluno> buscarQueNaoEnviaramProposta();
+
     List<Aluno> listar();
 
     boolean desativar(Long idAluno);

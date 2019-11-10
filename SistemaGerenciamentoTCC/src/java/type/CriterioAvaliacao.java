@@ -1,5 +1,7 @@
 package type;
 
+import java.util.Arrays;
+
 public enum CriterioAvaliacao {
 
     USO_DE_LINGUAGEM("O texto está escrito com uma linguagem formal, sem erros de pontuação, acentuação ou de estrutura gramatical."),
@@ -12,6 +14,12 @@ public enum CriterioAvaliacao {
 
     private CriterioAvaliacao(String descricao) {
         this.descricao = descricao;
+    }
+
+    public static CriterioAvaliacao buscarPorString(String string) {
+        return Arrays.asList(values()).stream()
+                .filter(criterio -> criterio.name().equals(string))
+                .findFirst().orElse(null);
     }
 
 }

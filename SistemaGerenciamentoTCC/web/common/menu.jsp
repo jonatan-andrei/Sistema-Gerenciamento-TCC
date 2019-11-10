@@ -15,10 +15,8 @@
         </li>
         <li>Propostas TCC
             <ul> 
-                <li><a href="#">Enviar tema</a></li> 
-                <li><a href="#">Enviar artigo final</a></li> 
-                <li><a href="#">Listar ou Editar</a></li> 
-                <li><a href="#">Remover</a></li> 
+                <li><a href="#">Enviar escolha do tema e do orientador</a></li> 
+                <li><a href="#">Listar, Enviar artigo ou Remover</a></li> 
             </ul> 
         </li>
         <li>Sugestões de Projetos
@@ -30,18 +28,6 @@
         <li>Projetos de Pesquisa
             <ul> 
                 <li><a href="#">Cadastrar</a></li> 
-            </ul> 
-        </li>
-        <li>Banca Avaliadora
-            <ul> 
-                <li><a href="#">Cadastrar</a></li> 
-                <li><a href="#">Visualizar, Editar ou Excluir</a></li> 
-            </ul> 
-        </li>
-        <li>Avaliações
-            <ul> 
-                <li><a href="#">Cadastrar</a></li> 
-                <li><a href="#">Listar, Editar ou Excluir</a></li> 
             </ul> 
         </li>
 

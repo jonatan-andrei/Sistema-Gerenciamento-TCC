@@ -12,6 +12,70 @@
         <servlet-name>AlunoDesativarServlet</servlet-name>
         <servlet-class>servlet.aluno.AlunoDesativarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfessorCadastrarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorCadastrarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessorEditarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorEditarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessorDesativarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorDesativarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfessorListarServlet</servlet-name>
+        <servlet-class>servlet.professor.ProfessorListarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SugestaoTCCServlet</servlet-name>
+        <servlet-class>servlet.sugestaotcc.SugestaoTCCServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCCadastrarServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCCadastrarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCCadastrarViaSugestaoServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCCadastrarViaSugestaoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCEnviarArtigoServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCEnviarArtigoServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCDesativarServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCDesativarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCListarServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCListarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProjetoPesquisaServlet</servlet-name>
+        <servlet-class>servlet.projetopesquisa.ProjetoPesquisaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCSalvarBancaServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCSalvarBancaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCRemoverBancaServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCRemoverBancaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AvaliacaoCadastrarServlet</servlet-name>
+        <servlet-class>servlet.avaliacao.AvaliacaoCadastrarServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AvaliacaoRemoverServlet</servlet-name>
+        <servlet-class>servlet.avaliacao.AvaliacaoRemoverServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AvaliacaoEditarServlet</servlet-name>
+        <servlet-class>servlet.avaliacao.AvaliacaoEditarServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoCadastrarServlet</servlet-name>
         <url-pattern>/AlunoCadastrarServlet</url-pattern>
@@ -23,6 +87,70 @@
     <servlet-mapping>
         <servlet-name>AlunoDesativarServlet</servlet-name>
         <url-pattern>/AlunoDesativarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorCadastrarServlet</servlet-name>
+        <url-pattern>/ProfessorCadastrarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorEditarServlet</servlet-name>
+        <url-pattern>/ProfessorEditarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorDesativarServlet</servlet-name>
+        <url-pattern>/ProfessorDesativarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfessorListarServlet</servlet-name>
+        <url-pattern>/ProfessorListarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SugestaoTCCServlet</servlet-name>
+        <url-pattern>/SugestaoTCCServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCCadastrarServlet</servlet-name>
+        <url-pattern>/PropostaTCCCadastrarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCCadastrarViaSugestaoServlet</servlet-name>
+        <url-pattern>/PropostaTCCCadastrarViaSugestaoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCEnviarArtigoServlet</servlet-name>
+        <url-pattern>/PropostaTCCEnviarArtigoServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCDesativarServlet</servlet-name>
+        <url-pattern>/PropostaTCCDesativarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCListarServlet</servlet-name>
+        <url-pattern>/PropostaTCCListarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProjetoPesquisaServlet</servlet-name>
+        <url-pattern>/ProjetoPesquisaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCSalvarBancaServlet</servlet-name>
+        <url-pattern>/PropostaTCCSalvarBancaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCRemoverBancaServlet</servlet-name>
+        <url-pattern>/PropostaTCCRemoverBancaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AvaliacaoCadastrarServlet</servlet-name>
+        <url-pattern>/AvaliacaoCadastrarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AvaliacaoRemoverServlet</servlet-name>
+        <url-pattern>/AvaliacaoRemoverServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AvaliacaoEditarServlet</servlet-name>
+        <url-pattern>/AvaliacaoEditarServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -1,30 +1,30 @@
-package servlet.aluno;
+package servlet.avaliacao;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import service.aluno.AlunoService;
-import service.aluno.AlunoServiceImpl;
+import service.avaliacao.AvaliacaoService;
+import service.avaliacao.AvaliacaoServiceImpl;
 
-public class AlunoDesativarServlet extends HttpServlet {
+public class AvaliacaoRemoverServlet extends HttpServlet {
 
-    private static final AlunoService alunoService = new AlunoServiceImpl();
+    private static final AvaliacaoService avaliacaoService = new AvaliacaoServiceImpl();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long id = Long.parseLong(request.getParameter("id"));
-        boolean sucesso = alunoService.desativar(id);
+        boolean sucesso = avaliacaoService.deletarAvaliacao(id);
         String mensagem;
         String areaResposta;
         if (sucesso) {
             areaResposta = "alert-success";
-            mensagem = "Aluno desativado com sucesso.";
+            mensagem = "Avaliação excluída com sucesso.";
         } else {
             areaResposta = "alert-danger";
-            mensagem = "Erro ao desativar aluno.";
+            mensagem = "Erro ao excluir avaliação.";
         }
 
         request.setAttribute("mensagem", mensagem);

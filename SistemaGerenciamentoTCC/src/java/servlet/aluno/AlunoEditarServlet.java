@@ -25,7 +25,7 @@ public class AlunoEditarServlet extends HttpServlet {
         if (isNull(aluno)) {
             request.setAttribute("mensagem", "Erro ao buscar aluno.");
             request.setAttribute("areaResposta", "alert-danger");
-            request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
         } else {
             request.setAttribute("aluno", aluno);
             request.getRequestDispatcher("editarAluno.jsp").forward(request, response);
@@ -55,6 +55,6 @@ public class AlunoEditarServlet extends HttpServlet {
 
         request.setAttribute("mensagem", mensagem);
         request.setAttribute("areaResposta", areaResposta);
-        request.getRequestDispatcher("respostaOperacao.jsp").forward(request, response);
+        request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
     }
 }

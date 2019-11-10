@@ -37,7 +37,7 @@ public class ProjetoPesquisaDAOImpl extends ConexaoDAO implements ProjetoPesquis
     }
 
     @Override
-    public List<ProjetoPesquisa> buscar() {
+    public List<ProjetoPesquisa> listar() {
         List<ProjetoPesquisa> projetos = null;
         Connection conexao = null;
         PreparedStatement pstmt = null;

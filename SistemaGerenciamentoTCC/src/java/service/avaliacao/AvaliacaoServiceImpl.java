@@ -47,14 +47,27 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
 
     @Override
     public List<Avaliacao> buscarPorTCC(Long idPropostaTCC) {
-        return avaliacaoDAO.buscarPorTCC(idPropostaTCC);
+        List<Avaliacao> avaliacoes = avaliacaoDAO.buscarPorTCC(idPropostaTCC);
+        if (nonNull(avaliacoes)) {
+            avaliacoes.forEach(a -> a.setObservacoesPorCriterio(avaliacaoDAO.buscarCriteriosPorAvaliacao(a.getIdAvaliacao())));
+        }
+        return avaliacoes;
+    }
+
+    @Override
+    public Avaliacao buscarPorId(Long idAvaliacao) {
+        Avaliacao avaliacao = avaliacaoDAO.buscarPorId(idAvaliacao);
+        if (nonNull(avaliacao)){
+            avaliacao.setObservacoesPorCriterio(avaliacaoDAO.buscarCriteriosPorAvaliacao(idAvaliacao));
+        }
+        return avaliacao;
     }
 
     @Override
     public boolean deletarAvaliacao(Long idAvaliacao) {
-        boolean sucesso = avaliacaoDAO.deletar(idAvaliacao);
+        boolean sucesso = avaliacaoDAO.deletarCriteriosAvaliacao(idAvaliacao);
         if (sucesso) {
-            avaliacaoDAO.deletarCriteriosAvaliacao(idAvaliacao);
+            avaliacaoDAO.deletar(idAvaliacao);
         }
         return sucesso;
     }

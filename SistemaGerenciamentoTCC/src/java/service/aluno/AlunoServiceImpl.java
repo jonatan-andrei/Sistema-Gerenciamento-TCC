@@ -25,6 +25,11 @@ public class AlunoServiceImpl implements AlunoService {
     }
 
     @Override
+    public List<Aluno> buscarQueNaoEnviaramProposta() {
+        return alunoDAO.buscarQueNaoEnviaramProposta();
+    }
+
+    @Override
     public List<Aluno> listar() {
         return alunoDAO.listar();
     }

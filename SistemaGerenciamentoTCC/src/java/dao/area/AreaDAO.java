@@ -4,6 +4,8 @@ import domain.Area;
 import java.util.List;
 
 public interface AreaDAO {
+    
+    List<Area> listar();
 
     void salvarAreasDeInteresse(Long idProfessor, List<Long> areas);
 
