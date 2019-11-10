@@ -2,7 +2,6 @@ package dao.propostatcc;
 
 import dao.conexao.ConexaoDAO;
 import domain.Aluno;
-import domain.Avaliacao;
 import domain.Professor;
 import domain.PropostaTCC;
 import java.sql.Connection;

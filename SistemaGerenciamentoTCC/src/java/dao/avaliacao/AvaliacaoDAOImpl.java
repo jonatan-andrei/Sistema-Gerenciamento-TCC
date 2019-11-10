@@ -7,6 +7,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -106,6 +107,56 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
     }
 
     @Override
+    public Avaliacao buscarPorId(Long idAvaliacao) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Avaliacao avaliacao = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT a.*, p.* FROM Avaliacao ");
+            sql.append(" INNER JOIN professor p ");
+            sql.append(" ON a.id_professor_avaliador = p.id_professor ");
+            sql.append(" WHERE a.id_avaliacao = ? ");
+            pstmt = conexao.prepareCall(sql.toString());
+            rs = pstmt.executeQuery();
+            while (rs.next()) {
+                Professor professor = new Professor(rs.getLong("p.id_professor"), rs.getString("p.nome"), rs.getString("p.email"), rs.getInt("p.carga_trabalho_semestre"));
+                avaliacao = new Avaliacao(rs.getLong("a.id_avaliacao"), rs.getDouble("a.nota_final"), rs.getString("a.parecer"), "S".equals(rs.getString("a.aprovado")), professor);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt, rs);
+        return avaliacao;
+    }
+
+    @Override
+    public Map<CriterioAvaliacao, String> buscarCriteriosPorAvaliacao(Long idAvaliacao) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        Map<CriterioAvaliacao, String> criterios = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT * FROM Avaliacao_Criterio ");
+            sql.append(" WHERE id_avaliacao = ? ");
+            pstmt = conexao.prepareCall(sql.toString());
+            rs = pstmt.executeQuery();
+            criterios = new HashMap<>();
+            while (rs.next()) {
+                criterios.put(CriterioAvaliacao.buscarPorString(rs.getString("criterio")), rs.getString("observacao"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(conexao, pstmt, rs);
+        return criterios;
+    }
+
+    @Override
     public List<Avaliacao> buscarPorTCC(Long idPropostaTCC) {
         List<Avaliacao> avaliacoes = null;
         Connection conexao = null;
@@ -189,7 +240,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
     }
 
     @Override
-    public void deletarCriteriosAvaliacao(Long idAvaliacao) {
+    public boolean deletarCriteriosAvaliacao(Long idAvaliacao) {
         Connection conexao = null;
         PreparedStatement pstmt = null;
         try {
@@ -203,7 +254,9 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         } catch (Exception ex) {
             // Em caso de erro inesperado, retorna false
             ex.printStackTrace();
+            return false;
         }
         fecharConexao(conexao, pstmt);
+        return true;
     }
 }

@@ -9,6 +9,8 @@ public interface AvaliacaoService {
 
     boolean editarAvaliacao(Long idAvaliacao, double notaFinal, String parecer, boolean aprovado, String usoDeLinguagem, String apresentacao, String estruturaDoTexto, String conteudoDoTexto, String relevanciaProfissional);
 
+    Avaliacao buscarPorId(Long idAvaliacao);
+
     List<Avaliacao> buscarPorTCC(Long idPropostaTCC);
 
     boolean deletarAvaliacao(Long idAvaliacao);
