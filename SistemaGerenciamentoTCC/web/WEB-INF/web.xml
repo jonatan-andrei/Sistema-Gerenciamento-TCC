@@ -56,6 +56,14 @@
         <servlet-name>ProjetoPesquisaServlet</servlet-name>
         <servlet-class>servlet.projetopesquisa.ProjetoPesquisaServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCSalvarBancaServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCSalvarBancaServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PropostaTCCRemoverBancaServlet</servlet-name>
+        <servlet-class>servlet.propostatcc.PropostaTCCRemoverBancaServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>AlunoCadastrarServlet</servlet-name>
         <url-pattern>/AlunoCadastrarServlet</url-pattern>
@@ -111,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>ProjetoPesquisaServlet</servlet-name>
         <url-pattern>/ProjetoPesquisaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCSalvarBancaServlet</servlet-name>
+        <url-pattern>/PropostaTCCSalvarBancaServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PropostaTCCRemoverBancaServlet</servlet-name>
+        <url-pattern>/PropostaTCCRemoverBancaServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

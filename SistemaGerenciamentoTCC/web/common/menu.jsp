@@ -30,18 +30,6 @@
                 <li><a href="#">Cadastrar</a></li> 
             </ul> 
         </li>
-        <li>Banca Avaliadora
-            <ul> 
-                <li><a href="#">Cadastrar</a></li> 
-                <li><a href="#">Visualizar, Editar ou Excluir</a></li> 
-            </ul> 
-        </li>
-        <li>Avaliações
-            <ul> 
-                <li><a href="#">Cadastrar</a></li> 
-                <li><a href="#">Listar, Editar ou Excluir</a></li> 
-            </ul> 
-        </li>
 
     </ul>
 </div>

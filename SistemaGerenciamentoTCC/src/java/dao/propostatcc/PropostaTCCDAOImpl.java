@@ -2,6 +2,7 @@ package dao.propostatcc;
 
 import dao.conexao.ConexaoDAO;
 import domain.Aluno;
+import domain.Avaliacao;
 import domain.Professor;
 import domain.PropostaTCC;
 import java.sql.Connection;
@@ -10,6 +11,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static java.util.Objects.nonNull;
 
 public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
 
@@ -78,20 +80,31 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT proposta.*, aluno.*, professor.* ");
+            sql.append(" SELECT proposta.*, aluno.*, orientador.*, avaliador1.*, avaliador2.* ");
             sql.append(" FROM Proposta_TCC proposta ");
             sql.append(" INNER JOIN aluno ");
             sql.append(" ON sugestao.id_aluno_autor = aluno.id_aluno ");
-            sql.append(" INNER JOIN professor ");
-            sql.append(" ON proposta.id_professor_orientador = professor.id_professor ");
+            sql.append(" INNER JOIN Professor orientador ");
+            sql.append(" ON proposta.id_professor_orientador = orientador.id_professor ");
+            sql.append(" LEFT JOIN professor avaliador1 ");
+            sql.append(" ON proposta.id_professor_avaliador_primeiro = avaliador1.id_professor ");
+            sql.append(" LEFT JOIN professor avaliador2 ");
+            sql.append(" ON proposta.id_professor_avaliador_segundo = avaliador2.id_professor ");
             sql.append(" WHERE proposta.ativo = 'S' AND aluno.ativo = 'S' ");
             pstmt = conexao.prepareCall(sql.toString());
             rs = pstmt.executeQuery();
             propostas = new ArrayList();
             while (rs.next()) {
                 Aluno aluno = new Aluno(rs.getLong("aluno.id_aluno"), rs.getString("aluno.nome"), rs.getString("aluno.email"), rs.getString("aluno.matricula"), rs.getString("aluno.telefone"));
-                Professor professor = new Professor(rs.getLong("professor.id_professor"), rs.getString("professor.nome"), rs.getString("professor.email"), rs.getInt("professor.carga_trabalho_semestre"));
-                PropostaTCC proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor);
+                Professor professor = new Professor(rs.getLong("orientador.id_professor"), rs.getString("orientador.nome"), rs.getString("orientador.email"), rs.getInt("orientador.carga_trabalho_semestre"));
+                List<Professor> banca = new ArrayList<>();
+                if (nonNull(rs.getLong("proposta.id_professor_avaliador_primeiro"))) {
+                    banca.add(new Professor(rs.getLong("avaliador1.id_professor"), rs.getString("avaliador1.nome"), rs.getString("avaliador1.email"), rs.getInt("avaliador1.carga_trabalho_semestre")));
+                }
+                if (nonNull(rs.getLong("proposta.id_professor_avaliador_segundo"))) {
+                    banca.add(new Professor(rs.getLong("avaliador2.id_professor"), rs.getString("avaliador2.nome"), rs.getString("avaliador2.email"), rs.getInt("avaliador2.carga_trabalho_semestre")));
+                }
+                PropostaTCC proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor, banca);
                 propostas.add(proposta);
             }
         } catch (Exception e) {
@@ -235,10 +248,11 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idPropostaTCC);
             rs = pstmt.executeQuery();
+            professores = new ArrayList<>();
             if (rs.next()) {
                 Professor avaliador1 = new Professor(rs.getLong("avaliador1.id_professor"), rs.getString("avaliador1.nome"), rs.getString("avaliador1.email"), rs.getInt("avaliador1.carga_trabalho_semestre"));
                 Professor avaliador2 = new Professor(rs.getLong("avaliador2.id_professor"), rs.getString("avaliador2.nome"), rs.getString("avaliador2.email"), rs.getInt("avaliador2.carga_trabalho_semestre"));
-                professores = Arrays.asList(avaliador1, avaliador2);
+                professores.addAll(Arrays.asList(avaliador1, avaliador2));
             }
         } catch (Exception e) {
             e.printStackTrace();

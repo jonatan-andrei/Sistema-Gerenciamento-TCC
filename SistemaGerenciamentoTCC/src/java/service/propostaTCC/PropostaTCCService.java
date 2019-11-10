@@ -26,5 +26,5 @@ public interface PropostaTCCService {
 
     List<Professor> verBancaEOrientador(Long idPropostaTCC);
 
-    String removerBanca(Long idPropostaTCC, boolean incluiOrientador);
+    boolean removerBanca(Long idPropostaTCC);
 }

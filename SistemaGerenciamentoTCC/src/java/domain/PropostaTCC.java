@@ -1,6 +1,7 @@
 package domain;
 
 import java.util.List;
+import type.StatusPropostaTCC;
 
 public class PropostaTCC {
 
@@ -18,6 +19,7 @@ public class PropostaTCC {
     private boolean aprovado;
     private List<Professor> banca;
     private boolean ativo;
+    private StatusPropostaTCC status;
 
     public PropostaTCC(String titulo, String descricao) {
         this.titulo = titulo;
@@ -31,6 +33,16 @@ public class PropostaTCC {
         this.artigo = artigo;
         this.autor = autor;
         this.orientador = orientador;
+    }
+
+    public PropostaTCC(Long idPropostaTCC, String titulo, String descricao, String artigo, Aluno autor, Professor orientador, List<Professor> banca) {
+        this.idPropostaTCC = idPropostaTCC;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.artigo = artigo;
+        this.autor = autor;
+        this.orientador = orientador;
+        this.banca = banca;
     }
 
     public Long getIdPropostaTCC() {
@@ -143,5 +155,13 @@ public class PropostaTCC {
 
     public void setAtivo(boolean ativo) {
         this.ativo = ativo;
+    }
+
+    public StatusPropostaTCC getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusPropostaTCC status) {
+        this.status = status;
     }
 }
