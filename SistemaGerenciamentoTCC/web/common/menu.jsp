@@ -10,7 +10,7 @@
         <li>Professores
             <ul> 
                 <li><a href="ProfessorCadastrarServlet">Cadastrar</a></li> 
-                <li><a href="#">Listar, Editar ou Desativar</a></li> 
+                <li><a href="ProfessorListarServlet">Listar, Editar ou Desativar</a></li> 
             </ul> 
         </li>
         <li>Propostas TCC

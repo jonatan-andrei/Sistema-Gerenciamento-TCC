@@ -24,7 +24,7 @@
                 </div>
 
                 <c:if test="${not empty areas}">
-                    Áreas
+                    <label for="areasInteresse">Áreas de interesse: </label>
                     <div class="checkbox">
                         <c:forEach var="area" items="${areas}">
                             <label><input type="checkbox" value="${area.idArea}" name="areasInteresse"> ${area.nome}</label><br>
