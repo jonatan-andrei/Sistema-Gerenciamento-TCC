@@ -26,7 +26,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
             rs = pstmt.executeQuery();
             areas = new ArrayList();
             while (rs.next()) {
-                Area area = new Area(rs.getLong("id_area"), rs.getString("nome"), rs.getString("descricao"));
+                Area area = new Area(rs.getLong("id_area"), rs.getString("nome"));
                 areas.add(area);
             }
         } catch (Exception e) {
@@ -135,7 +135,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
             rs = pstmt.executeQuery();
             areas = new ArrayList();
             while (rs.next()) {
-                Area area = new Area(rs.getLong("id_area"), rs.getString("nome"), rs.getString("descricao"));
+                Area area = new Area(rs.getLong("id_area"), rs.getString("nome"));
                 areas.add(area);
             }
         } catch (Exception e) {

@@ -9,7 +9,7 @@
         </li>
         <li>Professores
             <ul> 
-                <li><a href="#">Cadastrar</a></li> 
+                <li><a href="ProfessorCadastrarServlet">Cadastrar</a></li> 
                 <li><a href="#">Listar, Editar ou Desativar</a></li> 
             </ul> 
         </li>

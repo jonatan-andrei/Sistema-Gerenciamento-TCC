@@ -109,3 +109,23 @@ CREATE TABLE `Avaliacao_Criterio` (
 ) ENGINE = innodb;
 
 ALTER TABLE `Avaliacao_Criterio` ADD CONSTRAINT `fk_avaliacao_criterio` FOREIGN KEY ( `id_avaliacao` ) REFERENCES `Avaliacao` ( `id_avaliacao` ) ;
+
+INSERT INTO Area(nome) VALUES ('Desenvolvimento Java');
+INSERT INTO Area(nome) VALUES ('Desenvolvimento Javascript');
+INSERT INTO Area(nome) VALUES ('Desenvolvimento PHP');
+INSERT INTO Area(nome) VALUES ('Desenvolvimento Python');
+INSERT INTO Area(nome) VALUES ('Desenvolvimento Android');
+INSERT INTO Area(nome) VALUES ('Desenvolvimento IOS');
+INSERT INTO Area(nome) VALUES ('Desenvolvimento Desktop');
+INSERT INTO Area(nome) VALUES ('IHC');
+INSERT INTO Area(nome) VALUES ('Estrutura de Dados');
+INSERT INTO Area(nome) VALUES ('Web Design');
+INSERT INTO Area(nome) VALUES ('Engenharia de Software');
+INSERT INTO Area(nome) VALUES ('Banco de Dados');
+INSERT INTO Area(nome) VALUES ('Redes de Computadores');
+INSERT INTO Area(nome) VALUES ('Teste de Software');
+INSERT INTO Area(nome) VALUES ('Segurança e Auditoria');
+INSERT INTO Area(nome) VALUES ('Gestão de TI');
+INSERT INTO Area(nome) VALUES ('Inteligência Artificial');
+INSERT INTO Area(nome) VALUES ('Ciência de Dados');
+commit;

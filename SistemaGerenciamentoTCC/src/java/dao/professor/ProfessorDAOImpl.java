@@ -30,6 +30,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             pstmt.setString(2, professor.getEmail());
             pstmt.executeUpdate();
             rs = pstmt.getGeneratedKeys();
+            rs.next();
             idProfessor = rs.getLong(1);
         } catch (Exception ex) {
             ex.printStackTrace();

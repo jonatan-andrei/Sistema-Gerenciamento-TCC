@@ -4,12 +4,10 @@ public class Area {
 
     private Long idArea;
     private String nome;
-    private String descricao;
 
-    public Area(Long idArea, String nome, String descricao) {
+    public Area(Long idArea, String nome) {
         this.idArea = idArea;
         this.nome = nome;
-        this.descricao = descricao;
     }
 
     public Long getIdArea() {
@@ -22,14 +20,6 @@ public class Area {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
     }
 
 }
