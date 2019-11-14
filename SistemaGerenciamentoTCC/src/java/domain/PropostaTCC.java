@@ -13,8 +13,6 @@ public class PropostaTCC {
     private Professor orientador;
     private SugestaoTCC sugestaoOrigem;
     private Area area;
-    private int ano;
-    private int semestre;
     private List<Avaliacao> avaliacoes;
     private boolean aprovado;
     private List<Professor> banca;
@@ -107,22 +105,6 @@ public class PropostaTCC {
 
     public void setArea(Area area) {
         this.area = area;
-    }
-
-    public int getAno() {
-        return ano;
-    }
-
-    public void setAno(int ano) {
-        this.ano = ano;
-    }
-
-    public int getSemestre() {
-        return semestre;
-    }
-
-    public void setSemestre(int semestre) {
-        this.semestre = semestre;
     }
 
     public List<Avaliacao> getAvaliacoes() {

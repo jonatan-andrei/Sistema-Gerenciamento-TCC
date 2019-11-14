@@ -12,7 +12,7 @@
     <body>
         <div class ="formulario">
             <h1>Cadastrar Proposta de TCC</h1>  
-            <form action="PropostaTCCCadastrarViaSugestaoServlet" method="post" class="col-8"> 
+            <form action="PropostaTCCCadastrarServlet" method="post" class="col-8"> 
 
                 <div class="form-group row">
                     <label for="titulo">Título</label> 
@@ -44,16 +44,14 @@
                     </select>
                 </div>
 
-                <div class="form-group row">
-                    <label for="professor">Orientador:</label> 
-                    <input type="hidden" name="idProfessor" id="idProfessor" class="form-control" value="${sugestao.professor.id}"/>
-                    <input type="text" name="nomeProfessor" class="form-control" value="${sugestao.professor.nome}" disabled/>
-                </div>
-
-                <div class="form-group row">
-                    <label for="professor">Sugestão de projeto:</label> 
-                    <input type="hidden" name="idSugestao" id="idSugestao" class="form-control" value="${sugestao.idSugestaoTCC}"/>
-                    <input type="text" name="sugestao" class="form-control" value="${sugestao.descricao}" disabled/>
+                <div class="form-group">
+                    <label for="idProfessor">Selecione o orientador:</label><br>
+                    <select name="idProfessor" required>
+                        <option value=""></option>
+                        <c:forEach var="professor" items="${professores}">
+                            <option value="${professor.id}">${professor.nome}</option>
+                        </c:forEach>
+                    </select>
                 </div>
 
                 <button type="submit" class="btn btn-success btn-block">Salvar</button> 
