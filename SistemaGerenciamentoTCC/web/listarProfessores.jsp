@@ -23,28 +23,29 @@
                             <tr>
                                 <td><span class="professor-nome">Nome: ${professor.nome}</span><br>
                                     E-mail: ${professor.email}<br>
-                                    Envolvido com ${professor.cargaTrabalhoSemestre} propostas de TCC neste semestre.<br>
+                                    Envolvido com ${professor.cargaTrabalhoSemestre} proposta(s) de TCC neste semestre.<br>
                                     <c:if test="${not empty professor.areasDeInteresse}">
                                         Áreas de interesse:
                                         <c:forEach var="area" items="${professor.areasDeInteresse}">
-                                            ${area.nome},
+                                            ${area.nome};
                                         </c:forEach><br>
                                     </c:if>
                                     <c:if test="${not empty professor.sugestoes}">
-                                        Sugestões de projeto:
-                                        <c:forEach var="sugestao" items="${professor.sugestoes}">
-                                            ${sugestao.descricao} 
-                                            <c:if test="${sugestao.escolhida}">
-                                                (escolhida)
-                                            </c:if>  
-                                            <c:if test="${not sugestao.escolhida}">
-                                                <a href='PropostaTCCCadastrarServlet?id=${sugestao.idSugestaoTCC}'>(escolher)</a>
-                                            </c:if>  
-                                            <c:if test="${not empty sugestao.projeto}">
-                                                Relacionada ao projeto: ${sugestao.projeto.nome} - ${sugestao.projeto.descricao}
-                                            </c:if>  
-                                        </c:forEach><br>
-                                    </c:if>      
+                                        Sugestões de projeto:<ul>
+                                            <c:forEach var="sugestao" items="${professor.sugestoes}">
+                                                <li>${sugestao.descricao} 
+                                                    <c:if test="${sugestao.escolhida}">
+                                                        (escolhida)
+                                                    </c:if>  
+                                                    <c:if test="${not sugestao.escolhida}">
+                                                        <a href='PropostaTCCCadastrarServlet?id=${sugestao.idSugestaoTCC}'>(escolher)</a>
+                                                    </c:if>  
+                                                </li>
+                                                <c:if test="${not empty sugestao.projeto}">
+                                                    Relacionada ao projeto: ${sugestao.projeto.nome} - ${sugestao.projeto.descricao}
+                                                </c:if>  
+                                            </c:forEach></ul>
+                                        </c:if>      
                                     Editar Professor: <a href='ProfessorEditarServlet?id=${professor.id}'><i class="fa fa-pencil fa-2x"></i></a>
                                     Desativar Professor: <a href='ProfessorDesativarServlet?id=${professor.id}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>

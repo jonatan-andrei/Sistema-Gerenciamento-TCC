@@ -32,6 +32,10 @@ public class SugestaoTCCServlet extends HttpServlet {
             request.setAttribute("mensagem", "Erro na conexão com o banco de dados.");
             request.setAttribute("areaResposta", "alert-danger");
             request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
+        } else if (professores.isEmpty()) {
+            request.setAttribute("mensagem", "Cadastre primeiramente um professor para dar uma sugestão de TCC.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
         } else {
             request.setAttribute("projetos", projetos);
             request.setAttribute("professores", professores);
@@ -46,7 +50,7 @@ public class SugestaoTCCServlet extends HttpServlet {
         String idProjeto = request.getParameter("idProjeto");
         String idProfessor = request.getParameter("idProfessor");
 
-        boolean sucesso = sugestaoTCCService.cadastrar(descricao, Long.valueOf(idProfessor), isNull(idProjeto) ? null : Long.valueOf(idProjeto));
+        boolean sucesso = sugestaoTCCService.cadastrar(descricao, Long.valueOf(idProfessor), idProjeto.isEmpty() ? null : Long.valueOf(idProjeto));
 
         String mensagem;
         String areaResposta;
@@ -55,7 +59,7 @@ public class SugestaoTCCServlet extends HttpServlet {
             mensagem = "Sugestão cadastrada com sucesso.";
         } else {
             areaResposta = "alert-danger";
-            mensagem = "Erro ao cadastrar sugestao.";
+            mensagem = "Erro ao cadastrar sugestão.";
         }
 
         request.setAttribute("mensagem", mensagem);

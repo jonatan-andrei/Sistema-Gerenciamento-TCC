@@ -25,4 +25,12 @@ public class ProjetoPesquisa {
         return descricao;
     }
 
+    public Long getIdProjetoPesquisa() {
+        return idProjetoPesquisa;
+    }
+
+    public void setIdProjetoPesquisa(Long idProjetoPesquisa) {
+        this.idProjetoPesquisa = idProjetoPesquisa;
+    }
+
 }

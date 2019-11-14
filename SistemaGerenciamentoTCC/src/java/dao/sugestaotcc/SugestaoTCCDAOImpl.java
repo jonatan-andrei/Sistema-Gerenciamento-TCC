@@ -28,7 +28,11 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setString(1, descricao);
             pstmt.setLong(2, idProfessor);
-            pstmt.setLong(3, idProjeto);
+            if (nonNull(idProjeto)) {
+                pstmt.setLong(3, idProjeto);
+            } else {
+                pstmt.setNull(3, java.sql.Types.INTEGER);
+            }
             pstmt.executeUpdate();
             sucesso = true;
         } catch (Exception ex) {
@@ -59,10 +63,10 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
             sugestoes = new ArrayList();
             while (rs.next()) {
                 ProjetoPesquisa projeto = null;
-                if (nonNull(rs.getLong("sugestao.id_projeto_pesquisa"))) {
+                if (rs.getLong("sugestao.id_projeto_pesquisa") != 0) {
                     projeto = new ProjetoPesquisa(rs.getLong("pp.id_projeto_pesquisa"), rs.getString("pp.nome"), rs.getString("pp.descricao"));
                 }
-                SugestaoTCC sugestao = new SugestaoTCC(rs.getLong("sugestao.id_sugestao"), rs.getString("sugestao.descricao"), rs.getString("sugestao.escolhida"), projeto);
+                SugestaoTCC sugestao = new SugestaoTCC(rs.getLong("sugestao.id_sugestao_tcc"), rs.getString("sugestao.descricao"), rs.getString("sugestao.escolhida"), projeto);
                 sugestoes.add(sugestao);
             }
         } catch (Exception e) {
@@ -111,7 +115,7 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
             rs = pstmt.executeQuery();
             if (rs.next()) {
                 ProjetoPesquisa projeto = null;
-                if (nonNull(rs.getLong("sugestao.id_projeto_pesquisa"))) {
+                if (rs.getLong("sugestao.id_projeto_pesquisa") != 0) {
                     projeto = new ProjetoPesquisa(rs.getLong("pp.id_projeto_pesquisa"), rs.getString("pp.nome"), rs.getString("pp.descricao"));
                 }
                 Professor professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));

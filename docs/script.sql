@@ -128,4 +128,5 @@ INSERT INTO Area(nome) VALUES ('Segurança e Auditoria');
 INSERT INTO Area(nome) VALUES ('Gestão de TI');
 INSERT INTO Area(nome) VALUES ('Inteligência Artificial');
 INSERT INTO Area(nome) VALUES ('Ciência de Dados');
+INSERT INTO Area(nome) VALUES ('Internet das coisas');
 commit;

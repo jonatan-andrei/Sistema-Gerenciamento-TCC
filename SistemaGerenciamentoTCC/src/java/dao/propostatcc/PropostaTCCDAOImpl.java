@@ -10,7 +10,6 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import static java.util.Objects.nonNull;
 
 public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
 
@@ -97,10 +96,10 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
                 Aluno aluno = new Aluno(rs.getLong("aluno.id_aluno"), rs.getString("aluno.nome"), rs.getString("aluno.email"), rs.getString("aluno.matricula"), rs.getString("aluno.telefone"));
                 Professor professor = new Professor(rs.getLong("orientador.id_professor"), rs.getString("orientador.nome"), rs.getString("orientador.email"), rs.getInt("orientador.carga_trabalho_semestre"));
                 List<Professor> banca = new ArrayList<>();
-                if (nonNull(rs.getLong("proposta.id_professor_avaliador_primeiro"))) {
+                if (rs.getLong("proposta.id_professor_avaliador_primeiro") != 0) {
                     banca.add(new Professor(rs.getLong("avaliador1.id_professor"), rs.getString("avaliador1.nome"), rs.getString("avaliador1.email"), rs.getInt("avaliador1.carga_trabalho_semestre")));
                 }
-                if (nonNull(rs.getLong("proposta.id_professor_avaliador_segundo"))) {
+                if (rs.getLong("proposta.id_professor_avaliador_segundo") != 0) {
                     banca.add(new Professor(rs.getLong("avaliador2.id_professor"), rs.getString("avaliador2.nome"), rs.getString("avaliador2.email"), rs.getInt("avaliador2.carga_trabalho_semestre")));
                 }
                 PropostaTCC proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor, banca);

@@ -21,13 +21,13 @@
         </li>
         <li>Sugestões de Projetos
             <ul> 
-                <li><a href="#">Cadastrar</a></li> 
+                <li><a href="SugestaoTCCServlet">Cadastrar</a></li> 
             </ul> 
         </li>
         </li>
         <li>Projetos de Pesquisa
             <ul> 
-                <li><a href="#">Cadastrar</a></li> 
+                <li><a href="../../SistemaGerenciamentoTCC/cadastrarProjetoPesquisa.jsp">Cadastrar</a></li> 
             </ul> 
         </li>
 

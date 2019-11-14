@@ -56,7 +56,7 @@ public class ProfessorEditarServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        Long idProfessor = Long.parseLong(request.getParameter("id"));
+        Long idProfessor = Long.parseLong(request.getParameter("idProfessor"));
         String nome = request.getParameter("nome");
         String email = request.getParameter("email");
         String[] idsAreasInteresse = request.getParameterValues("areasInteresse");
