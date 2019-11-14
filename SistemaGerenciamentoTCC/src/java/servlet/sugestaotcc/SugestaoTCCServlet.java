@@ -50,7 +50,7 @@ public class SugestaoTCCServlet extends HttpServlet {
         String idProjeto = request.getParameter("idProjeto");
         String idProfessor = request.getParameter("idProfessor");
 
-        boolean sucesso = sugestaoTCCService.cadastrar(descricao, Long.valueOf(idProfessor), idProjeto.isEmpty() ? null : Long.valueOf(idProjeto));
+        boolean sucesso = sugestaoTCCService.cadastrar(descricao, Long.valueOf(idProfessor), isNull(idProjeto) || idProjeto.isEmpty() ? null : Long.valueOf(idProjeto));
 
         String mensagem;
         String areaResposta;

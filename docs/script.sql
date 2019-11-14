@@ -68,12 +68,12 @@ CREATE TABLE `Proposta_TCC` (
   `id_proposta_tcc` integer PRIMARY KEY AUTO_INCREMENT,
   `titulo` varchar(100) NOT NULL,
   `descricao` varchar(100) NOT NULL,
-  `artigo` varchar(100) NOT NULL,
+  `artigo` varchar(100),
   `id_aluno_autor` integer NOT NULL,
   `id_professor_orientador` integer NOT NULL,
-  `id_professor_avaliador_primeiro` integer NOT NULL,
-  `id_professor_avaliador_segundo` integer NOT NULL,
-  `id_sugestao_origem` integer NOT NULL,
+  `id_professor_avaliador_primeiro` integer,
+  `id_professor_avaliador_segundo` integer,
+  `id_sugestao_origem` integer,
   `id_area` integer NOT NULL,
   `ativo` varchar(1) DEFAULT 'S'
 ) ENGINE = innodb;

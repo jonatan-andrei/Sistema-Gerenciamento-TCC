@@ -38,7 +38,7 @@
                                                         (escolhida)
                                                     </c:if>  
                                                     <c:if test="${not sugestao.escolhida}">
-                                                        <a href='PropostaTCCCadastrarServlet?id=${sugestao.idSugestaoTCC}'>(escolher)</a>
+                                                        <a href='PropostaTCCCadastrarViaSugestaoServlet?idSugestao=${sugestao.idSugestaoTCC}'>(escolher)</a>
                                                     </c:if>  
                                                 </li>
                                                 <c:if test="${not empty sugestao.projeto}">

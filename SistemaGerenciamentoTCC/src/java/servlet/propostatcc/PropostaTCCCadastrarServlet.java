@@ -1,6 +1,9 @@
 package servlet.propostatcc;
 
+import domain.Aluno;
 import java.io.IOException;
+import java.util.List;
+import static java.util.Objects.isNull;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +30,21 @@ public class PropostaTCCCadastrarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        List<Aluno> alunos = alunoService.buscarQueNaoEnviaramProposta();
+        if (isNull(alunos)) {
+            request.setAttribute("mensagem", "Erro ao buscar alunos cadastrados.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
+        }
+
+        if (alunos.isEmpty()) {
+            request.setAttribute("mensagem", "Sem alunos cadastrados que ainda não enviaram propostas. Cadastre um aluno primeiro para depois cadastrar a proposta.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
+        }
+
         request.setAttribute("professores", professorService.listar());
-        request.setAttribute("alunos", alunoService.listar());
+        request.setAttribute("alunos", alunos);
         request.setAttribute("areas", areaService.listar());
         request.getRequestDispatcher("cadastrarProposta.jsp").forward(request, response);
     }

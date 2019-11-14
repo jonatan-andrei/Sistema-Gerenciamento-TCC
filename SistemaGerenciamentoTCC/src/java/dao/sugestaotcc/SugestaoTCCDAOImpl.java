@@ -104,9 +104,9 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT sugestao.*, pp.*, professor.* FROM Sugestao_TCC sugestao ");
-            sql.append(" INNER JOIN professor p ON ");
-            sql.append(" sugestao.id_professor_criador = professor.id_professor ");
+            sql.append(" SELECT sugestao.*, pp.*, p.* FROM Sugestao_TCC sugestao ");
+            sql.append(" INNER JOIN Professor p ON ");
+            sql.append(" sugestao.id_professor_criador = p.id_professor ");
             sql.append(" LEFT JOIN Projeto_Pesquisa pp on ");
             sql.append(" sugestao.id_projeto_pesquisa = pp.id_projeto_pesquisa ");
             sql.append(" WHERE sugestao.id_sugestao_tcc = ? ");
@@ -118,8 +118,8 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
                 if (rs.getLong("sugestao.id_projeto_pesquisa") != 0) {
                     projeto = new ProjetoPesquisa(rs.getLong("pp.id_projeto_pesquisa"), rs.getString("pp.nome"), rs.getString("pp.descricao"));
                 }
-                Professor professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));
-                sugestao = new SugestaoTCC(rs.getLong("sugestao.id_sugestao"), rs.getString("sugestao.descricao"), rs.getString("sugestao.escolhida"), projeto, professor);
+                Professor professor = new Professor(rs.getLong("p.id_professor"), rs.getString("p.nome"), rs.getString("p.email"), rs.getInt("p.carga_trabalho_semestre"));
+                sugestao = new SugestaoTCC(rs.getLong("sugestao.id_sugestao_tcc"), rs.getString("sugestao.descricao"), rs.getString("sugestao.escolhida"), projeto, professor);
             }
         } catch (Exception e) {
             e.printStackTrace();

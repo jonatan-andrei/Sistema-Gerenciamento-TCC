@@ -10,6 +10,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import static java.util.Objects.nonNull;
 
 public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
 
@@ -30,7 +31,11 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             pstmt.setString(2, propostaTCC.getDescricao());
             pstmt.setLong(3, idAluno);
             pstmt.setLong(4, idProfessor);
-            pstmt.setLong(5, idSugestao);
+            if (nonNull(idSugestao)) {
+                pstmt.setLong(5, idSugestao);
+            } else {
+                pstmt.setNull(5, java.sql.Types.INTEGER);
+            }
             pstmt.setLong(6, idArea);
             pstmt.executeUpdate();
             sucesso = true;
