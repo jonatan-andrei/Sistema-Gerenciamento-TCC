@@ -1,6 +1,7 @@
 package servlet.propostatcc;
 
 import domain.Aluno;
+import domain.Professor;
 import java.io.IOException;
 import java.util.List;
 import static java.util.Objects.isNull;
@@ -43,7 +44,15 @@ public class PropostaTCCCadastrarServlet extends HttpServlet {
             request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
         }
 
-        request.setAttribute("professores", professorService.listar());
+        List<Professor> professores = professorService.listar();
+
+        if (professores.isEmpty()) {
+            request.setAttribute("mensagem", "Sem professores cadastrados para serem orientadores. Cadastre primeiramente um professor.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
+        }
+
+        request.setAttribute("professores", professores);
         request.setAttribute("alunos", alunos);
         request.setAttribute("areas", areaService.listar());
         request.getRequestDispatcher("cadastrarProposta.jsp").forward(request, response);

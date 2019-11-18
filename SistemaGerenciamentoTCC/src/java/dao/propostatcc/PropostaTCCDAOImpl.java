@@ -2,6 +2,7 @@ package dao.propostatcc;
 
 import dao.conexao.ConexaoDAO;
 import domain.Aluno;
+import domain.Area;
 import domain.Professor;
 import domain.PropostaTCC;
 import java.sql.Connection;
@@ -83,12 +84,14 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT proposta.*, aluno.*, orientador.*, avaliador1.*, avaliador2.* ");
+            sql.append(" SELECT proposta.*, aluno.*, orientador.*, avaliador1.*, avaliador2.*, area.* ");
             sql.append(" FROM Proposta_TCC proposta ");
             sql.append(" INNER JOIN aluno ");
-            sql.append(" ON sugestao.id_aluno_autor = aluno.id_aluno ");
+            sql.append(" ON proposta.id_aluno_autor = aluno.id_aluno ");
             sql.append(" INNER JOIN Professor orientador ");
             sql.append(" ON proposta.id_professor_orientador = orientador.id_professor ");
+            sql.append(" INNER JOIN area ");
+            sql.append(" ON area.id_area = proposta.id_area ");
             sql.append(" LEFT JOIN professor avaliador1 ");
             sql.append(" ON proposta.id_professor_avaliador_primeiro = avaliador1.id_professor ");
             sql.append(" LEFT JOIN professor avaliador2 ");
@@ -100,6 +103,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             while (rs.next()) {
                 Aluno aluno = new Aluno(rs.getLong("aluno.id_aluno"), rs.getString("aluno.nome"), rs.getString("aluno.email"), rs.getString("aluno.matricula"), rs.getString("aluno.telefone"));
                 Professor professor = new Professor(rs.getLong("orientador.id_professor"), rs.getString("orientador.nome"), rs.getString("orientador.email"), rs.getInt("orientador.carga_trabalho_semestre"));
+                Area area = new Area(rs.getLong("area.id_area"), rs.getString("area.nome"));
                 List<Professor> banca = new ArrayList<>();
                 if (rs.getLong("proposta.id_professor_avaliador_primeiro") != 0) {
                     banca.add(new Professor(rs.getLong("avaliador1.id_professor"), rs.getString("avaliador1.nome"), rs.getString("avaliador1.email"), rs.getInt("avaliador1.carga_trabalho_semestre")));
@@ -107,7 +111,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
                 if (rs.getLong("proposta.id_professor_avaliador_segundo") != 0) {
                     banca.add(new Professor(rs.getLong("avaliador2.id_professor"), rs.getString("avaliador2.nome"), rs.getString("avaliador2.email"), rs.getInt("avaliador2.carga_trabalho_semestre")));
                 }
-                PropostaTCC proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor, banca);
+                PropostaTCC proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor, banca, area);
                 propostas.add(proposta);
             }
         } catch (Exception e) {
@@ -154,7 +158,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             sql.append(" SELECT proposta.*, aluno.*, professor.* ");
             sql.append(" FROM Proposta_TCC proposta ");
             sql.append(" INNER JOIN aluno ");
-            sql.append(" ON sugestao.id_aluno_autor = aluno.id_aluno ");
+            sql.append(" ON proposta.id_aluno_autor = aluno.id_aluno ");
             sql.append(" INNER JOIN professor ");
             sql.append(" ON proposta.id_professor_orientador = professor.id_professor ");
             sql.append(" WHERE proposta.id_aluno = ? ");

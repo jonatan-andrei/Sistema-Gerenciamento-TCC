@@ -16,7 +16,7 @@
         <li>Propostas TCC
             <ul> 
                 <li><a href="PropostaTCCCadastrarServlet">Enviar escolha do tema e do orientador</a></li> 
-                <li><a href="#">Listar, Enviar artigo ou Remover</a></li> 
+                <li><a href="PropostaTCCListarServlet">Listar, Enviar artigo ou Remover</a></li> 
             </ul> 
         </li>
         <li>Sugestões de Projetos

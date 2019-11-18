@@ -26,7 +26,7 @@ public class PropostaTCCListarServlet extends HttpServlet {
             request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
         } else {
             request.setAttribute("propostas", propostas);
-            request.getRequestDispatcher("listarPropostasTCC.jsp").forward(request, response);
+            request.getRequestDispatcher("listarPropostas.jsp").forward(request, response);
         }
     }
 

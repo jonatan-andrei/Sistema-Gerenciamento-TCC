@@ -14,7 +14,6 @@ public class PropostaTCC {
     private SugestaoTCC sugestaoOrigem;
     private Area area;
     private List<Avaliacao> avaliacoes;
-    private boolean aprovado;
     private List<Professor> banca;
     private boolean ativo;
     private StatusPropostaTCC status;
@@ -41,6 +40,17 @@ public class PropostaTCC {
         this.autor = autor;
         this.orientador = orientador;
         this.banca = banca;
+    }
+
+    public PropostaTCC(Long idPropostaTCC, String titulo, String descricao, String artigo, Aluno autor, Professor orientador, List<Professor> banca, Area area) {
+        this.idPropostaTCC = idPropostaTCC;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.artigo = artigo;
+        this.autor = autor;
+        this.orientador = orientador;
+        this.banca = banca;
+        this.area = area;
     }
 
     public Long getIdPropostaTCC() {
@@ -113,14 +123,6 @@ public class PropostaTCC {
 
     public void setAvaliacoes(List<Avaliacao> avaliacoes) {
         this.avaliacoes = avaliacoes;
-    }
-
-    public boolean isAprovado() {
-        return aprovado;
-    }
-
-    public void setAprovado(boolean aprovado) {
-        this.aprovado = aprovado;
     }
 
     public List<Professor> getBanca() {

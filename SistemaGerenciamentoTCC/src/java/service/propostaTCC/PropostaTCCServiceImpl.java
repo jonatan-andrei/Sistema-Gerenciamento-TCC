@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import static java.util.Objects.isNull;
+import static java.util.Objects.nonNull;
 import java.util.stream.Collectors;
 import service.avaliacao.AvaliacaoService;
 import service.avaliacao.AvaliacaoServiceImpl;
@@ -53,17 +54,19 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
     @Override
     public List<PropostaTCC> listar() {
         List<PropostaTCC> propostas = propostaTCCDAO.listar();
-        propostas.forEach(p -> {
-            List<Avaliacao> avaliacoes = avaliacaoService.buscarPorTCC(p.getIdPropostaTCC());
-            p.setAvaliacoes(avaliacoes);
-            if (avaliacoes.size() < 2) {
-                p.setStatus(NAO_AVALIADO); // Se a proposta ainda não recebeu duas avaliações, não foi aprovado nem reprovado ainda
-            } else if (avaliacoes.get(0).isAprovado() && avaliacoes.get(1).isAprovado()) {
-                p.setStatus(APROVADO);
-            } else {
-                p.setStatus(REPROVADO);
-            }
-        });
+        if (nonNull(propostas)) {
+            propostas.forEach(p -> {
+                List<Avaliacao> avaliacoes = avaliacaoService.buscarPorTCC(p.getIdPropostaTCC());
+                p.setAvaliacoes(avaliacoes);
+                if (avaliacoes.size() < 2) {
+                    p.setStatus(NAO_AVALIADO); // Se a proposta ainda não recebeu duas avaliações, não foi aprovado nem reprovado ainda
+                } else if (avaliacoes.get(0).isAprovado() && avaliacoes.get(1).isAprovado()) {
+                    p.setStatus(APROVADO);
+                } else {
+                    p.setStatus(REPROVADO);
+                }
+            });
+        }
         return propostas;
     }
 

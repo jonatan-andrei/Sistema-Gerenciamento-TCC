@@ -21,7 +21,7 @@
                     <tbody>
                         <c:forEach var="professor" items="${professores}">
                             <tr>
-                                <td><span class="professor-nome">Nome: ${professor.nome}</span><br>
+                                <td><span class="titulo-nome">Nome: ${professor.nome}</span><br>
                                     E-mail: ${professor.email}<br>
                                     Envolvido com ${professor.cargaTrabalhoSemestre} proposta(s) de TCC neste semestre.<br>
                                     <c:if test="${not empty professor.areasDeInteresse}">

@@ -165,11 +165,12 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT a.*, p.* FROM Avaliacao ");
+            sql.append(" SELECT a.*, p.* FROM Avaliacao a ");
             sql.append(" INNER JOIN professor p ");
             sql.append(" ON a.id_professor_avaliador = p.id_professor ");
             sql.append(" WHERE id_proposta_tcc = ? ");
             pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, idPropostaTCC);
             rs = pstmt.executeQuery();
             avaliacoes = new ArrayList();
             while (rs.next()) {
