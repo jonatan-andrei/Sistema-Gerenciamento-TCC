@@ -59,7 +59,7 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
                 List<Avaliacao> avaliacoes = avaliacaoService.buscarPorTCC(p.getIdPropostaTCC());
                 p.setAvaliacoes(avaliacoes);
                 if (avaliacoes.size() < 2) {
-                    p.setStatus(NAO_AVALIADO); // Se a proposta ainda não recebeu duas avaliações, não foi aprovado nem reprovado ainda
+                    p.setStatus(NAO_AVALIADO); // Se a proposta ainda não recebeu duas avaliações, não foi aprovada nem reprovada ainda
                 } else if (avaliacoes.get(0).isAprovado() && avaliacoes.get(1).isAprovado()) {
                     p.setStatus(APROVADO);
                 } else {
@@ -172,7 +172,7 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
             professores = verBanca(idPropostaTCC);
         }
         boolean sucesso = propostaTCCDAO.deletarBanca(idPropostaTCC);
-        if (sucesso && !professores.isEmpty()) {
+        if (sucesso && nonNull(professores) && !professores.isEmpty()) {
             professorService.reduzirCargaDeTrabalho(professores.stream().map(Professor::getId).collect(Collectors.toList()));
         }
         return sucesso;

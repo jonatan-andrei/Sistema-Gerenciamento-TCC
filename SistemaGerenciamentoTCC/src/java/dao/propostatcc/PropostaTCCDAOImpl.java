@@ -279,18 +279,25 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             StringBuilder sql = new StringBuilder();
             sql.append(" SELECT orientador.*, avaliador1.*, avaliador2.* FROM Proposta_TCC proposta ");
             sql.append(" INNER JOIN Professor orientador on proposta.id_professor_orientador = orientador.id_professor ");
-            sql.append(" INNER JOIN Professor avaliador1 on proposta.id_professor_avaliador_primeiro = avaliador1.id_professor ");
-            sql.append(" INNER JOIN Professor avaliador2 on proposta.id_professor_avaliador_segundo = avaliador2.id_professor ");
+            sql.append(" LEFT JOIN Professor avaliador1 on proposta.id_professor_avaliador_primeiro = avaliador1.id_professor ");
+            sql.append(" LEFT JOIN Professor avaliador2 on proposta.id_professor_avaliador_segundo = avaliador2.id_professor ");
             sql.append(" WHERE proposta.id_proposta_tcc = ? ");
 
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idPropostaTCC);
             rs = pstmt.executeQuery();
+            professores = new ArrayList<>();
             if (rs.next()) {
                 Professor orientador = new Professor(rs.getLong("orientador.id_professor"), rs.getString("orientador.nome"), rs.getString("orientador.email"), rs.getInt("orientador.carga_trabalho_semestre"));
-                Professor avaliador1 = new Professor(rs.getLong("avaliador1.id_professor"), rs.getString("avaliador1.nome"), rs.getString("avaliador1.email"), rs.getInt("avaliador1.carga_trabalho_semestre"));
-                Professor avaliador2 = new Professor(rs.getLong("avaliador2.id_professor"), rs.getString("avaliador2.nome"), rs.getString("avaliador2.email"), rs.getInt("avaliador2.carga_trabalho_semestre"));
-                professores = Arrays.asList(orientador, avaliador1, avaliador2);
+                professores.add(orientador);
+                if (rs.getLong("avaliador1.id_professor") != 0) {
+                    Professor avaliador1 = new Professor(rs.getLong("avaliador1.id_professor"), rs.getString("avaliador1.nome"), rs.getString("avaliador1.email"), rs.getInt("avaliador1.carga_trabalho_semestre"));
+                    professores.add(avaliador1);
+                }
+                if (rs.getLong("avaliador2.id_professor") != 0) {
+                    Professor avaliador2 = new Professor(rs.getLong("avaliador2.id_professor"), rs.getString("avaliador2.nome"), rs.getString("avaliador2.email"), rs.getInt("avaliador2.carga_trabalho_semestre"));
+                    professores.add(avaliador2);
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
