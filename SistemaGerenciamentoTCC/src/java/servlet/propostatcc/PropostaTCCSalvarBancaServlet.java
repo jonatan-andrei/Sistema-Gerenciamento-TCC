@@ -53,22 +53,23 @@ public class PropostaTCCSalvarBancaServlet extends HttpServlet {
         }
 
         if (NUMERO_PROFESSORES_BANCA != professores.size()) {
-            request.setAttribute("mensagem", "Você deve selecionar exatamente dois professores para comporem a banca.");
+            request.setAttribute("mensagem", "A banca não foi salva! Você deve selecionar exatamente dois professores para comporem a banca.");
             request.setAttribute("areaResposta", "alert-danger");
             request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
-        }
-        String mensagem = propostaTCCService.salvarBanca(idProposta, professores);
-
-        String areaResposta;
-        if (mensagem.equalsIgnoreCase("Banca salva com sucesso")) {
-            areaResposta = "alert-success";
         } else {
-            areaResposta = "alert-danger";
-        }
+            String mensagem = propostaTCCService.salvarBanca(idProposta, professores);
 
-        request.setAttribute("mensagem", mensagem);
-        request.setAttribute("areaResposta", areaResposta);
-        request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
+            String areaResposta;
+            if (mensagem.equalsIgnoreCase("Banca salva com sucesso")) {
+                areaResposta = "alert-success";
+            } else {
+                areaResposta = "alert-danger";
+            }
+
+            request.setAttribute("mensagem", mensagem);
+            request.setAttribute("areaResposta", areaResposta);
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
+        }
     }
 
 }

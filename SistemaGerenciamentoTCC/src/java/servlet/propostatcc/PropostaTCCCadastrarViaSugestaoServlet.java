@@ -30,23 +30,21 @@ public class PropostaTCCCadastrarViaSugestaoServlet extends HttpServlet {
             throws ServletException, IOException {
         Long idSugestao = Long.valueOf(request.getParameter("idSugestao"));
         SugestaoTCC sugestao = sugestaoTCCService.buscarPorId(idSugestao);
+        List<Aluno> alunos = alunoService.buscarQueNaoEnviaramProposta();
         if (isNull(sugestao)) {
             request.setAttribute("mensagem", "Erro ao buscar a sugestão.");
             request.setAttribute("areaResposta", "alert-danger");
             request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
-        }
-
-        List<Aluno> alunos = alunoService.buscarQueNaoEnviaramProposta();
-        if (alunos.isEmpty()) {
+        } else if (alunos.isEmpty()) {
             request.setAttribute("mensagem", "Sem alunos cadastrados que ainda não enviaram propostas. Cadastre um aluno primeiro para depois cadastrar a proposta.");
             request.setAttribute("areaResposta", "alert-danger");
             request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
+        } else {
+            request.setAttribute("sugestao", sugestao);
+            request.setAttribute("alunos", alunos);
+            request.setAttribute("areas", areaService.listar());
+            request.getRequestDispatcher("cadastrarPropostaViaSugestao.jsp").forward(request, response);
         }
-
-        request.setAttribute("sugestao", sugestao);
-        request.setAttribute("alunos", alunos);
-        request.setAttribute("areas", areaService.listar());
-        request.getRequestDispatcher("cadastrarPropostaViaSugestao.jsp").forward(request, response);
     }
 
     @Override
