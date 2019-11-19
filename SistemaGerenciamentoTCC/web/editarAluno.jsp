@@ -19,22 +19,22 @@
 
                 <div class="form-group row">
                     <label for="nome">Nome:</label> 
-                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" value=${aluno.nome} required/>
+                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" value='${aluno.nome}' required/>
                 </div>
 
                 <div class="form-group row">
                     <label for="email">E-mail: </label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" value=${aluno.email} required/>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" value='${aluno.email}' required/>
                 </div>
 
                 <div class="form-group row">
                     <label for="telefone">Telefone: </label>
-                    <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone" value=${aluno.telefone} required/>
+                    <input type="text" name="telefone" id="telefone" class="form-control" placeholder="Telefone" value='${aluno.telefone}' required/>
                 </div>
 
                 <div class="form-group row">
                     <label for="matricula">Número de matrícula: </label>
-                    <input type="number" name="matricula" id="matricula" class="form-control" placeholder="Número de matrícula" value=${aluno.matricula} required/>
+                    <input type="number" name="matricula" id="matricula" class="form-control" placeholder="Número de matrícula" value='${aluno.matricula}' required/>
                 </div>
                 <button type="submit" class="btn btn-success btn-block">Salvar</button> 
                 <a href="index.jsp" class="btn btn-secondary btn-block">Voltar a página inicial</a>

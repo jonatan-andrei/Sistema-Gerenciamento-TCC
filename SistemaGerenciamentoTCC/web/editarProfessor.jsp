@@ -20,12 +20,12 @@
 
                 <div class="form-group row">
                     <label for="nome">Nome:</label> 
-                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" value=${professor.nome} required/>
+                    <input type="text" name="nome" id="nome" class="form-control" placeholder="Nome" value='${professor.nome}' required/>
                 </div>
 
                 <div class="form-group row">
                     <label for="email">E-mail: </label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" value=${professor.email} required/>
+                    <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" value='${professor.email}' required/>
                 </div>
 
                 <c:if test="${not empty areas}">

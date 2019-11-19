@@ -27,7 +27,7 @@
                                     <c:if test="${empty proposta.artigo}">
                                         Artigo ainda não enviado. 
                                         <a href='PropostaTCCEnviarArtigoServlet?id=${proposta.idPropostaTCC}'><i class="fa fa-pencil fa-2x"></i>Enviar</a>
-                                        </c:if>
+                                    </c:if>
                                     <c:if test="${not empty proposta.artigo}">
                                         Artigo: 
                                         ${proposta.artigo}
@@ -48,6 +48,19 @@
                                         </c:otherwise>
                                     </c:choose>
                                     <br>
+                                    Banca:
+                                    <c:if test="${not empty proposta.banca}">
+                                        <ul>
+                                            <c:forEach var="profBanca" items="${proposta.banca}">
+                                                <li>${profBanca.nome}</li>
+                                            </c:forEach></ul>
+                                        <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Editar Banca</a><br>
+                                        <a href='PropostaTCCRemoverBancaServlet?id=${proposta.idPropostaTCC}'>Remover Banca</a><br>
+                                    </c:if>
+
+                                    <c:if test="${empty proposta.banca}">
+                                        <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Cadastrar Banca</a><br>
+                                    </c:if>
                                     Desativar Proposta: <a href='PropostaTCCDesativarServlet?id=${proposta.idPropostaTCC}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>
                         </c:forEach>

@@ -19,7 +19,7 @@ public class PropostaTCCEnviarArtigoServlet extends HttpServlet {
         Long idProposta = Long.parseLong(request.getParameter("id"));
         PropostaTCC proposta = propostaTCCService.buscarPorId(idProposta);
         request.setAttribute("proposta", proposta);
-        request.getRequestDispatcher("editarPropostaTCC.jsp").forward(request, response);
+        request.getRequestDispatcher("editarProposta.jsp").forward(request, response);
     }
 
     @Override

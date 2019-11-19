@@ -187,21 +187,24 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT proposta.*, aluno.*, professor.* ");
+            sql.append(" SELECT proposta.*, aluno.*, professor.*, area.* ");
             sql.append(" FROM Proposta_TCC proposta ");
             sql.append(" INNER JOIN aluno ");
-            sql.append(" ON sugestao.id_aluno_autor = aluno.id_aluno ");
+            sql.append(" ON proposta.id_aluno_autor = aluno.id_aluno ");
             sql.append(" INNER JOIN professor ");
             sql.append(" ON proposta.id_professor_orientador = professor.id_professor ");
+            sql.append(" INNER JOIN area ");
+            sql.append(" ON area.id_area = proposta.id_area ");
             sql.append(" WHERE proposta.id_proposta_tcc = ? ");
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idPropostaTCC);
             rs = pstmt.executeQuery();
 
             if (rs.next()) {
+                Area area = new Area(rs.getLong("area.id_area"), rs.getString("area.nome"));
                 Aluno aluno = new Aluno(rs.getLong("aluno.id_aluno"), rs.getString("aluno.nome"), rs.getString("aluno.email"), rs.getString("aluno.matricula"), rs.getString("aluno.telefone"));
                 Professor professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));
-                proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor);
+                proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor, area);
             }
         } catch (Exception e) {
             e.printStackTrace();

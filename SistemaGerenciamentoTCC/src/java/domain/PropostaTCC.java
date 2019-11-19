@@ -42,6 +42,16 @@ public class PropostaTCC {
         this.banca = banca;
     }
 
+    public PropostaTCC(Long idPropostaTCC, String titulo, String descricao, String artigo, Aluno autor, Professor orientador, Area area) {
+        this.idPropostaTCC = idPropostaTCC;
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.artigo = artigo;
+        this.autor = autor;
+        this.orientador = orientador;
+        this.area = area;
+    }
+
     public PropostaTCC(Long idPropostaTCC, String titulo, String descricao, String artigo, Aluno autor, Professor orientador, List<Professor> banca, Area area) {
         this.idPropostaTCC = idPropostaTCC;
         this.titulo = titulo;

@@ -19,13 +19,14 @@ public class PropostaTCCSalvarBancaServlet extends HttpServlet {
 
     private static final PropostaTCCService propostaTCCService = new PropostaTCCServiceImpl();
 
+    final int NUMERO_PROFESSORES_BANCA = 2;
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long idProposta = Long.valueOf(request.getParameter("idProposta"));
+        Long idProposta = Long.valueOf(request.getParameter("id"));
         List<Professor> professoresOrdenados = propostaTCCService.indicarBanca(idProposta);
 
-        final int NUMERO_PROFESSORES_BANCA = 2;
         if (isNull(professoresOrdenados)) {
             request.setAttribute("mensagem", "Erro na conexão com o banco de dados.");
             request.setAttribute("areaResposta", "alert-danger");
@@ -35,6 +36,7 @@ public class PropostaTCCSalvarBancaServlet extends HttpServlet {
             request.setAttribute("areaResposta", "alert-danger");
             request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
         } else {
+            request.setAttribute("idProposta", idProposta);
             request.setAttribute("professores", professoresOrdenados);
             request.getRequestDispatcher("cadastrarBanca.jsp").forward(request, response);
         }
@@ -48,6 +50,12 @@ public class PropostaTCCSalvarBancaServlet extends HttpServlet {
         List<Long> professores = new ArrayList<>();
         if (nonNull(idsProfessores)) {
             professores.addAll(Arrays.asList(idsProfessores).stream().map(id -> Long.parseLong(id)).collect(Collectors.toList()));
+        }
+
+        if (NUMERO_PROFESSORES_BANCA != professores.size()) {
+            request.setAttribute("mensagem", "Você deve selecionar exatamente dois professores para comporem a banca.");
+            request.setAttribute("areaResposta", "alert-danger");
+            request.getRequestDispatcher("common/respostaOperacao.jsp").forward(request, response);
         }
         String mensagem = propostaTCCService.salvarBanca(idProposta, professores);
 
