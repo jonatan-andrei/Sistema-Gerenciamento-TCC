@@ -61,6 +61,24 @@
                                     <c:if test="${empty proposta.banca}">
                                         <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Cadastrar Banca</a><br>
                                     </c:if>
+
+                                    Avaliações:
+                                    <c:if test="${empty proposta.avaliacoes}">
+                                        <c:if test="${empty proposta.artigo}">
+                                            O artigo final ainda não foi enviado. O TCC não pode ser avaliado ainda.
+                                        </c:if>
+                                        <c:if test="${empty proposta.banca && not empty proposta.artigo}">
+                                            Cadastre primeiramente a banca para depois avaliar.
+                                        </c:if>
+                                        <c:if test="${not empty proposta.banca && not empty proposta.artigo}">
+                                            <a href='AvaliacaoCadastrarServlet?id=${proposta.idPropostaTCC}'>Avaliar</a>
+                                        </c:if>
+                                        <br>
+                                    </c:if>
+
+                                    <c:if test="${not empty proposta.avaliacoes}">
+                                        <a href='AvaliacaoCadastrarServlet?id=${proposta.idPropostaTCC}'>Avaliar</a>
+                                    </c:if>
                                     Desativar Proposta: <a href='PropostaTCCDesativarServlet?id=${proposta.idPropostaTCC}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>
                         </c:forEach>
