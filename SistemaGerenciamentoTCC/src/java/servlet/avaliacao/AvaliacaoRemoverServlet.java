@@ -15,16 +15,21 @@ public class AvaliacaoRemoverServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long id = Long.parseLong(request.getParameter("id"));
-        boolean sucesso = avaliacaoService.deletarAvaliacao(id);
+
+        Long idAvaliacao1 = Long.parseLong(request.getParameter("idAvaliacao1"));
+        Long idAvaliacao2 = Long.parseLong(request.getParameter("idAvaliacao2"));
+
+        boolean sucesso = avaliacaoService.deletarAvaliacao(idAvaliacao1);
+        sucesso = sucesso && avaliacaoService.deletarAvaliacao(idAvaliacao2);
+
         String mensagem;
         String areaResposta;
         if (sucesso) {
             areaResposta = "alert-success";
-            mensagem = "Avaliação excluída com sucesso.";
+            mensagem = "Avaliações excluídas com sucesso.";
         } else {
             areaResposta = "alert-danger";
-            mensagem = "Erro ao excluir avaliação.";
+            mensagem = "Erro ao excluir avaliações.";
         }
 
         request.setAttribute("mensagem", mensagem);
