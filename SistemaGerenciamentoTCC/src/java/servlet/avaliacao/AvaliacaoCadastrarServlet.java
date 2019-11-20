@@ -18,8 +18,8 @@ public class AvaliacaoCadastrarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long idPropostaTCC = Long.parseLong(request.getParameter("idPropostaTCC"));
-        request.setAttribute("propostaTCC", propostaTCCService.buscarPorId(idPropostaTCC));
+        Long idPropostaTCC = Long.parseLong(request.getParameter("id"));
+        request.setAttribute("proposta", propostaTCCService.buscarPorId(idPropostaTCC));
         request.getRequestDispatcher("cadastrarAvaliacao.jsp").forward(request, response);
     }
 
@@ -30,25 +30,25 @@ public class AvaliacaoCadastrarServlet extends HttpServlet {
         Long idPropostaTCC = Long.parseLong(request.getParameter("idPropostaTCC"));
 
         // Avaliação do primeiro professor
-        Long idProfessor1 = Long.parseLong(request.getParameter("idProfessorProf1"));
+        Long idProfessor1 = Long.parseLong(request.getParameter("idProfessor1"));
         Double notaFinalProf1 = Double.parseDouble(request.getParameter("notaFinalProf1"));
         String parecerProf1 = request.getParameter("parecerProf1");
         boolean aprovadoProf1 = Boolean.parseBoolean(request.getParameter("aprovadoProf1"));
         String usoDeLinguagemProf1 = request.getParameter("usoDeLinguagemProf1");
         String apresentacaoProf1 = request.getParameter("apresentacaoProf1");
-        String estruturaDoTextoProf1 = request.getParameter("estruturaDoTextoProf1");
-        String conteudoDoTextoProf1 = request.getParameter("conteudoDoTextoProf1");
+        String estruturaDoTextoProf1 = request.getParameter("estruturaTextoProf1");
+        String conteudoDoTextoProf1 = request.getParameter("conteudoTextoProf1");
         String relevanciaProfissionalProf1 = request.getParameter("relevanciaProfissionalProf1");
 
         // Avaliação do segundo professor
-        Long idProfessor2 = Long.parseLong(request.getParameter("idProfessorProf2"));
+        Long idProfessor2 = Long.parseLong(request.getParameter("idProfessor2"));
         Double notaFinalProf2 = Double.parseDouble(request.getParameter("notaFinalProf2"));
         String parecerProf2 = request.getParameter("parecerProf2");
         boolean aprovadoProf2 = Boolean.parseBoolean(request.getParameter("aprovadoProf2"));
         String usoDeLinguagemProf2 = request.getParameter("usoDeLinguagemProf2");
         String apresentacaoProf2 = request.getParameter("apresentacaoProf2");
-        String estruturaDoTextoProf2 = request.getParameter("estruturaDoTextoProf2");
-        String conteudoDoTextoProf2 = request.getParameter("conteudoDoTextoProf2");
+        String estruturaDoTextoProf2 = request.getParameter("estruturaTextoProf2");
+        String conteudoDoTextoProf2 = request.getParameter("conteudoTextoProf2");
         String relevanciaProfissionalProf2 = request.getParameter("relevanciaProfissionalProf2");
 
         boolean sucesso = avaliacaoService.salvarAvaliacao(notaFinalProf1, parecerProf1, aprovadoProf1, idProfessor1, idPropostaTCC, usoDeLinguagemProf1, apresentacaoProf1, estruturaDoTextoProf1, conteudoDoTextoProf1, relevanciaProfissionalProf1);

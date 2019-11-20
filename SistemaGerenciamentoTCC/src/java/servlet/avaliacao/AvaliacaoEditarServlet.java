@@ -18,9 +18,9 @@ public class AvaliacaoEditarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long idPropostaTCC = Long.parseLong(request.getParameter("idPropostaTCC"));
+        Long idPropostaTCC = Long.parseLong(request.getParameter("id"));
         request.setAttribute("avaliacoes", avaliacaoService.buscarPorTCC(idPropostaTCC));
-        request.setAttribute("propostaTCC", propostaTCCService.buscarPorId(idPropostaTCC));
+        request.setAttribute("proposta", propostaTCCService.buscarPorId(idPropostaTCC));
         request.getRequestDispatcher("editarAvaliacao.jsp").forward(request, response);
     }
 

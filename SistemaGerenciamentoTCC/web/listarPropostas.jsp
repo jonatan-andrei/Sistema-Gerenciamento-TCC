@@ -77,7 +77,18 @@
                                     </c:if>
 
                                     <c:if test="${not empty proposta.avaliacoes}">
-                                        <a href='AvaliacaoCadastrarServlet?id=${proposta.idPropostaTCC}'>Avaliar</a>
+                                        <ul>
+                                            <c:forEach var="avaliacao" items="${proposta.avaliacoes}">
+                                                <li>
+                                                    Avaliador: ${avaliacao.avaliador.nome}<br>
+                                                    Nota: ${avaliacao.notaFinal}<br>
+                                                    Situação: ${avaliacao.aprovado}<br>
+                                                    Parecer: ${avaliacao.parecer}<br>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                        <a href='AvaliacaoEditarServlet?id=${proposta.idPropostaTCC}'>Editar avaliações</a>
+                                        <a href='AvaliacaoRemoverServlet?idAvaliacao1=${proposta.avaliacoes[0].idAvaliacao}&idAvaliacao2=${proposta.avaliacoes[1].idAvaliacao}'>Deletar avaliações</a>
                                     </c:if>
                                     Desativar Proposta: <a href='PropostaTCCDesativarServlet?id=${proposta.idPropostaTCC}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>

@@ -37,6 +37,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
             pstmt.setLong(5, idPropostaTCC);
             pstmt.executeUpdate();
             rs = pstmt.getGeneratedKeys();
+            rs.next();
             idAvaliacao = rs.getLong(1);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -144,6 +145,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
             sql.append(" SELECT * FROM Avaliacao_Criterio ");
             sql.append(" WHERE id_avaliacao = ? ");
             pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, idAvaliacao);
             rs = pstmt.executeQuery();
             criterios = new HashMap<>();
             while (rs.next()) {
