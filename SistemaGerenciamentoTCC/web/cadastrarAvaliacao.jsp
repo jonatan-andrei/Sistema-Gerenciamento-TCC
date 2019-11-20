@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="notaFinalProf1">Nota final: </label> 
-                    <input type="text" name="notaFinalProf1" id="notaFinalProf1" class="form-control" placeholder="Nota final: " required/>
+                    <input type="number" step="0.1" min=0 max='10' name="notaFinalProf1" id="notaFinalProf1" class="form-control" placeholder="Nota final: " required/>
                 </div>
 
                 <div class="form-check">
@@ -71,7 +71,7 @@
                 </div>
                 <div class="form-group row">
                     <label for="notaFinalProf2">Nota final: </label> 
-                    <input type="text" name="notaFinalProf2" id="notaFinalProf2" class="form-control" placeholder="Nota final: " required/>
+                    <input type="number" step="0.1" min=0 max='10' name="notaFinalProf2" id="notaFinalProf2" class="form-control" placeholder="Nota final: " required/>
                 </div>
 
                 <div class="form-check">

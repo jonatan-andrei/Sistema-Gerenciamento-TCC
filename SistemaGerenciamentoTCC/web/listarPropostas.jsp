@@ -82,13 +82,20 @@
                                                 <li>
                                                     Avaliador: ${avaliacao.avaliador.nome}<br>
                                                     Nota: ${avaliacao.notaFinal}<br>
-                                                    Situação: ${avaliacao.aprovado}<br>
+                                                    Situação: 
+                                                    <c:if test="${avaliacao.aprovado}">
+                                                        Aprovado.
+                                                    </c:if>
+                                                    <c:if test="${not avaliacao.aprovado}">
+                                                        Reprovado.
+                                                    </c:if>
+                                                    <br>
                                                     Parecer: ${avaliacao.parecer}<br>
                                                 </li>
                                             </c:forEach>
                                         </ul>
-                                        <a href='AvaliacaoEditarServlet?id=${proposta.idPropostaTCC}'>Editar avaliações</a>
-                                        <a href='AvaliacaoRemoverServlet?idAvaliacao1=${proposta.avaliacoes[0].idAvaliacao}&idAvaliacao2=${proposta.avaliacoes[1].idAvaliacao}'>Deletar avaliações</a>
+                                        <a href='AvaliacaoEditarServlet?id=${proposta.idPropostaTCC}'>Editar avaliações</a><br>
+                                        <a href='AvaliacaoRemoverServlet?idAvaliacao1=${proposta.avaliacoes[0].idAvaliacao}&idAvaliacao2=${proposta.avaliacoes[1].idAvaliacao}'>Deletar avaliações</a><br>
                                     </c:if>
                                     Desativar Proposta: <a href='PropostaTCCDesativarServlet?id=${proposta.idPropostaTCC}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>

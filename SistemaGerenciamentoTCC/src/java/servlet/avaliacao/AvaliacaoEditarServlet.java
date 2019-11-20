@@ -1,6 +1,10 @@
 package servlet.avaliacao;
 
+import domain.Avaliacao;
+import dto.AvaliacaoEditarDto;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +23,8 @@ public class AvaliacaoEditarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long idPropostaTCC = Long.parseLong(request.getParameter("id"));
-        request.setAttribute("avaliacoes", avaliacaoService.buscarPorTCC(idPropostaTCC));
+        List<AvaliacaoEditarDto> avaliacoes = avaliacaoService.buscarPorTCC(idPropostaTCC).stream().map(av -> new AvaliacaoEditarDto(av)).collect(Collectors.toList());
+        request.setAttribute("avaliacoes", avaliacoes);
         request.setAttribute("proposta", propostaTCCService.buscarPorId(idPropostaTCC));
         request.getRequestDispatcher("editarAvaliacao.jsp").forward(request, response);
     }
@@ -35,8 +40,8 @@ public class AvaliacaoEditarServlet extends HttpServlet {
         boolean aprovadoProf1 = Boolean.parseBoolean(request.getParameter("aprovadoProf1"));
         String usoDeLinguagemProf1 = request.getParameter("usoDeLinguagemProf1");
         String apresentacaoProf1 = request.getParameter("apresentacaoProf1");
-        String estruturaDoTextoProf1 = request.getParameter("estruturaDoTextoProf1");
-        String conteudoDoTextoProf1 = request.getParameter("conteudoDoTextoProf1");
+        String estruturaDoTextoProf1 = request.getParameter("estruturaTextoProf1");
+        String conteudoDoTextoProf1 = request.getParameter("conteudoTextoProf1");
         String relevanciaProfissionalProf1 = request.getParameter("relevanciaProfissionalProf1");
 
         // Avaliação do segundo professor
@@ -46,8 +51,8 @@ public class AvaliacaoEditarServlet extends HttpServlet {
         boolean aprovadoProf2 = Boolean.parseBoolean(request.getParameter("aprovadoProf2"));
         String usoDeLinguagemProf2 = request.getParameter("usoDeLinguagemProf2");
         String apresentacaoProf2 = request.getParameter("apresentacaoProf2");
-        String estruturaDoTextoProf2 = request.getParameter("estruturaDoTextoProf2");
-        String conteudoDoTextoProf2 = request.getParameter("conteudoDoTextoProf2");
+        String estruturaDoTextoProf2 = request.getParameter("estruturaTextoProf2");
+        String conteudoDoTextoProf2 = request.getParameter("conteudoTextoProf2");
         String relevanciaProfissionalProf2 = request.getParameter("relevanciaProfissionalProf2");
 
         boolean sucesso = avaliacaoService.editarAvaliacao(idAvaliacaoProf1, notaFinalProf1, parecerProf1, aprovadoProf1, usoDeLinguagemProf1, apresentacaoProf1, estruturaDoTextoProf1, conteudoDoTextoProf1, relevanciaProfissionalProf1);
