@@ -1,6 +1,10 @@
 package servlet.avaliacao;
 
+import domain.Avaliacao;
+import dto.AvaliacaoEditarDto;
 import java.io.IOException;
+import java.util.List;
+import java.util.stream.Collectors;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -18,27 +22,41 @@ public class AvaliacaoEditarServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long idAvaliacao = Long.parseLong(request.getParameter("idAvaliacao"));
-        request.setAttribute("avaliacao", avaliacaoService.buscarPorId(idAvaliacao));
-        Long idPropostaTCC = Long.parseLong(request.getParameter("idPropostaTCC"));
-        request.setAttribute("propostaTCC", propostaTCCService.buscarPorId(idPropostaTCC));
+        Long idPropostaTCC = Long.parseLong(request.getParameter("id"));
+        List<AvaliacaoEditarDto> avaliacoes = avaliacaoService.buscarPorTCC(idPropostaTCC).stream().map(av -> new AvaliacaoEditarDto(av)).collect(Collectors.toList());
+        request.setAttribute("avaliacoes", avaliacoes);
+        request.setAttribute("proposta", propostaTCCService.buscarPorId(idPropostaTCC));
         request.getRequestDispatcher("editarAvaliacao.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Long idAvaliacao = Long.parseLong(request.getParameter("idAvaliacao"));
-        Double notaFinal = Double.parseDouble(request.getParameter("notaFinal"));
-        String parecer = request.getParameter("parecer");
-        boolean aprovado = Boolean.parseBoolean(request.getParameter("aprovado"));
-        String usoDeLinguagem = request.getParameter("usoDeLinguagem");
-        String apresentacao = request.getParameter("apresentacao");
-        String estruturaDoTexto = request.getParameter("estruturaDoTexto");
-        String conteudoDoTexto = request.getParameter("conteudoDoTexto");
-        String relevanciaProfissional = request.getParameter("relevanciaProfissional");
 
-        boolean sucesso = avaliacaoService.editarAvaliacao(idAvaliacao, notaFinal, parecer, aprovado, usoDeLinguagem, apresentacao, estruturaDoTexto, conteudoDoTexto, relevanciaProfissional);
+        // Avaliação do primeiro professor
+        Long idAvaliacaoProf1 = Long.parseLong(request.getParameter("idAvaliacaoProf1"));
+        Double notaFinalProf1 = Double.parseDouble(request.getParameter("notaFinalProf1"));
+        String parecerProf1 = request.getParameter("parecerProf1");
+        boolean aprovadoProf1 = Boolean.parseBoolean(request.getParameter("aprovadoProf1"));
+        String usoDeLinguagemProf1 = request.getParameter("usoDeLinguagemProf1");
+        String apresentacaoProf1 = request.getParameter("apresentacaoProf1");
+        String estruturaDoTextoProf1 = request.getParameter("estruturaTextoProf1");
+        String conteudoDoTextoProf1 = request.getParameter("conteudoTextoProf1");
+        String relevanciaProfissionalProf1 = request.getParameter("relevanciaProfissionalProf1");
+
+        // Avaliação do segundo professor
+        Long idAvaliacaoProf2 = Long.parseLong(request.getParameter("idAvaliacaoProf2"));
+        Double notaFinalProf2 = Double.parseDouble(request.getParameter("notaFinalProf2"));
+        String parecerProf2 = request.getParameter("parecerProf2");
+        boolean aprovadoProf2 = Boolean.parseBoolean(request.getParameter("aprovadoProf2"));
+        String usoDeLinguagemProf2 = request.getParameter("usoDeLinguagemProf2");
+        String apresentacaoProf2 = request.getParameter("apresentacaoProf2");
+        String estruturaDoTextoProf2 = request.getParameter("estruturaTextoProf2");
+        String conteudoDoTextoProf2 = request.getParameter("conteudoTextoProf2");
+        String relevanciaProfissionalProf2 = request.getParameter("relevanciaProfissionalProf2");
+
+        boolean sucesso = avaliacaoService.editarAvaliacao(idAvaliacaoProf1, notaFinalProf1, parecerProf1, aprovadoProf1, usoDeLinguagemProf1, apresentacaoProf1, estruturaDoTextoProf1, conteudoDoTextoProf1, relevanciaProfissionalProf1);
+        sucesso = sucesso && avaliacaoService.editarAvaliacao(idAvaliacaoProf2, notaFinalProf2, parecerProf2, aprovadoProf2, usoDeLinguagemProf2, apresentacaoProf2, estruturaDoTextoProf2, conteudoDoTextoProf2, relevanciaProfissionalProf2);
 
         String mensagem;
         String areaResposta;

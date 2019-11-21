@@ -54,12 +54,53 @@
                                             <c:forEach var="profBanca" items="${proposta.banca}">
                                                 <li>${profBanca.nome}</li>
                                             </c:forEach></ul>
-                                        <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Editar Banca</a><br>
-                                        <a href='PropostaTCCRemoverBancaServlet?id=${proposta.idPropostaTCC}'>Remover Banca</a><br>
+                                            <c:if test="${empty proposta.avaliacoes}">
+                                            <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Editar Banca</a><br>
+                                            <a href='PropostaTCCRemoverBancaServlet?id=${proposta.idPropostaTCC}'>Remover Banca</a><br>
+                                        </c:if>
+                                        <c:if test="${not empty proposta.avaliacoes}">
+                                            O TCC já foi avaliado. Não é permitido editar ou remover a banca nestes casos.<br>
+                                        </c:if>
                                     </c:if>
 
                                     <c:if test="${empty proposta.banca}">
                                         <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Cadastrar Banca</a><br>
+                                    </c:if>
+
+                                    Avaliações:
+                                    <c:if test="${empty proposta.avaliacoes}">
+                                        <c:if test="${empty proposta.artigo}">
+                                            O artigo final ainda não foi enviado. O TCC não pode ser avaliado ainda.
+                                        </c:if>
+                                        <c:if test="${empty proposta.banca && not empty proposta.artigo}">
+                                            Cadastre primeiramente a banca para depois avaliar.
+                                        </c:if>
+                                        <c:if test="${not empty proposta.banca && not empty proposta.artigo}">
+                                            <a href='AvaliacaoCadastrarServlet?id=${proposta.idPropostaTCC}'>Avaliar</a>
+                                        </c:if>
+                                        <br>
+                                    </c:if>
+
+                                    <c:if test="${not empty proposta.avaliacoes}">
+                                        <ul>
+                                            <c:forEach var="avaliacao" items="${proposta.avaliacoes}">
+                                                <li>
+                                                    Avaliador: ${avaliacao.avaliador.nome}<br>
+                                                    Nota: ${avaliacao.notaFinal}<br>
+                                                    Situação: 
+                                                    <c:if test="${avaliacao.aprovado}">
+                                                        Aprovado.
+                                                    </c:if>
+                                                    <c:if test="${not avaliacao.aprovado}">
+                                                        Reprovado.
+                                                    </c:if>
+                                                    <br>
+                                                    Parecer: ${avaliacao.parecer}<br>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
+                                        <a href='AvaliacaoEditarServlet?id=${proposta.idPropostaTCC}'>Editar avaliações</a><br>
+                                        <a href='AvaliacaoRemoverServlet?idAvaliacao1=${proposta.avaliacoes[0].idAvaliacao}&idAvaliacao2=${proposta.avaliacoes[1].idAvaliacao}'>Deletar avaliações</a><br>
                                     </c:if>
                                     Desativar Proposta: <a href='PropostaTCCDesativarServlet?id=${proposta.idPropostaTCC}'><i class="fa fa-times fa-2x"></i></a></td>
                             </tr>
