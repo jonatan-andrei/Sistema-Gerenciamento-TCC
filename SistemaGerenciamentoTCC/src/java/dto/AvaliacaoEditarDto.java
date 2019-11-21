@@ -27,7 +27,6 @@ public class AvaliacaoEditarDto {
         avaliacao.getObservacoesPorCriterio().entrySet().forEach((entry) -> {
             this.observacoesPorCriterio.put(entry.getKey().name(), entry.getValue());
         });
-
     }
 
     public Long getIdAvaliacao() {

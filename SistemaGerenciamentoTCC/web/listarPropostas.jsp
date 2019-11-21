@@ -54,8 +54,13 @@
                                             <c:forEach var="profBanca" items="${proposta.banca}">
                                                 <li>${profBanca.nome}</li>
                                             </c:forEach></ul>
-                                        <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Editar Banca</a><br>
-                                        <a href='PropostaTCCRemoverBancaServlet?id=${proposta.idPropostaTCC}'>Remover Banca</a><br>
+                                            <c:if test="${empty proposta.avaliacoes}">
+                                            <a href='PropostaTCCSalvarBancaServlet?id=${proposta.idPropostaTCC}'>Editar Banca</a><br>
+                                            <a href='PropostaTCCRemoverBancaServlet?id=${proposta.idPropostaTCC}'>Remover Banca</a><br>
+                                        </c:if>
+                                        <c:if test="${not empty proposta.avaliacoes}">
+                                            O TCC já foi avaliado. Não é permitido editar ou remover a banca nestes casos.<br>
+                                        </c:if>
                                     </c:if>
 
                                     <c:if test="${empty proposta.banca}">

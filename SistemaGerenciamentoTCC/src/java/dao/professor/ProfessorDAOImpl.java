@@ -153,9 +153,19 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             StringBuilder sql = new StringBuilder();
             sql.append(" UPDATE Professor SET ");
             sql.append(" carga_trabalho_semestre = carga_trabalho_semestre + 1 ");
-            sql.append(" WHERE id_professor IN (?) ");
+            sql.append(" WHERE id_professor IN (? ");
+
+            for (int i = 1; i < professores.size(); i++) { // Contador começa em um porque um parâmetro já foi adicionado
+                sql.append(",?");
+            }
+
+            sql.append(")");
             pstmt = conexao.prepareCall(sql.toString());
-            pstmt.setString(1, professores.stream().map(String::valueOf).collect(Collectors.joining(", ")));
+            int contadorParametro = 1;
+            for (Long professor : professores) {
+                pstmt.setLong(contadorParametro, professor);
+                contadorParametro++;
+            }
             pstmt.executeUpdate();
             sucesso = true;
         } catch (Exception ex) {
@@ -179,9 +189,19 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             StringBuilder sql = new StringBuilder();
             sql.append(" UPDATE Professor SET ");
             sql.append(" carga_trabalho_semestre = carga_trabalho_semestre - 1 ");
-            sql.append(" WHERE id_professor IN (?) ");
+            sql.append(" WHERE id_professor IN (? ");
+
+            for (int i = 1; i < professores.size(); i++) { // Contador começa em um porque um parâmetro já foi adicionado
+                sql.append(",?");
+            }
+
+            sql.append(")");
             pstmt = conexao.prepareCall(sql.toString());
-            pstmt.setString(1, professores.stream().map(String::valueOf).collect(Collectors.joining(", ")));
+            int contadorParametro = 1;
+            for (Long professor : professores) {
+                pstmt.setLong(contadorParametro, professor);
+                contadorParametro++;
+            }
             pstmt.executeUpdate();
             sucesso = true;
         } catch (Exception ex) {
