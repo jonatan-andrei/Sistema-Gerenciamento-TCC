@@ -18,11 +18,11 @@
                 <h2>Avaliação do professor ${proposta.orientador.nome}</h2>
                 <input type="hidden" id="idAvaliacaoProfOrientador" value='${avaliacoes[0].idAvaliacao}' name="idAvaliacaoProfOrientador">
                 <div class="form-group row">
-                    <label for="parecerProf1">Parecer: </label> 
+                    <label for="parecerProfOrientador">Parecer: </label> 
                     <input type="text" name="parecerProfOrientador" id="parecerProfOrientador" class="form-control" placeholder="Parecer: " value='${avaliacoes[0].parecer}' required/>
                 </div>
                 <div class="form-group row">
-                    <label for="notaFinalProf1">Nota final: </label> 
+                    <label for="notaFinalProfOrientador">Nota final: </label> 
                     <input type="number" step="0.1" min=0 max='10' name="notaFinalProfOrientador" id="notaFinalProfOrientador" class="form-control" placeholder="Nota final: " value='${avaliacoes[0].notaFinal}' required/>
                 </div>
 
@@ -41,12 +41,12 @@
 
                     <div class="form-group row">
                         <label for="usoDeLinguagemProfOrientador">Uso de Linguagem: </label> 
-                        <input type="text" name="usoDeLinguagemProfOrientador" id="usoDeLinguagemProf1" class="form-control" placeholder="Uso de Linguagem: " value='${avaliacoes[0].observacoesPorCriterio.USO_DE_LINGUAGEM}' required/>
+                        <input type="text" name="usoDeLinguagemProfOrientador" id="usoDeLinguagemProfOrientador" class="form-control" placeholder="Uso de Linguagem: " value='${avaliacoes[0].observacoesPorCriterio.USO_DE_LINGUAGEM}' required/>
                 </div>
 
                 <div class="form-group row">
-                    <label for="apresentacaoProf1">Apresentação: </label> 
-                    <input type="text" name="apresentacaoProf1Orientador" id="apresentacaoProfOrientador" class="form-control" placeholder="Apresentação: " value='${avaliacoes[0].observacoesPorCriterio.APRESENTACAO}' required/>
+                    <label for="apresentacaoProfOrientador">Apresentação: </label> 
+                    <input type="text" name="apresentacaoProfOrientador" id="apresentacaoProfOrientador" class="form-control" placeholder="Apresentação: " value='${avaliacoes[0].observacoesPorCriterio.APRESENTACAO}' required/>
                 </div>
 
                 <div class="form-group row">

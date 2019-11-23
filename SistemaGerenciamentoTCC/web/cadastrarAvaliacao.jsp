@@ -14,14 +14,14 @@
             <h1>Avaliação do TCC: ${proposta.descricao}</h1>  
             <form action="AvaliacaoCadastrarServlet" method="post" class="col-8"> 
                 <input type="hidden" id="idPropostaTCC" value='${proposta.idPropostaTCC}' name="idPropostaTCC">
-                <h2>Avaliação do professor orientador ${proposta.orientador.nome}</h2>
-                <input type="hidden" id="idProfessorOrientador" value='${proposta.orientador.id}' name="idProfessor1">
+                <h2>Avaliação do(a) professor(a) orientador(a) ${proposta.orientador.nome}</h2>
+                <input type="hidden" id="idProfessorOrientador" value='${proposta.orientador.id}' name="idProfessorOrientador">
                 <div class="form-group row">
-                    <label for="parecerProf1">Parecer: </label> 
-                    <input type="text" name="parecerProf1" id="parecerProfOrientador" class="form-control" placeholder="Parecer: " required/>
+                    <label for="parecerProfOrientador">Parecer: </label> 
+                    <input type="text" name="parecerProfOrientador" id="parecerProfOrientador" class="form-control" placeholder="Parecer: " required/>
                 </div>
                 <div class="form-group row">
-                    <label for="notaFinalProf1">Nota final: </label> 
+                    <label for="notaFinalProfOrientador">Nota final: </label> 
                     <input type="number" step="0.1" min=0 max='10' name="notaFinalProfOrientador" id="notaFinalProfOrientador" class="form-control" placeholder="Nota final: " required/>
                 </div>
 
@@ -63,7 +63,7 @@
                     <input type="text" name="relevanciaProfissionalProfOrientador" id="relevanciaProfissionalProfOrientador" class="form-control" placeholder="Relevância ao perfil profissional: " required/>
                 </div>
 
-                <h2>Avaliação do professor ${proposta.banca[0].nome}</h2>
+                <h2>Avaliação do(a) professor(a) ${proposta.banca[0].nome}</h2>
                 <input type="hidden" id="idProfessor1" value='${proposta.banca[0].id}' name="idProfessor1">
                 <div class="form-group row">
                     <label for="parecerProf1">Parecer: </label> 
@@ -112,7 +112,7 @@
                     <input type="text" name="relevanciaProfissionalProf1" id="relevanciaProfissionalProf1" class="form-control" placeholder="Relevância ao perfil profissional: " required/>
                 </div>
 
-                <h2>Avaliação do professor ${proposta.banca[1].nome}</h2>
+                <h2>Avaliação do(a) professor(a) ${proposta.banca[1].nome}</h2>
                 <input type="hidden" id="idProfessor2" value='${proposta.banca[1].id}' name='idProfessor2'>
                 <div class="form-group row">
                     <label for="parecerProf2">Parecer: </label> 

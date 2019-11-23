@@ -50,7 +50,7 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
     @Override
     public List<Avaliacao> buscarPorTCC(PropostaTCC proposta) {
         List<Avaliacao> avaliacoes = avaliacaoDAO.buscarPorTCC(proposta.getIdPropostaTCC());
-        if (nonNull(avaliacoes)) {
+        if (nonNull(avaliacoes) && !avaliacoes.isEmpty()) {
             avaliacoes = ordenarAvaliacoes(avaliacoes, proposta);
             avaliacoes.forEach(a -> a.setObservacoesPorCriterio(avaliacaoDAO.buscarCriteriosPorAvaliacao(a.getIdAvaliacao())));
         }

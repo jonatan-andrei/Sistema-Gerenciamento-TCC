@@ -168,7 +168,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
 
             if (rs.next()) {
                 Aluno aluno = new Aluno(rs.getLong("aluno.id_aluno"), rs.getString("aluno.nome"), rs.getString("aluno.email"), rs.getString("aluno.matricula"), rs.getString("aluno.telefone"));
-                Professor professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));
+                Professor professor = new Professor(rs.getLong("professor.id_professor"), rs.getString("professor.nome"), rs.getString("professor.email"), rs.getInt("professor.carga_trabalho_semestre"));
                 proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor);
             }
         } catch (Exception e) {
@@ -207,7 +207,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             if (rs.next()) {
                 Area area = new Area(rs.getLong("area.id_area"), rs.getString("area.nome"));
                 Aluno aluno = new Aluno(rs.getLong("aluno.id_aluno"), rs.getString("aluno.nome"), rs.getString("aluno.email"), rs.getString("aluno.matricula"), rs.getString("aluno.telefone"));
-                Professor professor = new Professor(rs.getLong("id_professor"), rs.getString("nome"), rs.getString("email"), rs.getInt("carga_trabalho_semestre"));
+                Professor professor = new Professor(rs.getLong("professor.id_professor"), rs.getString("professor.nome"), rs.getString("professor.email"), rs.getInt("professor.carga_trabalho_semestre"));
                 List<Professor> banca = new ArrayList<>();
                 if (rs.getLong("proposta.id_professor_avaliador_primeiro") != 0) {
                     banca.add(new Professor(rs.getLong("avaliador1.id_professor"), rs.getString("avaliador1.nome"), rs.getString("avaliador1.email"), rs.getInt("avaliador1.carga_trabalho_semestre")));
