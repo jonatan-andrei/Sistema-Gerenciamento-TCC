@@ -1,6 +1,6 @@
 package servlet.avaliacao;
 
-import domain.Avaliacao;
+import domain.PropostaTCC;
 import dto.AvaliacaoEditarDto;
 import java.io.IOException;
 import java.util.List;
@@ -23,15 +23,27 @@ public class AvaliacaoEditarServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         Long idPropostaTCC = Long.parseLong(request.getParameter("id"));
-        List<AvaliacaoEditarDto> avaliacoes = avaliacaoService.buscarPorTCC(idPropostaTCC).stream().map(av -> new AvaliacaoEditarDto(av)).collect(Collectors.toList());
+        PropostaTCC proposta = propostaTCCService.buscarPorId(idPropostaTCC);
+        List<AvaliacaoEditarDto> avaliacoes = avaliacaoService.buscarPorTCC(proposta).stream().map(av -> new AvaliacaoEditarDto(av)).collect(Collectors.toList());
         request.setAttribute("avaliacoes", avaliacoes);
-        request.setAttribute("proposta", propostaTCCService.buscarPorId(idPropostaTCC));
+        request.setAttribute("proposta", proposta);
         request.getRequestDispatcher("editarAvaliacao.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
+        // Avaliação do professor orientador
+        Long idAvaliacaoProfOrientador = Long.parseLong(request.getParameter("idAvaliacaoProfOrientador"));
+        Double notaFinalProfOrientador = Double.parseDouble(request.getParameter("notaFinalProfOrientador"));
+        String parecerProfOrientador = request.getParameter("parecerProfOrientador");
+        boolean aprovadoProfOrientador = Boolean.parseBoolean(request.getParameter("aprovadoProfOrientador"));
+        String usoDeLinguagemProfOrientador = request.getParameter("usoDeLinguagemProfOrientador");
+        String apresentacaoProfOrientador = request.getParameter("apresentacaoProfOrientador");
+        String estruturaDoTextoProfOrientador = request.getParameter("estruturaTextoProfOrientador");
+        String conteudoDoTextoProfOrientador = request.getParameter("conteudoTextoProfOrientador");
+        String relevanciaProfissionalProfOrientador = request.getParameter("relevanciaProfissionalProfOrientador");
 
         // Avaliação do primeiro professor
         Long idAvaliacaoProf1 = Long.parseLong(request.getParameter("idAvaliacaoProf1"));
@@ -55,7 +67,8 @@ public class AvaliacaoEditarServlet extends HttpServlet {
         String conteudoDoTextoProf2 = request.getParameter("conteudoTextoProf2");
         String relevanciaProfissionalProf2 = request.getParameter("relevanciaProfissionalProf2");
 
-        boolean sucesso = avaliacaoService.editarAvaliacao(idAvaliacaoProf1, notaFinalProf1, parecerProf1, aprovadoProf1, usoDeLinguagemProf1, apresentacaoProf1, estruturaDoTextoProf1, conteudoDoTextoProf1, relevanciaProfissionalProf1);
+        boolean sucesso = avaliacaoService.editarAvaliacao(idAvaliacaoProfOrientador, notaFinalProfOrientador, parecerProfOrientador, aprovadoProfOrientador, usoDeLinguagemProfOrientador, apresentacaoProfOrientador, estruturaDoTextoProfOrientador, conteudoDoTextoProfOrientador, relevanciaProfissionalProfOrientador);
+        sucesso = sucesso && avaliacaoService.editarAvaliacao(idAvaliacaoProf1, notaFinalProf1, parecerProf1, aprovadoProf1, usoDeLinguagemProf1, apresentacaoProf1, estruturaDoTextoProf1, conteudoDoTextoProf1, relevanciaProfissionalProf1);
         sucesso = sucesso && avaliacaoService.editarAvaliacao(idAvaliacaoProf2, notaFinalProf2, parecerProf2, aprovadoProf2, usoDeLinguagemProf2, apresentacaoProf2, estruturaDoTextoProf2, conteudoDoTextoProf2, relevanciaProfissionalProf2);
 
         String mensagem;

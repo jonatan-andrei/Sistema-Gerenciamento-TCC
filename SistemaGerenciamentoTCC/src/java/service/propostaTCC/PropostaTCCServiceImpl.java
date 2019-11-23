@@ -1,5 +1,7 @@
 package service.propostaTCC;
 
+import dao.area.AreaDAO;
+import dao.area.AreaDAOImpl;
 import dao.propostatcc.PropostaTCCDAO;
 import dao.propostatcc.PropostaTCCDAOImpl;
 import domain.Area;
@@ -29,6 +31,7 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
     private static final SugestaoTCCService sugestaoTCCService = new SugestaoTCCServiceImpl();
     private static final AvaliacaoService avaliacaoService = new AvaliacaoServiceImpl();
     private static final PropostaTCCDAO propostaTCCDAO = new PropostaTCCDAOImpl();
+    private static final AreaDAO areaDAO = new AreaDAOImpl();
 
     @Override
     public boolean cadastrarProposta(String titulo, String descricao, Long idAluno, Long idProfessor, Long idArea) {
@@ -56,11 +59,11 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
         List<PropostaTCC> propostas = propostaTCCDAO.listar();
         if (nonNull(propostas)) {
             propostas.forEach(p -> {
-                List<Avaliacao> avaliacoes = avaliacaoService.buscarPorTCC(p.getIdPropostaTCC());
+                List<Avaliacao> avaliacoes = avaliacaoService.buscarPorTCC(p);
                 p.setAvaliacoes(avaliacoes);
-                if (avaliacoes.size() < 2) {
-                    p.setStatus(NAO_AVALIADO); // Se a proposta ainda não recebeu duas avaliações, não foi aprovada nem reprovada ainda
-                } else if (avaliacoes.get(0).isAprovado() && avaliacoes.get(1).isAprovado()) {
+                if (avaliacoes.size() < 3) {
+                    p.setStatus(NAO_AVALIADO); // Se a proposta ainda não recebeu três avaliações, não foi aprovada nem reprovada ainda
+                } else if (avaliacoes.get(0).isAprovado() && avaliacoes.get(1).isAprovado() && avaliacoes.get(2).isAprovado()) {
                     p.setStatus(APROVADO);
                 } else {
                     p.setStatus(REPROVADO);
@@ -118,6 +121,9 @@ public class PropostaTCCServiceImpl implements PropostaTCCService {
 
         //Busca professores que já compõem a banca, caso essa já seja definida
         List<Professor> professoresAtuais = propostaTCCDAO.verBanca(idPropostaTCC);
+        professoresAtuais.forEach(professor -> {
+            professor.setAreasDeInteresse(areaDAO.buscarAreasDeInteresse(professor.getId()));
+        });
 
         // Busca lista de professores
         List<Professor> professores = professorService.listar();

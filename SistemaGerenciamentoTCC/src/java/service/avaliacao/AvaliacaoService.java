@@ -1,6 +1,7 @@
 package service.avaliacao;
 
 import domain.Avaliacao;
+import domain.PropostaTCC;
 import java.util.List;
 
 public interface AvaliacaoService {
@@ -10,6 +11,8 @@ public interface AvaliacaoService {
     boolean editarAvaliacao(Long idAvaliacao, double notaFinal, String parecer, boolean aprovado, String usoDeLinguagem, String apresentacao, String estruturaDoTexto, String conteudoDoTexto, String relevanciaProfissional);
 
     Avaliacao buscarPorId(Long idAvaliacao);
+
+    List<Avaliacao> buscarPorTCC(PropostaTCC proposta);
 
     List<Avaliacao> buscarPorTCC(Long idPropostaTCC);
 

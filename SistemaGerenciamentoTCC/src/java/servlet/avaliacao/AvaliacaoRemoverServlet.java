@@ -16,10 +16,12 @@ public class AvaliacaoRemoverServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
+        Long idAvaliacaoOrientador = Long.parseLong(request.getParameter("idAvaliacaoOrientador"));
         Long idAvaliacao1 = Long.parseLong(request.getParameter("idAvaliacao1"));
         Long idAvaliacao2 = Long.parseLong(request.getParameter("idAvaliacao2"));
 
-        boolean sucesso = avaliacaoService.deletarAvaliacao(idAvaliacao1);
+        boolean sucesso = avaliacaoService.deletarAvaliacao(idAvaliacaoOrientador);
+        sucesso = sucesso && avaliacaoService.deletarAvaliacao(idAvaliacao1);
         sucesso = sucesso && avaliacaoService.deletarAvaliacao(idAvaliacao2);
 
         String mensagem;

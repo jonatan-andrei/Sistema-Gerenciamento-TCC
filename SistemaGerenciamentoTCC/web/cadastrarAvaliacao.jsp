@@ -14,6 +14,55 @@
             <h1>Avaliação do TCC: ${proposta.descricao}</h1>  
             <form action="AvaliacaoCadastrarServlet" method="post" class="col-8"> 
                 <input type="hidden" id="idPropostaTCC" value='${proposta.idPropostaTCC}' name="idPropostaTCC">
+                <h2>Avaliação do professor orientador ${proposta.orientador.nome}</h2>
+                <input type="hidden" id="idProfessorOrientador" value='${proposta.orientador.id}' name="idProfessor1">
+                <div class="form-group row">
+                    <label for="parecerProf1">Parecer: </label> 
+                    <input type="text" name="parecerProf1" id="parecerProfOrientador" class="form-control" placeholder="Parecer: " required/>
+                </div>
+                <div class="form-group row">
+                    <label for="notaFinalProf1">Nota final: </label> 
+                    <input type="number" step="0.1" min=0 max='10' name="notaFinalProfOrientador" id="notaFinalProfOrientador" class="form-control" placeholder="Nota final: " required/>
+                </div>
+
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aprovadoProfOrientador" id="aprovadoProfOrientador" value="true" checked>
+                    <label class="form-check-label" for="aprovadoProfOrientador">
+                        Aprovado
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="radio" name="aprovadoProfOrientador" id="reprovadoProfOrientador" value="false">
+                    <label class="form-check-label" for="reprovadoProfOrientador">
+                        Reprovado
+                    </label>
+                </div>
+
+                <div class="form-group row">
+                    <label for="usoDeLinguagemProfOrientador">Uso de Linguagem: </label> 
+                    <input type="text" name="usoDeLinguagemProfOrientador" id="usoDeLinguagemProfOrientador" class="form-control" placeholder="Uso de Linguagem: " required/>
+                </div>
+
+                <div class="form-group row">
+                    <label for="apresentacaoProfOrientador">Apresentação: </label> 
+                    <input type="text" name="apresentacaoProfOrientador" id="apresentacaoProfOrientador" class="form-control" placeholder="Apresentação: " required/>
+                </div>
+
+                <div class="form-group row">
+                    <label for="estruturaTextoProfOrientador">Estrutura do Texto: </label> 
+                    <input type="text" name="estruturaTextoProfOrientador" id="estruturaTextoProfOrientador" class="form-control" placeholder="Estrutura do Texto: " required/>
+                </div>
+
+                <div class="form-group row">
+                    <label for="conteudoTextoProfOrientador">Conteúdo do Texto: </label> 
+                    <input type="text" name="conteudoTextoProfOrientador" id="conteudoTextoProfOrientador" class="form-control" placeholder="Conteúdo do Texto: " required/>
+                </div>
+
+                <div class="form-group row">
+                    <label for="relevanciaProfissionalProfOrientador">Relevância ao Perfil Profissional: </label> 
+                    <input type="text" name="relevanciaProfissionalProfOrientador" id="relevanciaProfissionalProfOrientador" class="form-control" placeholder="Relevância ao perfil profissional: " required/>
+                </div>
+
                 <h2>Avaliação do professor ${proposta.banca[0].nome}</h2>
                 <input type="hidden" id="idProfessor1" value='${proposta.banca[0].id}' name="idProfessor1">
                 <div class="form-group row">

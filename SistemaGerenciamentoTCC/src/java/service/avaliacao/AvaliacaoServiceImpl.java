@@ -3,6 +3,8 @@ package service.avaliacao;
 import dao.avaliacao.AvaliacaoDAO;
 import dao.avaliacao.AvaliacaoDAOImpl;
 import domain.Avaliacao;
+import domain.PropostaTCC;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -46,6 +48,16 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
     }
 
     @Override
+    public List<Avaliacao> buscarPorTCC(PropostaTCC proposta) {
+        List<Avaliacao> avaliacoes = avaliacaoDAO.buscarPorTCC(proposta.getIdPropostaTCC());
+        if (nonNull(avaliacoes)) {
+            avaliacoes = ordenarAvaliacoes(avaliacoes, proposta);
+            avaliacoes.forEach(a -> a.setObservacoesPorCriterio(avaliacaoDAO.buscarCriteriosPorAvaliacao(a.getIdAvaliacao())));
+        }
+        return avaliacoes;
+    }
+
+    @Override
     public List<Avaliacao> buscarPorTCC(Long idPropostaTCC) {
         List<Avaliacao> avaliacoes = avaliacaoDAO.buscarPorTCC(idPropostaTCC);
         if (nonNull(avaliacoes)) {
@@ -57,7 +69,7 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
     @Override
     public Avaliacao buscarPorId(Long idAvaliacao) {
         Avaliacao avaliacao = avaliacaoDAO.buscarPorId(idAvaliacao);
-        if (nonNull(avaliacao)){
+        if (nonNull(avaliacao)) {
             avaliacao.setObservacoesPorCriterio(avaliacaoDAO.buscarCriteriosPorAvaliacao(idAvaliacao));
         }
         return avaliacao;
@@ -70,6 +82,30 @@ public class AvaliacaoServiceImpl implements AvaliacaoService {
             avaliacaoDAO.deletar(idAvaliacao);
         }
         return sucesso;
+    }
+
+    private List<Avaliacao> ordenarAvaliacoes(List<Avaliacao> avaliacoes, PropostaTCC proposta) {
+        List<Avaliacao> avaliacoesOrdenadas = new ArrayList<>();
+
+        // Primeira avaliação da lista é a do professor orientador
+        Avaliacao avaliacaoOrientador = avaliacoes.stream().
+                filter(a -> a.getAvaliador().getId().equals(proposta.getOrientador().getId()))
+                .findFirst().orElse(null);
+        avaliacoesOrdenadas.add(avaliacaoOrientador);
+
+        // Segunda avaliação da lista é a do primeiro avaliador da banca
+        Avaliacao avaliacaoProf1 = avaliacoes.stream().
+                filter(a -> a.getAvaliador().getId().equals(proposta.getBanca().get(0).getId()))
+                .findFirst().orElse(null);
+        avaliacoesOrdenadas.add(avaliacaoProf1);
+
+        // Terceira avaliação da lista é a do segundo avaliador da banca
+        Avaliacao avaliacaoProf2 = avaliacoes.stream().
+                filter(a -> a.getAvaliador().getId().equals(proposta.getBanca().get(1).getId()))
+                .findFirst().orElse(null);
+        avaliacoesOrdenadas.add(avaliacaoProf2);
+
+        return avaliacoesOrdenadas;
     }
 
 }

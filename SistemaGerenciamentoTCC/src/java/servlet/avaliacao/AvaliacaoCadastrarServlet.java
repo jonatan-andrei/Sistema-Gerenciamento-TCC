@@ -29,6 +29,17 @@ public class AvaliacaoCadastrarServlet extends HttpServlet {
 
         Long idPropostaTCC = Long.parseLong(request.getParameter("idPropostaTCC"));
 
+        // Avaliação do professor orientador
+        Long idProfessorOrientador = Long.parseLong(request.getParameter("idProfessorOrientador"));
+        Double notaFinalProfOrientador = Double.parseDouble(request.getParameter("notaFinalProfOrientador"));
+        String parecerProfOrientador = request.getParameter("parecerProfOrientador");
+        boolean aprovadoProfOrientador = Boolean.parseBoolean(request.getParameter("aprovadoProfOrientador"));
+        String usoDeLinguagemProfOrientador = request.getParameter("usoDeLinguagemProfOrientador");
+        String apresentacaoProfOrientador = request.getParameter("apresentacaoProfOrientador");
+        String estruturaDoTextoProfOrientador = request.getParameter("estruturaTextoProfOrientador");
+        String conteudoDoTextoProfOrientador = request.getParameter("conteudoTextoProfOrientador");
+        String relevanciaProfissionalProfOrientador = request.getParameter("relevanciaProfissionalProfOrientador");
+
         // Avaliação do primeiro professor
         Long idProfessor1 = Long.parseLong(request.getParameter("idProfessor1"));
         Double notaFinalProf1 = Double.parseDouble(request.getParameter("notaFinalProf1"));
@@ -51,7 +62,8 @@ public class AvaliacaoCadastrarServlet extends HttpServlet {
         String conteudoDoTextoProf2 = request.getParameter("conteudoTextoProf2");
         String relevanciaProfissionalProf2 = request.getParameter("relevanciaProfissionalProf2");
 
-        boolean sucesso = avaliacaoService.salvarAvaliacao(notaFinalProf1, parecerProf1, aprovadoProf1, idProfessor1, idPropostaTCC, usoDeLinguagemProf1, apresentacaoProf1, estruturaDoTextoProf1, conteudoDoTextoProf1, relevanciaProfissionalProf1);
+        boolean sucesso = avaliacaoService.salvarAvaliacao(notaFinalProfOrientador, parecerProfOrientador, aprovadoProfOrientador, idProfessorOrientador, idPropostaTCC, usoDeLinguagemProfOrientador, apresentacaoProfOrientador, estruturaDoTextoProfOrientador, conteudoDoTextoProfOrientador, relevanciaProfissionalProfOrientador);
+        sucesso = sucesso && avaliacaoService.salvarAvaliacao(notaFinalProf1, parecerProf1, aprovadoProf1, idProfessor1, idPropostaTCC, usoDeLinguagemProf1, apresentacaoProf1, estruturaDoTextoProf1, conteudoDoTextoProf1, relevanciaProfissionalProf1);
         sucesso = sucesso && avaliacaoService.salvarAvaliacao(notaFinalProf2, parecerProf2, aprovadoProf2, idProfessor2, idPropostaTCC, usoDeLinguagemProf2, apresentacaoProf2, estruturaDoTextoProf2, conteudoDoTextoProf2, relevanciaProfissionalProf2);
         String mensagem;
         String areaResposta;
