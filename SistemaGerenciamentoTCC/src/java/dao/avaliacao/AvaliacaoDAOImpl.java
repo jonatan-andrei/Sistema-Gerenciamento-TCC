@@ -42,7 +42,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Em caso de sucesso, retorna true
         return idAvaliacao;
     }
@@ -74,7 +74,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
     }
 
     @Override
@@ -102,7 +102,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -129,7 +129,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return avaliacao;
     }
 
@@ -154,7 +154,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return criterios;
     }
 
@@ -183,7 +183,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return avaliacoes;
     }
 
@@ -215,7 +215,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
     }
 
     @Override
@@ -237,7 +237,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -259,7 +259,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
             ex.printStackTrace();
             return false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         return true;
     }
 }

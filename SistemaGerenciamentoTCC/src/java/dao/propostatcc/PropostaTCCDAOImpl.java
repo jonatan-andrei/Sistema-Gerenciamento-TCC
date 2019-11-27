@@ -45,7 +45,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         return sucesso;
     }
 
@@ -70,7 +70,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -117,7 +117,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return propostas;
     }
 
@@ -141,7 +141,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -174,7 +174,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return proposta;
     }
 
@@ -221,7 +221,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return proposta;
     }
 
@@ -248,7 +248,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -279,7 +279,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return professores;
     }
 
@@ -317,7 +317,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return professores;
     }
 
@@ -342,7 +342,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }

@@ -7,7 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
 
@@ -35,7 +34,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Retorna o id do professor cadastrado
         return idProfessor;
     }
@@ -64,7 +63,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -89,7 +88,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return professor;
     }
 
@@ -112,7 +111,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Retorna a lista de professores cadastrados
         return professores;
     }
@@ -137,7 +136,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -173,7 +172,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -209,7 +208,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }

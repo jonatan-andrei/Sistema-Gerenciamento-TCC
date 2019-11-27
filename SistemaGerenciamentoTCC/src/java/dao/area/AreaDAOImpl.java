@@ -32,7 +32,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Retorna a lista de areas de interesse cadastradas
         return areas;
     }
@@ -65,7 +65,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
     }
 
     @Override
@@ -94,7 +94,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
     }
 
     @Override
@@ -113,7 +113,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
     }
 
     @Override
@@ -141,7 +141,7 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Retorna a lista de areas de interesse do professor
         return areas;
     }

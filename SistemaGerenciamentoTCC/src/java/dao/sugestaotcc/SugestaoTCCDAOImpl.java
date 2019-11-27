@@ -40,7 +40,7 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         return sucesso;
     }
 
@@ -72,7 +72,7 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Retorna a lista de sugestões do professor
         return sugestoes;
     }
@@ -92,7 +92,7 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class SugestaoTCCDAOImpl extends ConexaoDAO implements SugestaoTCCDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return sugestao;
     }
 

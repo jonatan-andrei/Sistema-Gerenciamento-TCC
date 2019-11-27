@@ -35,7 +35,7 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -69,7 +69,7 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }
@@ -94,7 +94,7 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return aluno;
     }
 
@@ -119,7 +119,7 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Retorna a lista de alunos encontrados
         return alunos;
     }
@@ -147,7 +147,7 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         // Retorna a lista de alunos encontrados
         return alunos;
     }
@@ -173,7 +173,7 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         // Em caso de sucesso, retorna true
         return sucesso;
     }

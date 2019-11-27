@@ -32,7 +32,7 @@ public class ProjetoPesquisaDAOImpl extends ConexaoDAO implements ProjetoPesquis
             ex.printStackTrace();
             sucesso = false;
         }
-        fecharConexao(conexao, pstmt);
+        fecharConexao(pstmt);
         return sucesso;
     }
 
@@ -55,7 +55,7 @@ public class ProjetoPesquisaDAOImpl extends ConexaoDAO implements ProjetoPesquis
         } catch (Exception e) {
             e.printStackTrace();
         }
-        fecharConexao(conexao, pstmt, rs);
+        fecharConexao(pstmt, rs);
         return projetos;
     }
 
