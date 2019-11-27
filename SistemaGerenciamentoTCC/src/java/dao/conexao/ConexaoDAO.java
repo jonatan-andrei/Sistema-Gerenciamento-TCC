@@ -68,6 +68,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE ALUNO");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Aluno ( "
                 + "  id_aluno integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1), "
@@ -84,6 +85,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Professor");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Professor ("
                 + "  id_professor integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -99,6 +101,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Area");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Area ("
                 + "  id_area integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -111,6 +114,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Professor_Area");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Professor_Area ("
                 + "  id integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -124,6 +128,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Projeto_Pesquisa");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Projeto_Pesquisa ("
                 + "  id_projeto_pesquisa integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -137,6 +142,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Sugestao_TCC");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Sugestao_TCC ("
                 + "  id_sugestao_tcc integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -152,6 +158,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Proposta_TCC");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Proposta_TCC ("
                 + "  id_proposta_tcc integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -173,6 +180,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Avaliacao");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Avaliacao ("
                 + "  id_avaliacao integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
@@ -189,6 +197,7 @@ public abstract class ConexaoDAO {
         try {
             st.execute("DROP TABLE Avaliacao_Criterio");
         } catch (Exception e) {
+            e.printStackTrace();
         }
         String createTable = "CREATE TABLE Avaliacao_Criterio ("
                 + "  id_avaliacao_criterio integer NOT NULL GENERATED ALWAYS AS IDENTITY (START WITH 1, INCREMENT BY 1),"
