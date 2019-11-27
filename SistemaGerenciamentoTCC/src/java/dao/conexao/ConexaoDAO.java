@@ -5,7 +5,7 @@ import static java.util.Objects.isNull;
 
 public abstract class ConexaoDAO {
 
-    private Connection con = null;
+    private static Connection con = null;
 
     // Inicia conexão com o banco
     protected Connection criarConexao() {
