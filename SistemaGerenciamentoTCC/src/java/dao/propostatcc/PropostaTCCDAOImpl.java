@@ -96,7 +96,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             sql.append(" INNER JOIN aluno ");
             sql.append(" ON Proposta_TCC.id_aluno_autor = aluno.id_aluno ");
             sql.append(" INNER JOIN area ");
-            sql.append(" ON area.id_area = proposta.id_area ");
+            sql.append(" ON area.id_area = Proposta_TCC.id_area ");
             sql.append(" WHERE Proposta_TCC.ativo = 'S' AND aluno.ativo = 'S' ");
             pstmt = conexao.prepareCall(sql.toString());
             rs = pstmt.executeQuery();
@@ -166,7 +166,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             if (rs.next()) {
                 Aluno aluno = alunoDAO.buscarPorId(rs.getLong("id_aluno_autor"));
                 Professor professor = professorDAO.buscarPorId(rs.getLong("id_professor_orientador"));
-                proposta = new PropostaTCC(rs.getLong("proposta.id_proposta_tcc"), rs.getString("proposta.titulo"), rs.getString("proposta.descricao"), rs.getString("proposta.artigo"), aluno, professor);
+                proposta = new PropostaTCC(rs.getLong("id_proposta_tcc"), rs.getString("titulo"), rs.getString("descricao"), rs.getString("artigo"), aluno, professor);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -187,8 +187,8 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             sql.append(" SELECT * ");
             sql.append(" FROM Proposta_TCC ");
             sql.append(" INNER JOIN area ");
-            sql.append(" ON area.id_area = proposta.id_area ");
-            sql.append(" WHERE proposta.id_proposta_tcc = ? ");
+            sql.append(" ON area.id_area = Proposta_TCC.id_area ");
+            sql.append(" WHERE Proposta_TCC.id_proposta_tcc = ? ");
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idPropostaTCC);
             rs = pstmt.executeQuery();
@@ -287,6 +287,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             professores = new ArrayList<>();
             if (rs.next()) {
                 Professor orientador = professorDAO.buscarPorId(rs.getLong("id_professor_orientador"));
+                professores.add(orientador);
                 if (rs.getLong("id_professor_avaliador_primeiro") != 0) {
                     professores.add(professorDAO.buscarPorId(rs.getLong("id_professor_avaliador_primeiro")));
                 }

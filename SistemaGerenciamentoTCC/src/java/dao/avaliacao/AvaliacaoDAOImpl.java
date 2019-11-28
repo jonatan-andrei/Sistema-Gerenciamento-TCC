@@ -172,7 +172,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT * FROM Avaliacao a ");
+            sql.append(" SELECT * FROM Avaliacao ");
             sql.append(" INNER JOIN professor ");
             sql.append(" ON Avaliacao.id_professor_avaliador = professor.id_professor ");
             sql.append(" WHERE id_proposta_tcc = ? ");
