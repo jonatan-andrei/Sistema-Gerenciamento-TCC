@@ -126,10 +126,10 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT area.* FROM area ");
-            sql.append(" INNER JOIN professor_area pa ");
-            sql.append(" ON pa.id_area = area.id_area ");
-            sql.append(" WHERE pa.id_professor = ? ");
+            sql.append(" SELECT * FROM area ");
+            sql.append(" INNER JOIN professor_area ");
+            sql.append(" ON professor_area.id_area = area.id_area ");
+            sql.append(" WHERE professor_area.id_professor = ? ");
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idProfessor);
             rs = pstmt.executeQuery();

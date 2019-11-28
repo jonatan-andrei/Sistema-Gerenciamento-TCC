@@ -59,4 +59,28 @@ public class ProjetoPesquisaDAOImpl extends ConexaoDAO implements ProjetoPesquis
         return projetos;
     }
 
+    @Override
+    public ProjetoPesquisa buscarPorId(Long id) {
+        ProjetoPesquisa projeto = null;
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT * FROM Projeto_Pesquisa ");
+            sql.append(" WHERE Projeto_Pesquisa.id_projeto_pesquisa = ? ");
+            pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, id);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                projeto = new ProjetoPesquisa(rs.getLong("id_projeto_pesquisa"), rs.getString("nome"), rs.getString("descricao"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(pstmt, rs);
+        return projeto;
+    }
+
 }

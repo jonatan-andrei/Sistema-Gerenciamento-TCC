@@ -135,8 +135,8 @@ public class AlunoDAOImpl extends ConexaoDAO implements AlunoDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT * FROM Aluno a WHERE ativo = 'S' AND a.id_aluno NOT IN ");
-            sql.append(" (Select p.id_aluno_autor FROM Proposta_TCC p where p.ativo = 'S') ");
+            sql.append(" SELECT * FROM Aluno WHERE ativo = 'S' AND id_aluno NOT IN ");
+            sql.append(" (Select id_aluno_autor FROM Proposta_TCC where ativo = 'S') ");
             pstmt = conexao.prepareCall(sql.toString());
             rs = pstmt.executeQuery();
             alunos = new ArrayList();

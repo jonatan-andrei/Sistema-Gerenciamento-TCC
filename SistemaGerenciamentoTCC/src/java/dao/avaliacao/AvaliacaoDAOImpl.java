@@ -1,11 +1,14 @@
 package dao.avaliacao;
 
 import dao.conexao.ConexaoDAO;
+import dao.professor.ProfessorDAO;
+import dao.professor.ProfessorDAOImpl;
 import domain.Avaliacao;
 import domain.Professor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,6 +17,8 @@ import java.util.Map;
 import type.CriterioAvaliacao;
 
 public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
+
+    private static final ProfessorDAO professorDAO = new ProfessorDAOImpl();
 
     @Override
     public Long cadastrar(Long idPropostaTCC, Long idProfessor, Avaliacao avaliacao) {
@@ -29,7 +34,7 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
             sql.append(" (nota_final, aprovado, id_professor_avaliador, parecer, id_proposta_tcc) ");
             sql.append(" VALUES ");
             sql.append(" (?, ?, ?, ?, ?) ");
-            pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
             pstmt.setDouble(1, avaliacao.getNotaFinal());
             pstmt.setString(2, avaliacao.isAprovado() ? "S" : "N");
             pstmt.setLong(3, idProfessor);
@@ -116,14 +121,14 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT a.*, p.* FROM Avaliacao ");
-            sql.append(" INNER JOIN professor p ");
-            sql.append(" ON a.id_professor_avaliador = p.id_professor ");
-            sql.append(" WHERE a.id_avaliacao = ? ");
+            sql.append(" SELECT * FROM Avaliacao ");
+            sql.append(" INNER JOIN professor ");
+            sql.append(" ON Avaliacao.id_professor_avaliador = professor.id_professor ");
+            sql.append(" WHERE Avaliacao.id_avaliacao = ? ");
             pstmt = conexao.prepareCall(sql.toString());
             rs = pstmt.executeQuery();
             while (rs.next()) {
-                Professor professor = new Professor(rs.getLong("p.id_professor"), rs.getString("p.nome"), rs.getString("p.email"), rs.getInt("p.carga_trabalho_semestre"));
+                Professor professor = professorDAO.buscarPorId(rs.getLong("id_professor_avaliador"));
                 avaliacao = new Avaliacao(rs.getLong("a.id_avaliacao"), rs.getDouble("a.nota_final"), rs.getString("a.parecer"), "S".equals(rs.getString("a.aprovado")), professor);
             }
         } catch (Exception e) {
@@ -167,17 +172,17 @@ public class AvaliacaoDAOImpl extends ConexaoDAO implements AvaliacaoDAO {
         try {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
-            sql.append(" SELECT a.*, p.* FROM Avaliacao a ");
-            sql.append(" INNER JOIN professor p ");
-            sql.append(" ON a.id_professor_avaliador = p.id_professor ");
+            sql.append(" SELECT * FROM Avaliacao a ");
+            sql.append(" INNER JOIN professor ");
+            sql.append(" ON Avaliacao.id_professor_avaliador = professor.id_professor ");
             sql.append(" WHERE id_proposta_tcc = ? ");
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idPropostaTCC);
             rs = pstmt.executeQuery();
             avaliacoes = new ArrayList();
             while (rs.next()) {
-                Professor professor = new Professor(rs.getLong("p.id_professor"), rs.getString("p.nome"), rs.getString("p.email"), rs.getInt("p.carga_trabalho_semestre"));
-                Avaliacao avaliacao = new Avaliacao(rs.getLong("a.id_avaliacao"), rs.getDouble("a.nota_final"), rs.getString("a.parecer"), "S".equals(rs.getString("a.aprovado")), professor);
+                Professor professor = professorDAO.buscarPorId(rs.getLong("id_professor_avaliador"));
+                Avaliacao avaliacao = new Avaliacao(rs.getLong("id_avaliacao"), rs.getDouble("nota_final"), rs.getString("parecer"), "S".equals(rs.getString("aprovado")), professor);
                 avaliacoes.add(avaliacao);
             }
         } catch (Exception e) {

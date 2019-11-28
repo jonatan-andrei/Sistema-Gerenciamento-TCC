@@ -5,6 +5,7 @@ import domain.Professor;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ public class ProfessorDAOImpl extends ConexaoDAO implements ProfessorDAO {
             sql.append(" (nome, email) ");
             sql.append(" VALUES ");
             sql.append(" (?, ?) ");
-            pstmt = conexao.prepareCall(sql.toString());
+            pstmt = conexao.prepareStatement(sql.toString(), Statement.RETURN_GENERATED_KEYS);
             pstmt.setString(1, professor.getNome());
             pstmt.setString(2, professor.getEmail());
             pstmt.executeUpdate();
