@@ -14,5 +14,7 @@ public interface AreaDAO {
     void deletarTodasAreasDeInteresse(Long idProfessor);
 
     List<Area> buscarAreasDeInteresse(Long idProfessor);
+    
+    Area buscarPorId(Long idArea);
 
 }

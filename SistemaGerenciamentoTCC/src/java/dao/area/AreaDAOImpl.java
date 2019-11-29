@@ -146,4 +146,29 @@ public class AreaDAOImpl extends ConexaoDAO implements AreaDAO {
         return areas;
     }
 
+    @Override
+    public Area buscarPorId(Long idArea) {
+        Connection conexao = null;
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        Area area = null;
+        try {
+            conexao = criarConexao();
+            StringBuilder sql = new StringBuilder();
+            sql.append(" SELECT * FROM area ");
+            sql.append(" WHERE id_area = ? ");
+            pstmt = conexao.prepareCall(sql.toString());
+            pstmt.setLong(1, idArea);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                area = new Area(rs.getLong("id_area"), rs.getString("nome"));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        fecharConexao(pstmt, rs);
+        return area;
+    }
+
 }

@@ -2,6 +2,8 @@ package dao.propostatcc;
 
 import dao.aluno.AlunoDAO;
 import dao.aluno.AlunoDAOImpl;
+import dao.area.AreaDAO;
+import dao.area.AreaDAOImpl;
 import dao.conexao.ConexaoDAO;
 import dao.professor.ProfessorDAO;
 import dao.professor.ProfessorDAOImpl;
@@ -13,7 +15,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import static java.util.Objects.nonNull;
 
@@ -21,6 +22,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
 
     private static final AlunoDAO alunoDAO = new AlunoDAOImpl();
     private static final ProfessorDAO professorDAO = new ProfessorDAOImpl();
+    private static final AreaDAO areaDAO = new AreaDAOImpl();
 
     @Override
     public boolean enviarTema(PropostaTCC propostaTCC, Long idAluno, Long idProfessor, Long idSugestao, Long idArea) {
@@ -104,7 +106,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             while (rs.next()) {
                 Aluno aluno = alunoDAO.buscarPorId(rs.getLong("id_aluno_autor"));
                 Professor professor = professorDAO.buscarPorId(rs.getLong("id_professor_orientador"));
-                Area area = new Area(rs.getLong("id_area"), rs.getString("nome"));
+                Area area = areaDAO.buscarPorId(rs.getLong("id_area"));
                 List<Professor> banca = new ArrayList<>();
                 if (rs.getLong("id_professor_avaliador_primeiro") != 0) {
                     banca.add(professorDAO.buscarPorId(rs.getLong("id_professor_avaliador_primeiro")));
@@ -258,9 +260,12 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             rs = pstmt.executeQuery();
             professores = new ArrayList<>();
             if (rs.next()) {
-                Professor avaliador1 = professorDAO.buscarPorId(rs.getLong("id_professor_avaliador_primeiro"));
-                Professor avaliador2 = professorDAO.buscarPorId(rs.getLong("id_professor_avaliador_segundo"));
-                professores.addAll(Arrays.asList(avaliador1, avaliador2));
+                if (rs.getLong("id_professor_avaliador_primeiro") != 0) {
+                    professores.add(professorDAO.buscarPorId(rs.getLong("id_professor_avaliador_primeiro")));
+                }
+                if (rs.getLong("id_professor_avaliador_segundo") != 0) {
+                    professores.add(professorDAO.buscarPorId(rs.getLong("id_professor_avaliador_segundo")));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -279,7 +284,7 @@ public class PropostaTCCDAOImpl extends ConexaoDAO implements PropostaTCCDAO {
             conexao = criarConexao();
             StringBuilder sql = new StringBuilder();
             sql.append(" SELECT * FROM Proposta_TCC ");
-            sql.append(" WHERE proposta.id_proposta_tcc = ? ");
+            sql.append(" WHERE id_proposta_tcc = ? ");
 
             pstmt = conexao.prepareCall(sql.toString());
             pstmt.setLong(1, idPropostaTCC);
